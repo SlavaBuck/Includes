@@ -1,0 +1,3402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: MVCApplication</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: MVCApplication</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+    MVCApplication
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="MVCApplication"><span class="type-signature"></span>new MVCApplication<span class="signature">(<span class="optional">prefs</span>)</span><span class="type-signature"> &rarr; {<a href="MVCApplication.html">MVCApplication</a>}</span></h4>
+
+    
+    <p class="summary">Объект <b>MVC-Приложение</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поддерживает коллекции MVC-объектов, предоставляет интерфейс для управления ими (создание, удаление, поиск и получение их из 
+ коллекций) и отвечает за формирование главного окна - основного родительского диалога. Кроме того, может в целом выступать в качестве 
+ изолированного пространства имён для всего пользовательского приложения.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>prefs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Параметры инициализации (опционально)</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "Приложение MVC"
+                
+                </td>
+            
+
+            <td class="description last"><p>имя объекта-приложения, присваивается свойству .name;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    ""
+                
+                </td>
+            
+
+            <td class="description last"><p>версия, присваивается свойству .version;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caption</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    name + version
+                
+                </td>
+            
+
+            <td class="description last"><p>заголовок окна, по умолчанию формируется автоматически из имени и
+                                                 и версии, присваивается свойству .caption;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    "dialog"
+                
+                </td>
+            
+
+            <td class="description last"><p>ScriptUI-строка, используемая в качестве аргумента при вызове
+                                                 new Window(prefs.view) для формирования главного окна приложения,
+                                                 присваивается свойству .view;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id объекта-приложения ();</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>имя объекта-приложения;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>version</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>версия объекта-приложения;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>caption</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>заголовок главного окна;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ресурсная ScriptUI-строка, представляющая главное окно;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>window</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UIControl</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ScriptUI-объект, представляющий главное окно приложения;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>mainView</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="MVCView.html">MVCView</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>представление, в рамках которого инкапсулировано главное окно приложения;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>models</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Collection</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>коллекция моделей;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>views</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Collection</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>коллекция представлений;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>controllers</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Collection</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>коллекция контролёров;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>exitcode</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>код завершения приложения (устанавливается как результат вызова window.show() в методе run()</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>_counters_</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>hash-объект, используется как счётчик объектов в коллекциях для генерации уникальных id;</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="MVCApplication.html#event:onExit">MVCApplication#event:onExit</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Каждый новый вызов конструктора переустанавливает свойство MVC.app на созданный экземпляр Приложения.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCApplication.html">MVCApplication</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">Пример создания и запуска MVC-Приложения</p>
+    
+    <pre class="prettyprint"><code>// Этого достаточно, чтобы создать MVC-приложение:var myApp = new MVC.Application();myApp.run();</code></pre>
+
+        <p class="code-caption">Создание объекта Приложения с заданными параметрами главного окна</p>
+    
+    <pre class="prettyprint"><code>// В результате Приложение получит масштабируемое окно (тип окна// задан как palette с установленным свойством resizeable:true) var myApp = new MVC.Application({    name:"Приложение MVC",    version:"1.00",    caption:"Приложение MVC (MVC v"+MVC.version+")",    view:"palette { preferredSize:[350,200], properties:{resizeable:true} }"});</code></pre>
+
+    
+</dd>
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li>MVCObject#</li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="addController"><span class="type-signature"></span>addController<span class="signature">(param)</span><span class="type-signature"> &rarr; {<a href="MVCController.html">MVCController</a>}</span></h4>
+
+    
+    <p class="summary">Добавление нового <b>Контролёра</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод создаёт и добавляет в коллекцию <code>controllers</code> объект MVCController (контролёр). В качестве аргумента вызова
+ принимает комплексный параметр <a href="global.html#cparams">param</a>, который передаётся конструктору <a href="MVCController.html">MVCController(param)</a>,
+ который выполняет связывание Модели и Представления.
+ <p><i><b>ПРИМЕЧАНИЕ:</b> Задавать значения параметров id и app необязательно, метод обеспечивает автоматическую инициализацию свойства
+          свойства param.app ссылкой на собственный объект MVCApplication и, в случае отсутствия значения param.id - обеспечивает
+          автоматическую генерацию уникального id для Контролёра.</i></p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>param</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="global.html#cparams">cparams</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>литерал объекта, представляющий параметры инициализации контролёра;</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>автоматически инициализируется ссылкой на MVCApplication, в контексте которого происходит вызов этого метода;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>id для создаваемого контролёра, должен быть уникальным в рамках коллекции controllers, если не указан - 
+                               генерируется автоматически;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>binding</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>строка биндинга (см. <a href="MVCApplication.html">MVCController</a>);</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>bind</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    true
+                
+                </td>
+            
+
+            <td class="description last"><p>флаг, связывания (см. <a href="MVCApplication.html">MVCController</a>).</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCController.html">MVCController</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Пример создания Контролёра</p>
+    
+    <pre class="prettyprint"><code>// Значение myModel.value.text будет сразу присвоено myView.text:myApp.addController({ binding:"myModel.value.text:myView.text" });// ...// Значение myModel.value.text не будет сразу присвоено myView.text:myApp.addController({ binding:"myModel.value.text:myView.text", bind:false });</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="addModel"><span class="type-signature"></span>addModel<span class="signature">(<span class="optional">obj</span>)</span><span class="type-signature"> &rarr; {MVCCModel}</span></h4>
+
+    
+    <p class="summary">Добавление <b>Модели</b>:</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Создаёт и добавляет объект-модель в коллекцию models приложения. 
+ В качестве аргумента метод принимает литерал классического JavaScript-объекта, который выступает 
+ в качестве основы объекта данных приложения - модели. В литерале предусматривается несколько 
+ специально-зарезервированных полей, определяющих особенные характеристики модели.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>литерал, представляющий пользовательские данные - основу объекта MVCModel</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>id (идентификатор) объекта, должен быть уникальным в пределах коллекции;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>validator</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>метод, выполняющий валидацию модели (см MVCModel.validator());</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">MVCCModel</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Стандартный способ создания Моделей:</p>
+    
+    <pre class="prettyprint"><code>// myApp – созданный ранее объект MVCApplicationvar myData = myApp.addModel({    id:"myData",     value:{ txt:"Мои данные" },    print:function() { $.writeln(this.value.txt) },    // метод-валидатор - предусмотрен библиотекой,     // может определяется в конкретном экземпляре     // Модели при необходимости (см. MVCModel.validator();)    validator:function(key, oldVal, newVal, ctrl) {        return (newVal.length &lt; 10 || newVal.length > 30) ? false : true;    }});myData.print(); // => `Мои данные`$.writeln(myData instanceof MVCModel); // => true$.writeln(typeof myData); // => object$.writeln(myData.id == "myData"); // => true$.writeln(myData.value.txt == "Мои данные"); // true</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="addView"><span class="type-signature"></span>addView<span class="signature">(<span class="optional">obj</span>)</span><span class="type-signature"> &rarr; {MVCCView}</span></h4>
+
+    
+    <p class="summary">Добавление нового <b>Представления</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод создаёт и добавляет объект-представление в коллекцию <code>views</code> Приложения. 
+В качестве аргумента метод принимает литерал классического JavaScript-объекта, который описывает параметры создаваемого
+Представления. В литерале предусматривается несколько специально-зарезервированных полей, определяющих особенные характеристики
+создаваемого объекта-представления.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>литерал, описывающий создаваемый объект-представление.</p>
+                <h6>Properties</h6>
+                
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>id (идентификатор) объекта, должен быть уникальным в пределах коллекции;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>parent</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    window
+                
+                </td>
+            
+
+            <td class="description last"><p>родительский контейнер для элемента управления, по умолчанию 
+                                родительским конт. является главное окно приложения (опционально);</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>view</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>ресурсная строка для создания ел.управления, используется как аргумент ScriptUI метода 
+                                Window.add(...) (указывается обязательно);</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>control</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>литерал объекта, все свойства в рамках которого будут объеденены непосредственно со
+                                ScriptUI-объектом - элементом управления, полученным на основе свойства .view
+                                В рамках этого литерала удобно переопределять стандартные обработчики (например, onChange и
+                                onChanging);</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>Init</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>функция-инициализатор для эл.управления. Вызывается в контексте MVCView.control сразу после
+                                его создания;</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>render</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">function</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                </td>
+            
+
+            <td class="description last"><p>обработчик, вызываемый когда требуется обновить представление в связи с обновлением модели.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">MVCCView</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Полная сигнатура метода .addView()</p>
+    
+    <pre class="prettyprint"><code>// myApp – созданный ранее объект MVCApplicationvar myView = myApp.addView({    id:"myView",     // id объекта    // родительский контейнер для ел.уп.   parent:myApp.window.panel,    // ресурсная строка для создания ел.управления   view:"EditText { characters:15 }",      control:{   // все свойства, заданные в рамках объекта control               // объединяются с создаваемым эл.управления               // Например, перезапишется обработчик onChange:       onChange:function() { },               // и добавится новое свойство “property”:       property:{ }   },   Init:{function},   // функция-инициализатор для эл.управления   render:{function}  // обработчик, вызываемый когда требуется обновить                      // представление в связи с обновлением модели.});</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="CreateMainView"><span class="type-signature"></span>CreateMainView<span class="signature">(rcString)</span><span class="type-signature"> &rarr; {<a href="MVCView.html">MVCView</a>}</span></h4>
+
+    
+    <p class="summary"><i>Приватный</i> метод, формирующий главное окно приложения.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод формирует главное окно приложения из ресурсной ScriptUI-строки, переданной в качестве аргумента вызова.
+ При формировании окна обеспечивается корректная обработка свойства <code>properties:true</code>, если оно заявлено в
+ ресурсной строке и навешивается обработчик на событие '<code>close</code>' окна, который обеспечивает вызов обработчика
+ Приложения <a href="MVCApplication.html#event:onExit">.onExit()</a>, который может быть определён для выполнения каких либо операций
+ при закрытии главного окна приложения. В результате работы, метод инициализирует свойства <code>.window</code> и <code>.mainView</code> 
+ объекта-приложения.
+ <p>Конструктор <code>MVCApplication()</code> вызывает этот метод при создании экземпляра Приложения. Подходящее место
+ для явного вызова этого метода - тело функции Init(), предусмотренной для переопределения в &quot;рабочем&quot; экземпляре 
+ объекта-приложения.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>rcString</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ресурсная ScriptUI-строка для формирования диалога, представляющего главное окно приложенияю</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Главное окно Приложения.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCView.html">MVCView</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">CreateMainView() позволяет получить полный контроль над процессом создания главного окна приложения</p>
+    
+    <pre class="prettyprint"><code>var myApp = new MVC.Application();myApp.Init = function() {   // ресурсная строка любой длинны и сложности   var rc = "dialog { preferredSize:[350,200], properties:{resizeable:true} }"   this.CreateMainView(rc);   // В результате вызова CreateMainView() свойству this.window присвоена ссылка   // на созданное окно, теперь с ним можно работать напрямую   this.window.text = "la-la-la...";   //...    // делать здесь вызов this.window.show() не нужно, - этот вызов будет   // произведён внутри метода .run()};myApp.run(); // Выполнит .Init() и откроет окно (выполнит .window.show();)</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="findController"><span class="type-signature"></span>findController<span class="signature">(obj)</span><span class="type-signature"> &rarr; {<a href="MVCController.html">MVCController</a>|undefined}</span></h4>
+
+    
+    <p class="summary">Поиск связанного с объектом Контролёра.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Происходит попытка обнаружения контролёра, связанного с аргументом. В качестве аргумента могут выступать либо MVC-объекты, либо
+ ассоциированные с ними объекты (ScriptUI-объекты графического интерфейса UIControl-s, или ассоциированные с Моделями объекты).
+ В случае успешного нахождения контролёра - возвращает ссылку на него из коллекции контролёров приложения, в противном случае - 
+ возвращает undefined.
+ <p>Метод удобно использовать для получения ссылки на контролёр из тел обработчиков элементов управления или объектов-моделей, указывая 
+ методу в качестве аргумента вызова своё свойство <code>this</code>.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>MVCModel | MVCView | any - или любой объект, ассоциированный с имеющимся MVC-объектом</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на объект MVCController, в противном случае, если не найдено ни одного контролёра, 
+                                       ассоциированного с аргументом - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCController.html">MVCController</a></span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Examples</h5>
+        
+        <p class="code-caption">Любой из вызовов поволит обнаружить ассоциированный контролёр:</p>
+    
+    <pre class="prettyprint"><code>myApp.findController(myModel); myApp.findController(myModel.value);myApp.findController(myView);myApp.findController(myView.control);</code></pre>
+
+        <p class="code-caption">Получение контролёра, в обработчике элемента управления, связанного с Представлением. В данном        примере создаётся модель, для которой определяется обработчик onChange - в происходит        получение ссылки на контролёр и от него - на модель, после чего определяется состояние модели и в зависимости        от него меняется цвет текста</p>
+    
+    <pre class="prettyprint"><code>myApp.addView({     id:"et",     view:"edittext { characters:30 }",     control:{        onChanging:function() {            // получаем ссылку на контролёр, чтобы получить ссылку            // на модель, связанную с данным представлением:            var ctrl = myApp.findController(this),                gfx = this.graphics;            // в зависисмости от статуса модели меняем цвет текста:            if (ctrl.model.isValid()) {                 gfx.foregroundColor = gfx.newPen (0, [0,0,0], 1); // gfx.PenType.SOLID_COLOR == 0                this.helpTip = "Всё хорошо";                    } else {                gfx.foregroundColor = gfx.newPen (0, [1,0,0], 1);                this.helpTip = "Неправильное значение");            }        }    }});</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getControllerByID"><span class="type-signature"></span>getControllerByID<span class="signature">(id)</span><span class="type-signature"> &rarr; {<a href="MVCController.html">MVCController</a>|undefined}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поиск по <code>id</code> объекта-контроллёра в коллекции <code>MVCApplication.controllers</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id (идентификатор) объекта</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на объект MVCController, если объект не обнаруживается - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCController.html">MVCController</a></span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getModelByID"><span class="type-signature"></span>getModelByID<span class="signature">(id)</span><span class="type-signature"> &rarr; {<a href="MVCModel.html">MVCModel</a>|undefined}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поиск по <code>id</code> модели в коллекции <code>MVCApplication.models</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id (идентификатор) объекта</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на найденный объект MVCModel, если объект не обнаруживается - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCModel.html">MVCModel</a></span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getViewByID"><span class="type-signature"></span>getViewByID<span class="signature">(id)</span><span class="type-signature"> &rarr; {<a href="MVCView.html">MVCView</a>|undefined}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поиск по <code>id</code> объекта-представления в коллекции <code>MVCApplication.views</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id (идентификатор) объекта</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на найденный объект MVCView, если объект не обнаруживается - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCView.html">MVCView</a></span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="Init"><span class="type-signature">&lt;abstract> </span>Init<span class="signature">()</span><span class="type-signature"> &rarr; {any}</span></h4>
+
+    
+    <p class="summary">Инициализация <b>Приложения</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод вызывается автоматически в процессе звпуска <b>MVC-Приложения</b>: <a href="MVCApplication.html#run"><code>MVCApplication.run()</code></a>. 
+ Вызов происходит в контексте объекта-приложения, не получает параметров и предназначен для переопределения 
+ с целью выполнения всех необходимых действий по инициализации данных приложения. <a href="MVCApplication.html#CreateMainView"><code>Пример</code></a>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>определяется пользователем.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeController"><span class="type-signature"></span>removeController<span class="signature">(ctrl)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+    <p class="summary">Удаляет <b>Контроллер</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>При удалении, связанные Представлениt и Модель &quot;отсвязюваются&quot; друг от друга (но остаются в своих коллекциях), сам
+объект-контролёр удаляется из коллекции <code>controllers</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>ctrl</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCController.html">MVCController</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id контролёра или сам контролёр - объект MVCControler</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает кол-во объектов в коллекции после удаления. Если удаление не состоялось - возвращает -1</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeModel"><span class="type-signature"></span>removeModel<span class="signature">(model)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+    <p class="summary">Удаление <b>Модели</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Удалении модели из коллекции моделей приложения приводит, в том числе, и к удалению всех контролёров, связанных с данной моделью.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>model</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCModel.html">MVCModel</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id модели или сам объект MVCModel</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает кол-во моделей в коллекции после удаления. Если удаление не состоялось - возвращает -1</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Удаление модели, созданной в предыдущих примерах:</p>
+    
+    <pre class="prettyprint"><code>myApp.removeModel("myModel");</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeMVC"><span class="type-signature"></span>removeMVC<span class="signature">(obj)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+    <p class="summary">Универсальный метод удаления <b>MVC-объектов</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Принимает либо строковое значение, либо MVC-объект (<b>Контролёр</b>, <b>Модель</b> или <b>Представление</b>). 
+    Любое строковое значение рассматривается как возможное значение <tt>id</tt>-MVC-объекта и происходит попытка найти 
+    данный объект в коллекциях:
+    <p>в начале происходит поиск в коллекции <code>controllers</code>, затем в <code>models</code> и затем в <code>views</code>.
+    Далее происходит процедура удаления по следующему принципу: </p><div></p>
+<pre class="prettyprint source"><code>- При удалении Контролёра - удаляются связанные с ним объекты Модель и Представление.
+- При удалении Модели - удаляются связанные с ней объекты-Представления и Контролёры.
+- При удалении Представления - удаляется только указанный объект-Представление. </div>
+<p>Метод удобно применять для совместного удаления связки <b>Модель</b> + <b>Представление</b> + <b>Контролёр</b>, передавая 
+в качестве аргумента указатель на объект-<b>контролёр</b>.</p></code></pre>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCController.html">MVCController</a></span>
+|
+
+<span class="param-type"><a href="MVCModel.html">MVCModel</a></span>
+|
+
+<span class="param-type"><a href="MVCView.html">MVCView</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>удаляемый MVC-объект (или id объекта, тогда происходит автоматическая 
+                                                    попытка его поиска и удаления из соответствующей коллекции.)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="MVCView.html#event:onRemove">MVCView#event:onRemove</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p><b>true</b> если удаление прошло успешно, иначе <b>false</b>.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Удаление MVC-объектов, созданных в предыдущих примерах:</p>
+    
+    <pre class="prettyprint"><code>// удаление только представления:myApp.removeMVC(myApp.getViewByID("myView"));// удаление модели также приводит и к удалению// контролёра, все вызовы равнозначны: myApp.removeMVC("myModel"); // будет произведён                           // поиск и удаление                           // объекта со значением                           // id == 'myModel'// прямое удаление модели:myApp.removeMVC(myApp.getModelByID("myModel"));// удаление с указанием контролёра - удалит// все три MVC-объекта:myApp.removeMVC(myApp.findController(myModel));// или:myApp.removeMVC(myApp.findController(myView));</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="removeView"><span class="type-signature"></span>removeView<span class="signature">(obj)</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+    <p class="summary">Удаление <b>Представления</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>При удалении никакие связанные объекты моделей и контролёров не затрагиваются.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCView.html">MVCView</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id представления или само представление - объект MVCView</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+    <h5>Fires:</h5>
+    <ul>
+        <li><a href="MVCView.html#event:onRemove">MVCView#event:onRemove</a></li>
+    </ul>
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает кол-во объектов в коллекции после удаления. Если удаление не состоялось - возвращает -1</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+        <h5>Example</h5>
+        
+        <p class="code-caption">Yдаление представления, созданной в предыдущих примерах:</p>
+    
+    <pre class="prettyprint"><code>myApp.removeView("myView");</code></pre>
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="run"><span class="type-signature"></span>run<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+    <p class="summary">Стартует приложение.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Старт выполняется в два этапа: - вначале выполняется собственный метод Init(); затем выполняет отображение главного 
+ окна Приложения, путём вызова <code>MVCApplication.window.show()</code>.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает код завершение, полученный от метода show() главного диалогового окна приложения.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">number</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+        <h3 class="subsection-title">Events</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="event:onExit">onExit</h4>
+
+    
+    <p class="summary">Обработчик завершения Приложения.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Назначается как обработчик для события onClose главного окна приложения .window и, таким образом, вызывается 
+    автоматически после его закрытия. Метод выступает в роли обработчика закрытия приложения и предназначен для 
+    переопределения в реальном экземпляре объекта-приложения.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>e</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">UIEvent</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Обработчик получает событие, переадрисованное от обработчика onClose() главного окна Приложения.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">any</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="module-MVC.html">MVC</a></li></ul><h3>Classes</h3><ul><li><a href="MVCApplication.html">MVCApplication</a></li><li><a href="MVCController.html">MVCController</a></li><li><a href="MVCModel.html">MVCModel</a></li><li><a href="MVCObject.html">MVCObject</a></li><li><a href="MVCView.html">MVCView</a></li></ul><h3>Events</h3><ul><li><a href="MVCApplication.html#event:onExit">onExit</a></li><li><a href="MVCView.html#event:onRemove">onRemove</a></li></ul><h3><a href="global.html">Global</a></h3>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Sun May 25 2014 02:23:11 GMT+0300 (Финляндия (лето))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

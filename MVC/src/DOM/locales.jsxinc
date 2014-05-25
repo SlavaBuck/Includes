@@ -1,0 +1,9 @@
+﻿// Локализованные строки для MVC.DOM
+var locales = {
+	// Имена для новых Документов (по умолчанию)
+	DEF_DOCNAME:{ en:"Document", ru:"Документ" },
+	// Фильтр для диалогов (по умолчанию)
+	DEF_FILTERS:[ { ru:"Файл скрипта: *.jsx", en:"JavaScript file: *.jsx"},
+                  { ru:"Заголовочный файл:*.jsxinc", en:"Include file: *.jsxinc"},
+                  { ru:"Другой тип:*.*", en:"All files: *.*"} ]
+	};

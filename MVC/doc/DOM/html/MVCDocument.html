@@ -1,0 +1,2720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Class: MVCDocument</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Class: MVCDocument</h1>
+
+    
+
+
+
+<section>
+
+<header>
+    <h2>
+    MVCDocument
+    </h2>
+    
+</header>
+
+<article>
+    <div class="container-overview">
+    
+
+    
+        
+<dt>
+    <h4 class="name" id="MVCDocument"><span class="type-signature"></span>new MVCDocument<span class="signature">(appRef, <span class="optional">prefs</span>)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary">Объект <b>MVC-Документ</b>. Определяется в <a href="MVC.html#DOM">MVC.DOM</a>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Предсталяет комплексный объект, непосредственно унаследованный от объекта-Приложение MVCApplication, предназначен
+ для управления неким общим набором данных, которые можно логически объеденить в рамках единой сущности - Документа.
+ В дополнение к унаследованным от MVCApplication свойствам и метода, дополнительно предрсталяет интерфейс,
+ характерный для управления множеством пользовательских данных как одним цельным объектом. 
+ Например, предоставляет интерфейс для открытия/сохранения данных в файл, при этом в рамках соответствующих
+ методов уже предусмотрены функции по созданию соответствующих диалоговых окон, автонастроенных в соответствии со
+ значением соответствующих свойств Документа: <code>MVCDocument.filters</code> и <code>MVCDocument.file</code>
+ Аналогично MVCApplication, каждый объект MVCDocument обладает собственным главным окном - Представлением, в рамках
+ которого производит вывод всех представлений, ассоциированных с данными документа (и его моделями).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>appRef</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="MVCApplication.html">MVCApplication</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Указатель на &quot;родительское&quot; Приложение, в рамках которого управляется Документ</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prefs</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Параметры для создания Документа, аналогичные параметрам создания для MVCApplication</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Идентификатор документа</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>app</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><a href="MVCApplication.html">MVCApplication</a></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Указатель на &quot;родительское&quot; Приложение</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>file</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">file</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Файл документа</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>filters</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Фильтр, используемый для открытия окон</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        <ul>
+            <li><a href="MVCApplication.html">MVCApplication</a></li>
+        </ul>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Members</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="activeDocument"><span class="type-signature"></span>activeDocument<span class="type-signature"> :<a href="MVCDocument.html">MVCDocument</a></span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>указатель на активный объект MVCDocument</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#activeDocument">MVCApplication#activeDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="DEF_DOCNAME"><span class="type-signature"></span>DEF_DOCNAME<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>MVCApplication#DEF_DOCNAME</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Имя по умолчанию для нового Документа.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#DEF_DOCNAME">MVCApplication#DEF_DOCNAME</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="documents"><span class="type-signature"></span>documents<span class="type-signature"> :Collection</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>коллекция Документов в рамках приложения</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">Collection</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#documents">MVCApplication#documents</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="documentsView"><span class="type-signature"></span>documentsView<span class="type-signature"> :MVCView</span></h4>
+
+    
+</dt>
+<dd>
+    
+    <div class="description">
+        <p>указатель на Представление-контейнер для представлений Документов</p>
+    </div>
+    
+
+    
+        <h5>Type:</h5>
+        <ul>
+            <li>
+                
+<span class="param-type">MVCView</span>
+
+
+            </li>
+        </ul>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#documentsView">MVCApplication#documentsView</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="filters"><span class="type-signature"></span>filters<span class="type-signature"></span></h4>
+
+    
+</dt>
+<dd>
+    
+
+    
+
+    
+<dl class="details">
+    
+
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>MVCApplication#</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">Array.&lt;string></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Фильтр для диалогов открытия/закрытия файлов.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
+
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#filters">MVCApplication#filters</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        <dl>
+            
+<dt>
+    <h4 class="name" id="addDocument"><span class="type-signature"></span>addDocument<span class="signature">(<span class="optional">obj</span>)</span><span class="type-signature"> &rarr; {<a href="MVCDocument.html">MVCDocument</a>|null}</span></h4>
+
+    
+    <p class="summary">Создаёт и добавляет новый <b>Документ</b> в коллекцию документов приложения <code>MVCApplication.documents</code></p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Для получения нового Документа используется вызов метода <a href="MVCApplication.html#CreateDocument">MVCApplication.CreateDocument()</a>, 
+    <p>При добавлении нового <b>Документа</b> с ним ассоциируется специально создаваемая <b>Модель</b>, имеющая единственное 
+    свойство <code>document</code>, указывающее на созданный экземпляр MVCDocument и значение <code>id</code> такое же как 
+    <code>id</code> созданного Документа.</p> 
+    <p>Кроме того, в коллекцию представлений приложения (MVCApplication.views) добавляется ссылка на представление документа,
+    при этом свойство <code>id</code> представления документа устанавливается в соответствии со значением свойства 
+    <code>id</code> Модели Документа: <code>model.id == view.id == MVCDocument.mainView.id</code>.</p>
+    <p><i><b>ПРИМЕЧАНИЕ:</b></i></p></p>
+<pre class="prettyprint source"><code> * Расширение и определения функциональности самого объекта документа следует выполнять в рамках метода
+   <a href="MVCApplication.html#CreateDocument">MVCApplication.CreateDocument()</a>, путём его переопределения;
+ * В случае успешного создания документа на него переустанавливается указатель MVCApplication.activeDocument, 
+   в противном случае - его текущее значение не изменяется.</code></pre>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>obj</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>литерал объекта, которым будет расширен базовый объект MVCDocument, полученный с помощью вызова 
+                         фабричного метода <a href="MVCApplication.html#CreateDocument">MVCApplication#CreateDocument()</a></p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#addDocument">MVCApplication#addDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>В случае успеха возвращается созданный объект MVCDocument, в противном случае - null.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+|
+
+<span class="param-type">null</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="close"><span class="type-signature">&lt;abstract> </span>close<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Определяется в пользовательском объекте.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>В случае ошибки выполнения операции должен возвращать false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="closeDocument"><span class="type-signature"></span>closeDocument<span class="signature">(<span class="optional">doc</span>)</span><span class="type-signature"> &rarr; {<a href="MVCDocument.html">MVCDocument</a>}</span></h4>
+
+    
+    <p class="summary">Закрытие документа.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Процесс закрытия реализует удаление главного <b>Представления</b> и <b>Модели</b>, представляющих <b>Документ</b>, 
+    из соответствующих коллекций <b>Приложения</b> и переустановку указателя <code>MVCApplication.activeDocument</code> на 
+    другой ближайший в коллекции объект документа.
+    <p>Вся специальная работа, связанная с удалением данных, представлений и пр... созданных в рамках документа, может быть 
+    реализована в методе <a href="MVCDocument.html#close">.close()</a> реального экземпляра Документа. Данный метод должен возвращать 
+    <b>true</b> в результате успешного выполнения, в противном случае операция удаления документа в рамках данного метода 
+    (<tt>closeDocument()</tt>) прерывается (Представление, Модель и Контролёр, связанные с Документом - удалены не будут).</p> 
+    <p>Удаление документа начинается с вызова его собственного метода <a href="MVCDocument.html#close">.close()</a>, после чего 
+    происходит удаление связанных с ним основных MVC-объектов из соответствующих коллекций Приложения.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    activeDocument
+                
+                </td>
+            
+
+            <td class="description last"><p>Ссылка на удаляемый документ или его id. Если не указано - 
+                                                    удаляется текущий активный документ (определяется по значению
+                                                    свойства activeDocument)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#closeDocument">MVCApplication#closeDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает текущее значение <b>activeDocument</b> с учётом выполнения закрытия документа.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="CreateDocument"><span class="type-signature"></span>CreateDocument<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="MVCDocument.html">MVCDocument</a>}</span></h4>
+
+    
+    <p class="summary">Фабричный метод для создания экземпляров Документов.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>По умолчанию метод возвращает базовый объект MVCDocument, привязанный к данному Приложению (выполняется
+ вызов <code>new MVCDocument(this)</code>, где this указывает на контекст Приложения). Чтобы определить необходимую
+ функциональность базового объекта MVCDocument, следует переопределить данный метод в пользовательском объекте 
+ Приложения, при этом, метод должен возвращать созданный экземпляр Документа или null, в случае проблем его создания. 
+ <p><i><b>ПРИМЕЧАНИЕ:</b> Данный метод автоматически используется для получения объекта Документа при вызове методов
+ <a href="MVCApplication.html#addDocument">MVCApplication.addDocument()</a> и <a href="MVCApplication.html#loadDocument">MVCApplication.loadDocument()</a>.</i></p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#CreateDocument">MVCApplication#CreateDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="CreateMainView"><span class="type-signature"></span>CreateMainView<span class="signature">(resStr)</span><span class="type-signature"></span></h4>
+
+    
+    <p class="summary"><i>Приватный</i> метод, формирующий <b>Представление</b> документа в рамках главного окна <b>MVC-Приложения</b>.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Внутренний метод Документа для формирования своего главного окна, представляет собой переопределённую версию
+MVCApplication.CreateMainView(). Метод создаёт Представление в рамках родительского
+контэйнера, на которое указывает свойство <tt>MVCApplication.documentsView</tt> (устанавливается при регистрации 
+фабрики документов).</p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>resStr</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>ресурсная строка, представляющая графический элемент управления (объект ScriptUI);</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getDocumentByID"><span class="type-signature"></span>getDocumentByID<span class="signature">(id)</span><span class="type-signature"> &rarr; {MVCController|undefined}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поиск Документа в коллекции <code>MVCApplication.documents</code> по <code>id</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>id (идентификатор) объекта.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#getDocumentByID">MVCApplication#getDocumentByID</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на найденный объект MVCDocument, 
+                                     если объект не обнаруживается - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">MVCController</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="getDocumentByName"><span class="type-signature"></span>getDocumentByName<span class="signature">(name)</span><span class="type-signature"> &rarr; {MVCController|undefined}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Поиск Документа в коллекции <code>MVCApplication.documents</code> по имени - свойству <code>name</code></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>name</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>значение свойства name искомого Документа.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#getDocumentByName">MVCApplication#getDocumentByName</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на найденный объект MVCDocument, 
+                                     если объект не обнаруживается - возвращает undefined.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">MVCController</span>
+|
+
+<span class="param-type">undefined</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="load"><span class="type-signature">&lt;abstract> </span>load<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Определяется в пользовательском объекте.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>В случае ошибки выполнения операции должен возвращать false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="loadDocument"><span class="type-signature"></span>loadDocument<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="MVCDocument.html">MVCDocument</a>}</span></h4>
+
+    
+    <p class="summary">Загружет документ из файла.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод обеспечивает создание диалогового окна для открытия файлов, настроенное на заданный фильтр файлов, 
+   представленный в свойстве <code>MVCDocument.filters</code> - данное свойство, при создании документа инициализируется 
+   данными из одноимённого свойства приложения <code>MVCApplication.filters</code> и в дальнейшем, в рамках данного 
+   документа может быть независимо расширено.
+   <p>Загрузка документа обеспечивается в три этапа:</p> </p>
+<pre class="prettyprint source"><code>1. открытие диалога для выбора файла; 
+2. создание пустого объекта-Документа путём вызова <a href="MVCApplication.html#addDocument">MVCApplication.addDocument()</a>;
+3. инициализация свойства .file у полученного на этапе (2) Документа значением, полученным на этапе (1)
+   и вызов в контексте данного объекта-Документа его собственного метода <a href="MVCDocument.html#load">MVCDocument.load()</a>.</code></pre><p>   <p>В случае успешного открытия происходит переустановка указателя <code>MVCApplication.activeDocument</code> на 
+   созданный экземпляр документа и возвращается ссылка на данный экземпляр. В случае, если в окне выбора файла было нажато
+   &quot;Отмена&quot; или метод документа <tt>.load()</tt> вернул <b>false</b> - Документ создан не будет, Значение указателя
+   <code>MVCApplication.activeDocument</code> не изменится и методом будет возвращено значение <b>null</b>.</p>
+   <p>Таким образом, для реализации открытия файла предполагается, что метод Документа <a href="MVCDocument.html#load">MVCDocument.load()</a> 
+   должен быть определён, так как реальная работа по загрузке данных из файла должна обеспечиваться непосредственно собственным
+   методом <code>load()</code> конкретного экземпляра Документа.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#loadDocument">MVCApplication#loadDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает ссылку на открытый документ или null в случае ошибки открытия или выбора &quot;Отмена&quot; в
+                       диалоговом окне выбора файлов.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="registerDocumentFactory"><span class="type-signature"></span>registerDocumentFactory<span class="signature">(<span class="optional">docsView</span>)</span><span class="type-signature"> &rarr; {<a href="MVCApplication.html">MVCApplication</a>}</span></h4>
+
+    
+    <p class="summary">Регистрация "фабрики" документов.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Вызов метода обязателен для подготовки объекта Приложения к работе с многодокументоной архитектурой.
+ В процессе регистрации объект Приложения будет расширен рядом дополнительных свойств:</p>
+<ul>
+<li><code>documents:{Collection}</code>      - коллекция Документов в рамках приложения;</li>
+<li><code>activeDocument:{MVCDocument}</code> - указатель на активный объект MVCDocument;</li>
+<li><code>documentsView:{MVCView}</code>     - указатель на Представление-контейнер для представлений Документов.
+Кроме того, прототип MVCApplication расширяется рядом методов (см. MVC.DOM) для работы с объектами MVCDocument <p>В качестве необязательного параметра метод получает ссылку на объект MVCView - который в последствии используется как
+родительский контейнер для представлений всех документов, создаваемых в рамках Приложения. Для указания контейнера, его
+необходимо предварительно создать с использованием в качестве значения свойства <code>id</code> строки <code>&quot;Documents&quot;</code>
+и добавить в общую коллекцию представлений MVCApplication.views.</p>
+<p>Если параметр docsView упущен, происходит попытка отыскать представление со значением id:&quot;Documents&quot; и если таковое
+не обнаруживается - в качестве контейнера будет использоваться родительское представления самого Приложения 
+(<code>MVCApplication.mainView</code>). После определения представления, ссылка на него присваивается свойству приложения 
+<code>MVCApplication.documentsView</code>.</p></li>
+</ul>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>docsView</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">MVCView</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    MVCApplication.documentsView
+                
+                </td>
+            
+
+            <td class="description last"><p>указатель на Представление, для использования в роли
+                                 родительского контейнера представлений Документов.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#registerDocumentFactory">MVCApplication#registerDocumentFactory</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>this - позволяет использовать цепочки вызовов.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCApplication.html">MVCApplication</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="save"><span class="type-signature">&lt;abstract> </span>save<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Определяется в пользовательском объекте.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>В случае ошибки выполнения операции должен возвращать false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="saveAllDocument"><span class="type-signature"></span>saveAllDocument<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="MVCDocument.html">MVCDocument</a>}</span></h4>
+
+    
+    <p class="summary">"Быстрое" сохранение всех открытых документов в рамках текущего объекта Приложения.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Метод осуществляет обход коллекции <code>documents</code> и вызове метода <a href="MVCDocument.html#save">.save()</a> 
+    в отношении всех объектов Документов, в ней присутствующих.
+    <p>Реальная работа по сохранению данных в файл должна быть реализована в собственном методе 
+    <a href="MVCDocument.html#save">.save()</a> объекта MVCDocument.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#saveAllDocument">MVCApplication#saveAllDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Текущий активный Документ (значение свойства <code>MVCApplication.activeDocument</code>).</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="saveAs"><span class="type-signature">&lt;abstract> </span>saveAs<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Определяется в пользовательском объекте.</p>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>В случае ошибки выполнения операции должен возвращать false</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="saveAsDocument"><span class="type-signature"></span>saveAsDocument<span class="signature">(<span class="optional">doc</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+    <p class="summary">Сохранение документа в файл под новым именем.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Данный метод обеспечивает вызов <a href="MVCDocument.html#saveAs">.saveAs()</a> в отношении указанного в параметре <tt>doc</tt> 
+    Документа. Без параметров - в качестве &quot;рабочего&quot; документа используется документ, на который указывает свойство 
+    <code>MVCApplication.activeDocument</code> текущего объекта Приложения.
+    <p>Реальная работа по сохранению данных в файл должна быть реализована в собственном методе 
+    <a href="MVCDocument.html#saveAs">.saveAs()</a> объекта MVCDocument.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    activeDocument
+                
+                </td>
+            
+
+            <td class="description last"><p>Ссылка на cохраняемый документ или его id. Если не указано - 
+                                                    операция сохренения выполняется в отношении текущего активного 
+                                                    документа (определяется значением свойства activeDocument)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#saveAsDocument">MVCApplication#saveAsDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>Возвращает результат, полученный в результате вызова MVCDocument.save(), и <b>false</b> - в случае 
+                  ошибки сохранения.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        
+            
+<dt>
+    <h4 class="name" id="saveDocument"><span class="type-signature"></span>saveDocument<span class="signature">(<span class="optional">doc</span>)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+    <p class="summary">Сохранение документа в файл.</p>
+    
+</dt>
+<dd>
+
+    
+    <div class="description">
+        <p>Данный метод обеспечивает вызов <a href="MVCDocument.html#save">.save()</a> в отношении указанного в параметре <tt>doc</tt> 
+    Документа. Без параметров - в качестве &quot;рабочего&quot; документа используется документ, на который указывает свойство 
+    <code>MVCApplication.activeDocument</code> текущего объекта Приложения.
+    <p>Реальная работа по сохранению данных в файл должна быть реализована в собственном методе 
+    <a href="MVCDocument.html#save">.save()</a> объекта MVCDocument.</p></p>
+    </div>
+    
+
+    
+
+    
+
+    
+        <h5>Parameters:</h5>
+        
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Argument</th>
+        
+
+        
+        <th>Default</th>
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>doc</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+|
+
+<span class="param-type"><a href="MVCDocument.html">MVCDocument</a></span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+                <td class="default">
+                
+                    activeDocument
+                
+                </td>
+            
+
+            <td class="description last"><p>Ссылка на cохраняемый документ или его id. Если не указано - 
+                                                    операция сохренения выполняется в отношении текущего активного 
+                                                    документа (определяется значением свойства activeDocument)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+    
+
+    
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="inherited-from">Inherited From:</dt>
+    <dd class="inherited-from"><ul class="dummy"><li>
+        <a href="MVCApplication.html#saveDocument">MVCApplication#saveDocument</a>
+    </li></dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <h5>Returns:</h5>
+    
+            
+<div class="param-desc">
+    <p>результат, полученный в результате вызова MVCDocument.save() - false в случае ошибки сохранения.</p>
+</div>
+
+
+
+<dl>
+    <dt>
+        Type
+    </dt>
+    <dd>
+        
+<span class="param-type">boolean</span>
+
+
+    </dd>
+</dl>
+
+        
+
+    
+</dd>
+
+        </dl>
+    
+
+    
+
+    
+</article>
+
+</section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Index</a></h2><h3>Modules</h3><ul><li><a href="DOM.html">DOM</a></li></ul><h3>Classes</h3><ul><li><a href="MVCDocument.html">MVCDocument</a></li></ul>
+</nav>
+
+<br clear="both">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.3.0-dev</a> on Sun May 25 2014 02:23:11 GMT+0300 (Финляндия (лето))
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

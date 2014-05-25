@@ -1,0 +1,68 @@
+QTestManager v1.00 (QTest console module v0.1.1)
+Протокол тестирования от: 21.04.2014 01:11:18
+------
+[начало: 01:11:18]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/QTest/test/test.jsx
+------
+START: Тестирования QTest: ok():
+1.  PASSED: true succeeds
+2.  PASSED: !false succeeds
+3.  PASSED: non-empty string succeeds
+4.  FAILE:  0 - fails ok!
+5.  FAILE:  NaN - fails ok!
+6.  FAILE:  empty string - fails ok!
+7.  FAILE:  null - fails ok!
+8.  FAILE:  undefined - fails ok!
+FINISH:      8 assertions of 3 passed, 5 faild.
+------
+START: Тестирования QTest: equal() & strictEqual():
+9.  PASSED: "1" == 1, equal succeeds
+10. FAILE:  "1" === 1, strictEqual - fails ok!
+11. PASSED: true == 1, equal succeeds
+12. FAILE:  true === 1, strictEqual - fails ok!
+13. PASSED: "String {0}..." .replace(/{0}/,"2") == 2, equal succeeds
+14. PASSED: "" == false equal succeeds
+15. PASSED: null == undefined, equal succeeds!!!
+16. FAILE:  null === undefined, strictEqual - fails ok!
+17. FAILE:  null == "", Not equal - fails ok!
+18. FAILE:  null == false, Not equal - fails ok!
+19. FAILE:  false == undefined, Not equal - fails ok!
+FINISH:      11 assertions of 5 passed, 6 faild.
+------
+START: Тестирования QTest: notEqual() & notStrictEqual():
+20. FAILE:  "1" == 1, equal  - fails ok
+21. FAILE:  true == 1, equal  - fails ok
+22. FAILE:  "String {0}..." .replace(/{0}/,"2") == 2, equal  - fails ok
+23. FAILE:  "" == false equal  - fails ok
+24. FAILE:  null == undefined, equal  - fails ok!!!
+25. PASSED: null == "", is notEqual - succeeds
+26. PASSED: null == false, is notEqual - succeeds
+27. PASSED: 0 === false, notStrictEqual - succeeds
+28. FAILE:  false === false, notStrictEqual - fails ok!!!
+29. PASSED: false == undefined, is notEqual - succeeds
+FINISH:      10 assertions of 4 passed, 6 faild.
+------
+START: Тестирования QTest: propEqual() & notPropEqual():
+30. PASSED: { prop1:'', prop2:'', prop3:'', prop4:'' } & { prop1:'', prop2:'', prop3:'' }, propEqual - succeeds
+31. PASSED: { prop1:'', prop2:'' } & { prop1:'', prop2:'', prop3:'', prop4:'' }, propEqual - succeeds
+32. PASSED: { prop1:'' } & { prop1:'', prop2:'', prop3:'' }, propEqual - succeeds
+33. PASSED: { prop1:'', prop2:'', prop3:'' } & { prop1:'' }, propEqual - succeeds
+34. FAILE:  { prop1:'', prop2:'', prop5:'' } & { prop1:'', prop2:'', prop3:'' }, propEqual - fails ok!
+35. PASSED: { prop1:'', prop2:'', prop5:'' } & { prop1:'', prop2:'', prop3:'' }, is notPropEqual - succeeds
+FINISH:      6 assertions of 5 passed, 1 faild.
+------
+    Время обработки: 16 ms.
+------
+[начало: 01:11:18]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/QTest/test/test_deep.jsx
+------
+START: Тестирования QTest: deepEqual() & notDeepPropEqual():
+36. PASSED: Операнды полностью подобны.
+37. PASSED: Операнды полностью подобны.
+38. FAILE:  Операнды не подобны.
+39. FAILE:  Операнды полностью и строго подобны.
+40. PASSED: Операнды не подобны.
+41. FAILE:  Операнды полностью подобны.
+42. PASSED: Операнды не подобны.
+FINISH:      7 assertions of 4 passed, 3 faild.
+------
+    Время обработки: 16 ms.
+    Всего обработано файлов: 2, общее время: 32 ms.

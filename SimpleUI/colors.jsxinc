@@ -1,0 +1,257 @@
+﻿/**
+ * @@@BUILDINFO@@@ colors.jsxinc 1.1 Tue Nov 12 2013 20:35:07 GMT+0200
+ * 
+ * @fileOverview Цвета и набор функций преобразования форматов RGB <-> RGBA
+ * @version    0.1.2
+ * @author     Slava Boyko <slava.boyko@hotmail.com>
+ * @copyright  © Вячеслав aka SlavaBuck, 2014. 
+ */
+
+/**
+ * @description  A list of predefined HTML colors. Взято из <i><ESTK folder>/Required/00globals-2.jsx</i>
+ *
+ * @name COLORS
+ * @const
+ * @type {Object}
+ */
+var COLORS = {
+    'AliceBlue': 0xF0F8FF,
+    'AntiqueWhite': 0xFAEBD7,
+    'Aqua': 0x00FFFF,
+    'Aquamarine': 0x7FFFD4,
+    'Azure': 0xF0FFFF,
+    'Beige': 0xF5F5DC,
+    'Bisque': 0xFFE4C4,
+    'Black': 0x000000,
+    'BlanchedAlmond': 0xFFEBCD,
+    'Blue': 0x0000FF,
+    'BlueViolet': 0x8A2BE2,
+    'Brown': 0xA52A2A,
+    'BurlyWood': 0xDEB887,
+    'CadetBlue': 0x5F9EA0,
+    'Chartreuse': 0x7FFF00,
+    'Chocolate': 0xD2691E,
+    'Coral': 0xFF7F50,
+    'CornflowerBlue': 0x6495ED,
+    'Cornsilk': 0xFFF8DC,
+    'Crimson': 0xDC143C,
+    'Cyan': 0x00FFFF,
+    'DarkBlue': 0x00008B,
+    'DarkCyan': 0x008B8B,
+    'DarkGoldenRod': 0xB8860B,
+    'DarkGray': 0xA9A9A9,
+    'DarkGreen': 0x006400,
+    'DarkKhaki': 0xBDB76B,
+    'DarkMagenta': 0x8B008B,
+    'DarkOliveGreen': 0x556B2F,
+    'DarkOrange': 0xFF8C00,
+    'DarkOrchid': 0x9932CC,
+    'DarkRed': 0x8B0000,
+    'DarkSalmon': 0xE9967A,
+    'DarkSeaGreen': 0x8FBC8F,
+    'DarkSlateBlue': 0x483D8B,
+    'DarkSlateGray': 0x2F4F4F,
+    'DarkTurquoise': 0x00CED1,
+    'DarkViolet': 0x9400D3,
+    'DeepPink': 0xFF1493,
+    'DeepSkyBlue': 0x00BFFF,
+    'DimGray': 0x696969,
+    'DodgerBlue': 0x1E90FF,
+    'Feldspar': 0xD19275,
+    'FireBrick': 0xB22222,
+    'FloralWhite': 0xFFFAF0,
+    'ForestGreen': 0x228B22,
+    'Fuchsia': 0xFF00FF,
+    'Gainsboro': 0xDCDCDC,
+    'GhostWhite': 0xF8F8FF,
+    'Gold': 0xFFD700,
+    'GoldenRod': 0xDAA520,
+    'Gray': 0x808080,
+    'Green': 0x008000,
+    'GreenYellow': 0xADFF2F,
+    'HoneyDew': 0xF0FFF0,
+    'HotPink': 0xFF69B4,
+    'IndianRed': 0xCD5C5C,
+    'Indigo': 0x4B0082,
+    'Ivory': 0xFFFFF0,
+    'Khaki': 0xF0E68C,
+    'Lavender': 0xE6E6FA,
+    'LavenderBlush': 0xFFF0F5,
+    'LawnGreen': 0x7CFC00,
+    'LemonChiffon': 0xFFFACD,
+    'LightBlue': 0xADD8E6,
+    'LightCoral': 0xF08080,
+    'LightCyan': 0xE0FFFF,
+    'LightGoldenRodYellow': 0xFAFAD2,
+    'LightGray': 0xD3D3D3,
+    'LightGreen': 0x90EE90,
+    'LightPink': 0xFFB6C1,
+    'LightSalmon': 0xFFA07A,
+    'LightSeaGreen': 0x20B2AA,
+    'LightSkyBlue': 0x87CEFA,
+    'LightSlateBlue': 0x8470FF,
+    'LightSlateGray': 0x778899,
+    'LightSteelBlue': 0xB0C4DE,
+    'LightYellow': 0xFFFFE0,
+    'Lime': 0x00FF00,
+    'LimeGreen': 0x32CD32,
+    'Linen': 0xFAF0E6,
+    'Magenta': 0xFF00FF,
+    'Maroon': 0x800000,
+    'MediumAquaMarine': 0x66CDAA,
+    'MediumBlue': 0x0000CD,
+    'MediumOrchid': 0xBA55D3,
+    'MediumPurple': 0x9370D8,
+    'MediumSeaGreen': 0x3CB371,
+    'MediumSlateBlue': 0x7B68EE,
+    'MediumSpringGreen': 0x00FA9A,
+    'MediumTurquoise': 0x48D1CC,
+    'MediumVioletRed': 0xC71585,
+    'MidnightBlue': 0x191970,
+    'MintCream': 0xF5FFFA,
+    'MistyRose': 0xFFE4E1,
+    'Moccasin': 0xFFE4B5,
+    'NavajoWhite': 0xFFDEAD,
+    'Navy': 0x000080,
+    'OldLace': 0xFDF5E6,
+    'Olive': 0x808000,
+    'OliveDrab': 0x6B8E23,
+    'Orange': 0xFFA500,
+    'OrangeRed': 0xFF4500,
+    'Orchid': 0xDA70D6,
+    'PaleGoldenRod': 0xEEE8AA,
+    'PaleGreen': 0x98FB98,
+    'PaleTurquoise': 0xAFEEEE,
+    'PaleVioletRed': 0xD87093,
+    'PapayaWhip': 0xFFEFD5,
+    'PeachPuff': 0xFFDAB9,
+    'Peru': 0xCD853F,
+    'Pink': 0xFFC0CB,
+    'Plum': 0xDDA0DD,
+    'PowderBlue': 0xB0E0E6,
+    'Purple': 0x800080,
+    'Red': 0xFF0000,
+    'RosyBrown': 0xBC8F8F,
+    'RoyalBlue': 0x4169E1,
+    'SaddleBrown': 0x8B4513,
+    'Salmon': 0xFA8072,
+    'SandyBrown': 0xF4A460,
+    'SeaGreen': 0x2E8B57,
+    'SeaShell': 0xFFF5EE,
+    'Sienna': 0xA0522D,
+    'Silver': 0xC0C0C0,
+    'SkyBlue': 0x87CEEB,
+    'SlateBlue': 0x6A5ACD,
+    'SlateGray': 0x708090,
+    'Snow': 0xFFFAFA,
+    'SpringGreen': 0x00FF7F,
+    'SteelBlue': 0x4682B4,
+    'Tan': 0xD2B48C,
+    'Teal': 0x008080,
+    'Thistle': 0xD8BFD8,
+    'Tomato': 0xFF6347,
+    'Turquoise': 0x40E0D0,
+    'Violet': 0xEE82EE,
+    'VioletRed': 0xD02090,
+    'Wheat': 0xF5DEB3,
+    'White': 0xFFFFFF,
+    'WhiteSmoke': 0xF5F5F5,
+    'Yellow': 0xFFFF00,
+    'YellowGreen': 0x9ACD32
+};
+
+/** 
+ * Конвертирует целое в формат rgb Array[3] целых чисел)
+ *
+ * @name toRGB
+ * @function
+ * @param  {number} color       десятичное целое
+ * @return {Array.<number>}     цвет в формате rgb: Array[3] целых чисел
+ */
+function toRGB(color /* uint */) {
+    return [ color>>>0x10, (color&0xFF00)/0x100, color&0xFF ];
+};
+/** 
+ * Конвертирует целое в формат rgba ScriptUI color Array[4] чисел с плавающей точкой (0..1.0)
+ *
+ * @name toRGBA
+ * @function
+ * @param  {number} color       десятичное целое
+ * @param  {number} [alpha=1]   прозрачнойсть - число с плавающей точкой (0..1.0), 1 - не прозрачный.
+ * @return {Array.<number>}     цвет в формате rgba: Array[4] чисел с плавающей точкой (0..1.0)
+ */
+function toRGBA(color /* uint */, alpha /* float 0..1.0 */) {
+    return [ (color>>>0x10)/255, ((color&0xFF00)/0x100)/255, (color&0xFF)/255, (alpha)||1];
+};
+/** 
+ * Конверитрует RGB -> value. Принимает цвет в формате массива RGB из 3х целых, либо 3 аргумента
+ * - компоненты цвета r, g, b (Все компоненты от 0 до 255)
+ *
+ * @name RGBtoValue
+ * @function
+ * @param {namber|Array} r  Массив RGB или компонента R
+ * @param {namber}      [g] компонента G
+ * @param {namber}      [b] компонента B
+ * @return {number}     цвет в формате целое
+ */
+function RGBtoValue(r, g, b /* 3 uint */) {
+    if (r instanceof Array) return RGBtoValue.apply(this, r);
+    return ( (r * 0x10000) | (g * 0x100  ) | b );
+};
+/** 
+ * Конвертирует RGB -> RGBA. Принимает цвет в формате массива RGB из 3х целых, либо 3(4) аргумента
+ * - компоненты цвета r, g, b и alpha - прозрачность/необязательно (Все компоненты от 0 до 255)
+ *
+ * @name RGBtoRGBA
+ * @function
+ * @param {namber|Array} r  Массив RGB или компонента R
+ * @param {namber}      [g] компонента G
+ * @param {namber}      [b] компонента B
+ * @param {namber}      [a=1] прозрачность, компонента alpha.
+ * @return {Array.<number>}     цвет в формате rgba: Array[4] чисел с плавающей точкой (0..1.0)
+ */
+function RGBtoRGBA(r, g, b, a /* 4 uint */) {
+    if (r instanceof Array) return RGBtoValue.apply(this, r);
+    return [ r/255, g/255, b/255, (a === undefined ? 1 : a/255)];
+};
+/** 
+ * Конвертирует RGBA -> RGB
+ *
+ * @name RGBAtoRGB
+ * @function
+ * @param {Array.<number>} rgba цвет в формате массива RGBА (компонента alpha не учитывается)
+ * @return {Array.<number>}     цвет в формате rgb: Array[3] целых чисел
+ */
+function RGBAtoRGB(rgba /* array[3] of  floats */) {
+    return [ Math.round(rgba[0]*255), Math.round(rgba[1]*255), Math.round(rgba[2]*255) ];
+};
+/** 
+ * Конвертирует RGBA -> int value
+ *
+ * @name RGBAtoValue
+ * @function
+ * @param {Array.<number>} rgba цвет в формате массива RGBА (компонента alpha не учитывается)
+ * @return {number}             цвет в формате целое
+ */
+function RGBAtoValue(rgba /* array[3] of  floats */) {
+    return RGBtoValue(RGBAtoRGB(rgba));
+};
+
+/**
+ * Возвращает строковое представление значения цвета в шестнадцатиричном формате hexTriplet: "0xRRGGBB".
+ * Принимает значение цвета в любом из форматов: int value || RGB-array || RGBA-array, в том 
+ * распознаёт текстовое наименование цвета согласно наименованиям из набора констант COLORS - "Red", "YellowGreen" и т.п.)
+ *
+ * @name parseColor
+ * @function
+ * @param   {any}   c   Цвет в любом из 4-х допустимых форматов: uint || string(COLORS) || uint[3] (RGB-array) || 
+ *                      float[3-4] (RGBA-array)
+ * @returns {string}    Шестнадцатиричном представление цвета в формате hexTriplet: "0xRRGGBB".
+ */
+function parseColor(c /* uint || string(COLORS) || uint[3] (RGB-array) || float[3-4] (RGBA-array) */) {
+    var color;
+    if (typeof c == 'string') color = (COLORS.hasOwnProperty(c) ? COLORS[c] : parseInt(c, 10)); else {
+        color = (c instanceof Number) ? c : (c instanceof Array) ? (( c[0]>1||c[1]>1||c[2]>1) ? RGBtoValue(c) : RGBAtoValue(c)) : parseInt(c, 10);
+    }
+    return "0x" + ("00000" + color.toString(16)).substr(-6).toUpperCase();
+};

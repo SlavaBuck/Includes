@@ -1,0 +1,30 @@
+{
+    "tags": {
+        "allowUnknownTags": true
+    },
+    "source": {
+        "includePattern": ".+\\.js(x|xinc|doc)?$",
+        "excludePattern": "(^\\Tools|\\test|\\snippets|\\test|\\/|\\\\)__"
+    },
+    "plugins": ["plugins/markdown", "plugins/removeInclude" ],
+    "markdown": {
+        "parser": "gfm",
+        "hardwrap": true
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "default": {
+            "outputSourceFiles" : false
+        }
+    },
+    "opts": {
+        "template": "templates/default",
+        "encoding": "utf8",
+        "destination": "",
+        "recurse": false,                  
+        "tutorials": "",
+        "private": true,
+        "lenient": true
+    }
+}

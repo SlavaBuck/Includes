@@ -1,0 +1,51 @@
+﻿// Стандартные функции массивов, обусловленные 
+// стандартом Javascript 1.5
+var array_base = [
+        "concat",
+        "join",
+        "pop",
+        "push",
+        "reverse",
+        "shift",
+        "slice",
+        "sort",
+        "splice",
+        "unshift",
+        "toLocaleString",
+        "toString",    
+        "toSource"
+    ];
+
+// Дополнительные функции массивов, обусловленные 
+// стандартом Javascript 1.6
+var _ext16 = [
+		"indexOf",
+		"indexAfter",
+		"lastIndexOf",
+		"every",
+		"filter",
+		"forEach",
+		"map",
+		"some"
+	];
+
+// Дополнительные функции массивов, обусловленные 
+// стандартом Javascript 1.8
+var _ext18 = [
+		"compact",
+		"contains",
+		"first",
+		"flatten",
+		"last",
+		"max",
+		"min",
+		"pluck",
+		"reduce",
+		"reduceRight",
+		"reject",
+		"select", // alias for _JS16 - 'filter'
+		"sum"
+	];
+    
+// Общий список расширений
+var array_extras = _ext16.concat(_ext18);

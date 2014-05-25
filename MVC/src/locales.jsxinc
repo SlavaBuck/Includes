@@ -1,0 +1,12 @@
+﻿// Локализованные строки для MVC
+var locales = {
+		// Имя приложения (по умолчанию)
+		DEF_APPNAME:{ en:"Document", ru:"Документ" },
+		// Сообщения об ошибках
+		ERR_BOBJKEY:{ ru:"Неверный ключ '%1'. В коллекции %2 уже присутствует объект с таким ключём.",
+					  en:"Bad key '%1'. The key is already present in %2 collection."},
+		ERR_KEYNOTF:{ ru:"Неверный ключ '%1'. В коллекции %2 объект с таким ключём не найден.",
+					  en:"Bad key '%1'. The object with key '%1' not presents in %2 collection."},
+		ERR_BEDBIND:{ ru:"MVCController(): Некорректная строка биндинга '%1'.",
+					  en:"MVCController(): Invalid binding string: '%1'" }
+	};

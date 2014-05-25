@@ -1,0 +1,220 @@
+QTestManager v1.00 (QTest console module v0.1.1)
+Протокол тестирования от: 25.04.2014 13:45:34
+------
+[начало: 13:45:34]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/QTest/test/test.jsx
+------
+START: Тестирование QTest: ok():
+1.  PASSED: true succeeds
+2.  PASSED: !false succeeds
+3.  PASSED: non-empty string succeeds
+FINISH:      3 assertions of 3 passed, 0 faild.
+------
+START: Тестирование QTest: equal() & strictEqual():
+4.  PASSED: "1" == 1, equal succeeds
+5.  PASSED: "1" === "1", strictEqual - succeeds
+6.  PASSED: true == 1, equal succeeds
+7.  PASSED: "String {0}..." .replace(/{0}/,"2") == 2, equal succeeds
+8.  PASSED: "" == false equal succeeds
+9.  PASSED: null == undefined, equal succeeds!!!
+FINISH:      6 assertions of 6 passed, 0 faild.
+------
+START: Тестирование QTest: notEqual() & notStrictEqual():
+10. PASSED: null == "", is notEqual - succeeds
+11. PASSED: null == false, is notEqual - succeeds
+12. PASSED: 0 === false, notStrictEqual - succeeds
+13. PASSED: false == undefined, is notEqual - succeeds
+FINISH:      4 assertions of 4 passed, 0 faild.
+------
+START: Тестирование QTest: propEqual() & notPropEqual():
+14. PASSED: { prop1:'', prop2:'', prop3:'', prop4:'' } & { prop1:'', prop2:'', prop3:'' }, propEqual - succeeds
+15. PASSED: { prop1:'', prop2:'' } & { prop1:'', prop2:'', prop3:'', prop4:'' }, propEqual - succeeds
+16. PASSED: { prop1:'' } & { prop1:'', prop2:'', prop3:'' }, propEqual - succeeds
+17. PASSED: { prop1:'', prop2:'', prop3:'' } & { prop1:'' }, propEqual - succeeds
+18. PASSED: { prop1:'', prop2:'', prop5:'' } & { prop1:'', prop2:'', prop3:'' }, is notPropEqual - succeeds
+FINISH:      5 assertions of 5 passed, 0 faild.
+------
+    Время обработки: 47 ms.
+------
+[начало: 13:45:34]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/QTest/test/test_deep.jsx
+------
+START: Тестирование QTest: deepEqual() & notDeepPropEqual():
+19. PASSED: Операнды полностью подобны.
+20. PASSED: Операнды полностью и строго подобны.
+21. PASSED: Операнды полностью подобны.
+22. PASSED: Операнды не подобны.
+23. PASSED: Операнды не подобны.
+FINISH:      5 assertions of 5 passed, 0 faild.
+------
+    Время обработки: 15 ms.
+------
+[начало: 13:45:34]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/Collection/test/test_array(all new methods).jsx
+------
+START: JavaScript 1.6
+24. PASSED: indexOf()
+25. PASSED: indexAfter()
+26. PASSED: lastIndexOf()
+27. PASSED: every()
+28. PASSED: some()
+29. PASSED: filter()
+30. PASSED: select()
+31. PASSED: forEach()
+32. PASSED: map()
+FINISH:      9 assertions of 9 passed, 0 faild.
+------
+START: JavaScript 1.8
+33. PASSED: compact()
+34. PASSED: first()
+35. PASSED: last()
+36. PASSED: min()
+37. PASSED: max()
+38. PASSED: max() с массивом объектов.
+39. PASSED: min() с массивом объектов.
+40. PASSED: map()
+41. PASSED: pluck()
+42. PASSED: pluck(), вариант 2
+43. PASSED: Цепочка: pluck().sum()
+44. PASSED: sum('property') сумма по имени свойства
+45. PASSED: sum(function(){}) настройка суммы
+46. PASSED: sum('property') сумма по имени свойства вариант 2
+47. PASSED: reduce()
+48. PASSED: reduceRight()
+49. PASSED: reject()
+FINISH:      17 assertions of 17 passed, 0 faild.
+------
+START: Длинная цепочка вызовов (все стандарты вместе)
+50. PASSED: Цепочка [].reduceRight().compact().filter().concat().sort()
+FINISH:      1 assertions of 1 passed, 0 faild.
+------
+    Время обработки: 47 ms.
+------
+[начало: 13:45:34]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/Collection/test/test_CollasArray.jsx
+------
+START: Идентификация Collection:
+51. PASSED: c instanceof Collection
+52. PASSED: c instanceof Array
+53. PASSED: isLikeArray(c);
+54. PASSED: not isArray(c);
+FINISH:      4 assertions of 4 passed, 0 faild.
+------
+START: Тестирование Collection на соответствие Array (ES3)
+55. PASSED: Collection.concat
+56. PASSED: ret value for invoke concat
+57. PASSED:  equals a & c
+58. PASSED: Collection.join
+59. PASSED: ret value for invoke join
+60. PASSED:  equals a & c
+61. PASSED: Collection.pop
+62. PASSED: ret value for invoke pop
+63. PASSED:  equals a & c
+64. PASSED: Collection.push
+65. PASSED: ret value for invoke push
+66. PASSED:  equals a & c
+67. PASSED: Collection.reverse
+68. PASSED: ret value for invoke reverse
+69. PASSED:  equals a & c
+70. PASSED: Collection.shift
+71. PASSED: ret value for invoke shift
+72. PASSED:  equals a & c
+73. PASSED: Collection.slice
+74. PASSED: ret value for invoke slice
+75. PASSED:  equals a & c
+76. PASSED: Collection.sort
+77. PASSED: ret value for invoke sort
+78. PASSED:  equals a & c
+79. PASSED: Collection.splice
+80. PASSED: ret value for invoke splice
+81. PASSED:  equals a & c
+82. PASSED: Collection.toLocaleString
+83. PASSED: ret value for invoke toLocaleString
+84. PASSED:  equals a & c
+85. PASSED: Collection.toString
+86. PASSED: ret value for invoke toString
+87. PASSED:  equals a & c
+88. PASSED: Collection.unshift
+89. PASSED: ret value for invoke unshift
+90. PASSED:  equals a & c
+FINISH:      36 assertions of 36 passed, 0 faild.
+------
+    Время обработки: 47 ms.
+------
+[начало: 13:45:34]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/Collection/test/test_CollInterface.jsx
+------
+START: Тестирование Collection
+91. PASSED: test for Collection.add();
+92. PASSED: test for Collection.append();
+93. PASSED: test for Collection.compact();
+94. PASSED: test for Collection.concat();
+95. PASSED: test for Collection.contains();
+96. PASSED: test for Collection.copy();
+97. PASSED: test for Collection.every();
+98. PASSED: test for Collection.filter();
+99. PASSED: test for Collection.first();
+100.PASSED: test for Collection.flatten();
+101.PASSED: test for Collection.forEach();
+102.PASSED: test for Collection.getAll();
+103.PASSED: test for Collection.getByIndex();
+104.PASSED: test for Collection.getByKey();
+105.PASSED: test for Collection.getByKeyValue();
+106.PASSED: test for Collection.getByValue();
+107.PASSED: test for Collection.getByValues();
+108.PASSED: test for Collection.getFirst();
+109.PASSED: test for Collection.getFirstByKey();
+110.PASSED: test for Collection.getFirstByKeyValue();
+111.PASSED: test for Collection.getFirstByValue();
+112.PASSED: test for Collection.getFirstIndexByKey();
+113.PASSED: test for Collection.getFirstIndexByKeyValue();
+114.PASSED: test for Collection.getFirstIndexByValue();
+115.PASSED: test for Collection.getIndexByKey();
+116.PASSED: test for Collection.getIndexByKeyValue();
+117.PASSED: test for Collection.getIndexByValue();
+118.PASSED: test for Collection.getIndexByValues();
+119.PASSED: test for Collection.getLast();
+120.PASSED: test for Collection.getLastByKey();
+121.PASSED: test for Collection.getLastByKeyValue();
+122.PASSED: test for Collection.getLastByValue();
+123.PASSED: test for Collection.getLastIndexByKey();
+124.PASSED: test for Collection.getLastIndexByKeyValue();
+125.PASSED: test for Collection.getLastIndexByValue();
+126.PASSED: test for Collection.indexAfter();
+127.PASSED: test for Collection.indexOf();
+128.PASSED: test for Collection.insert();
+129.PASSED: test for Collection.isValidIndex();
+130.PASSED: test for Collection.join();
+131.PASSED: test for Collection.last();
+132.PASSED: test for Collection.lastIndexOf();
+133.PASSED: test for Collection.map();
+134.PASSED: test for Collection.max();
+135.PASSED: test for Collection.min();
+136.PASSED: test for Collection.pluck();
+137.PASSED: test for Collection.pop();
+138.PASSED: test for Collection.push();
+139.PASSED: test for Collection.reduce();
+140.PASSED: test for Collection.reduceRight();
+141.PASSED: test for Collection.reject();
+142.PASSED: test for Collection.remove();
+143.PASSED: test for Collection.removeAll();
+144.PASSED: test for Collection.removeByIndex();
+145.PASSED: test for Collection.removeByKey();
+146.PASSED: test for Collection.removeByKeyValue();
+147.PASSED: test for Collection.removeByValue();
+148.PASSED: test for Collection.removeByValues();
+149.PASSED: test for Collection.reverse();
+150.PASSED: test for Collection.rezet();
+151.PASSED: test for Collection.select();
+152.PASSED: test for Collection.set();
+153.PASSED: test for Collection.shift();
+154.PASSED: test for Collection.slice();
+155.PASSED: test for Collection.some();
+156.PASSED: test for Collection.sort();
+157.PASSED: test for Collection.splice();
+158.PASSED: test for Collection.sum();
+159.PASSED: test for Collection.swap();
+160.PASSED: test for Collection.toArray();
+161.PASSED: test for Collection.toLocaleString();
+162.PASSED: test for Collection.toSource();
+163.PASSED: test for Collection.toString();
+164.PASSED: test for Collection.unshift();
+FINISH:      74 assertions of 74 passed, 0 faild.
+------
+    Время обработки: 47 ms.
+    Всего обработано файлов: 5, общее время: 203 ms.

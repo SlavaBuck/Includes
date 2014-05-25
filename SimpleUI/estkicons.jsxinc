@@ -1,0 +1,153 @@
+﻿/**
+ * @@@BUILDINFO@@@ 
+ * 
+ * @fileOverview Константы ресурсов ESTK
+ * 
+ * @version    0.1.2
+ * @author     Slava Boyko <slava.boyko@hotmail.com>
+ * @copyright  © Вячеслав aka SlavaBuck, 2014. 
+ */
+
+/**
+ * @description  Константы ресурсов ESTK. Взято из <i><ESTK folder>/Required/*.jsx</i>
+ *
+ * @name ICONS
+ * @const
+ * @type {Object}
+ */
+ICONS = {
+    'ENUMERATION':"#Enumeration",
+    'BOOLEAN':"#Boolean",
+    'BOOLEAN_RO':"#Boolean_RO",
+    'CLASS':"#Class",
+    'METHOD':"#Method",
+    'FUNCTION':"#Function",
+    'FUNCTION_RO':"#Function_RO",
+    'ROPROPERTY':"#PropertyRO",
+    'RWPROPERTY':"#PropertyRW",
+    'NULL':"#Null",
+    'NULL_RO':"#Null_RO",
+    'NUMBER':"#Number",
+    'NUMBER_RO':"#Number_RO",
+    'OBJECT':"#Object",
+    'OBJECT_RO':"#Object_RO",
+    'STRING':"#String",
+    'STRING_RO':"#String_RO",
+    'INVALID':"#Invalid",
+    'INVALID_RO':"#Invalid_RO",
+    'FLYOUT_N':"#Flyout_N",
+    'FLYOUT_P':"#Flyout_P",
+    'FLYOUT_R':"#Flyout_R",
+    'FOLDERCLOSED':"#FolderClosed",
+    'FOLDEROPENED':"#FolderOpened",
+    'UNDEFINED':"#Undefined",
+    'UNDEFINED_RO':"#Undefined_RO",
+    'PAUSE_N':"#Pause_N",
+    'PAUSE_O':"#Pause_O",
+    'PAUSE_R':"#Pause_R",
+    'CONNECTED_N':"#Connected_N",
+    'CONNECTED_O':"#Connected_O",
+    'CONNECTED_R':"#Connected_R",
+    'CONNECTING_N':"#Connecting_N",
+    'CONNECTING_O':"#Connecting_O",
+    'CONNECTING_R':"#Connecting_R",
+    'DISCONNECTED_N':"#Disconnected_N",
+    'DISCONNECTED_O':"#Disconnected_O",
+    'DISCONNECTED_R':"#Disconnected_R",    
+    'PBDISABLED':"#BreakpointDisabled",
+    'PBDISABLEDCOND':"#BreakpointDisabledCond",
+    'PBENABLED':"#BreakpointEnabled",
+    'PBENABLEDCOND':"#BreakpointEnabledCond",
+    'PBREAKPOINTS_N':"#PBreakpoints_N",
+    'PBREAKPOINTS_R':"#PBreakpoints_R",
+    'PCALLSTACK_N':"#PCallStack_N",
+    'PCALLSTACK_R':"#PCallStack_R",
+    'PCONSOLE_N':"#PConsole_N",
+    'PCONSOLE_R':"#PConsole_R",
+    'PDATABROWSER_N':"#PDataBrowser_N",
+    'PDATABROWSER_R':"#PDataBrowser_R",
+    'PFINDRESULTS_N':"#PFindResults_N",
+    'PFINDRESULTS_R':"#PFindResults_R",
+    'PFUNCTIONLIST_N':"#PFunctionList_N",
+    'PFUNCTIONLIST_R':"#PFunctionList_R",
+    'PSCRIPTS_N':"#PScripts_N",
+    'PSCRIPTS_R':"#PScripts_R",
+    'QUERYALERT':"SystemQueryIcon",
+    'STOPALERT':"SystemStopIcon",
+    'RUN_N':"#Run_N",
+    'RUN_O':"#Run_O",
+    'RUN_R':"#Run_R",
+    'RUNNINGENGINE':"#RunningEngine",
+    'SCRIPTFILE':"#ScriptFile",
+    'SCRIPTSOURCE':"#ScriptSource",
+    'SPLIT_N':"#Split_N",
+    'SPLIT_R':"#Split_R",
+    'STEPINFO_N':"#StepInto_N",
+    'STEPINFO_O':"#StepInto_O",
+    'STEPINFO_R':"#StepInto_R",
+    'STEPOUT_N':"#StepOut_N",
+    'STEPOUT_O':"#StepOut_O",
+    'STEPOUT_R':"#StepOut_R",
+    'STOP_N':"#Stop_N",
+    'STOP_O':"#Stop_O",
+    'STOP_R':"#Stop_R",
+    'STOPOVER_N':"#StepOver_N",
+    'STOPOVER_O':"#StepOver_O",
+    'STOPOVER_R':"#StepOver_R",
+    'STOPPEDGENGINE':"#StoppedEngine",
+    'SYSTEMCOLLAPSE':"SystemCollapse",
+    'SYSTEMEXPAND':"SystemExpand",
+    'WAITINGENGINE':"#WaitingEngine",
+    'BUSYAN01':"#Busyan01",
+    'BUSYAN02':"#Busyan02",
+    'BUSYAN03':"#Busyan03",
+    'BUSYAN04':"#Busyan04",
+    'BUSYAN05':"#Busyan05",
+    'BUSYAN06':"#Busyan06",
+    'BUSYAN07':"#Busyan07",
+    'BUSYAN08':"#Busyan08"
+}
+// State-sensitive icons, see: ScriptUI.newImage (normal:String , disabled:String , pressed:String , rollover:String ) 
+// Иконки с мультисостояниями (как то так...), взято из  <ESTK folder>/Required/80document.jsx
+ICONS.RUN   = [ ICONS.RUN_R, ICONS.RUN_N, undefined, ICONS.RUN_O ]; 
+ICONS.PAUSE = [ ICONS.PAUSE_R, ICONS.PAUSE_N, undefined, ICONS.PAUSE_O ]; 
+ICONS.STOP  = [ ICONS.STOP_R, ICONS.STOP_N, undefined, ICONS.STOP_O ]; 
+ICONS.STOPOVER  = [ ICONS.STOPOVER_R, ICONS.STOPOVER_N, undefined, ICONS.STOPOVER_O ]; 
+ICONS.STEPINFO  = [ ICONS.STEPINFO_R, ICONS.STEPINFO_N, undefined, ICONS.STEPINFO_O ]; 
+ICONS.STEPOUT   = [ ICONS.STEPOUT_R, ICONS.STEPOUT_N, undefined, ICONS.STEPOUT_O ];
+ICONS.CONNECTED =  [ ICONS.CONNECTED_R, ICONS.CONNECTED_N, undefined, ICONS.CONNECTED_O ];
+ICONS.DISCONNECTED = [ ICONS.DISCONNECTED_R, ICONS.DISCONNECTED_N, undefined, ICONS.DISCONNECTED_O ];
+ICONS.CONNECTING = [ ICONS.CONNECTING_R, ICONS.CONNECTING_N, undefined, ICONS.CONNECTING_O ];
+ICONS.FLYOUT    = [ ICONS.FLYOUT_N, undefined, ICONS.FLYOUT_R, ICONS.FLYOUT_P ];
+ICONS.SPLIT     = [ ICONS.SPLIT_N, undefined, ICONS.SPLIT_R, ICONS.SPLIT_R ];
+
+/**
+ * Метод на основе имени константы ICONS открывает соответствующий файл и возвращает
+ * объект ScriptUIImage.
+ * 
+ * @name getImage
+ * @function
+ *
+ * @param {string}          icon    имя константы, например "#Enumeration"
+ * @returns {ScriptUIImage}         Отыскивает в папке с ресурсами соответствующий константе 
+ *                                  файл *.png и возвращает его как ScriptUI изображение.
+ * @example
+ * var img = getImage(ICONS.ENUMERATION);
+ */
+var getImage = function( icon /* string from ICONS */ ) {
+    var base_dir = getImage.iconsFolder;
+    if (typeof icon == "string") {
+        return  ScriptUI.newImage(base_dir + icon + ".png");
+    } else if (icon instanceof Array) {
+        return  ScriptUI.newImage(  
+                                    (icon[0] ? base_dir + icon[0] + ".png" : undefined),
+                                    (icon[1] ? base_dir + icon[1] + ".png" : undefined),
+                                    (icon[2] ? base_dir + icon[2] + ".png" : undefined),
+                                    (icon[3] ? base_dir + icon[3] + ".png" : undefined)  );
+    } else throw Error ("Invalid type of argument - not String or Array[4] of String!");
+};
+
+// Предполагаем, что папка с изображениями находится относительно размещения данного файла
+// по пути /res/icons/*.png
+// При необходимости нужно откорректировать:
+getImage.iconsFolder = File.decode( new File($.fileName).parent.absoluteURI) + "/res/icons/";

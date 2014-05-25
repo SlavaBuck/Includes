@@ -1,0 +1,534 @@
+﻿#include "indexOf.jsx"
+
+var exports = this;
+exports.indexOf = indexOf;
+
+// ---------------------------------------------------------------------------
+// from Extendables patch file arrays.jsx
+// http://stdbrouw.github.com/Extendables/
+// 
+// Многое из оригинального файла переработано, поведение всех функций в 
+// точности соответствует стандартам ECMAScript 5
+// ---------------------------------------------------------------------------
+
+/**
+ * @desc Возвращает индекс элемента, следующего за элементом <code>elem</code>
+ *  в массиве <code>array</code>. Массив просматривается до первого вхождения
+ *  элемента. Вернёт -1, если элемент <code>elem</code> не обнаружиться в масииве.
+ *  
+ * @name indexAfter
+ * @function 
+ *
+ * @param {Array} array
+ * @param {any}   elem
+ * @returns {number}
+ */
+exports.indexAfter = function indexAfter(array, elem) {
+    var index = exports.indexOf(array, elem);
+    return (index == -1 ? index : index + 1);
+}
+
+/**
+ * @desc Вернет позицию последнего вхождения элемента <code>value</code> в массиве <code>array</code>, 
+ *  или -1, если данный элемент не был найден. Если передать 3ий аргумент <code>from</code>, поиск 
+ *  будет вестись с этой позиции.
+ *  
+ * @see https://developer.mozilla.org/en/Core_JavaScript_1.5_Reference/Global_Objects/Array/lastIndexOf
+ *
+ * @name  lastIndexOf
+ * @function
+ * 
+ * @param {Array} array
+ * @param {any}   value
+ * @param {number} [from]
+ *
+ * @returns {number} Возвращает позицию последнего вхождения value в array
+ * 
+ * @example
+ * // вернет 4
+ * lastIndexOf([1, 2, 3, 1, 2, 3], 2);
+ */
+exports.lastIndexOf = function lastIndexOf(array, value /*, from*/) {
+  var len = array.length;
+
+  var from = Number(arguments[2]);
+  if (isNaN(from)) from = len - 1; else {
+    from = (from < 0) ? Math.ceil(from) : Math.floor(from);
+    if (from < 0) from += len;
+    else if (from >= len) from = len - 1;
+  }
+
+  for (; from > -1; from--) 
+  if (from in array && array[from] === value) return from;
+
+  return -1;
+};
+
+/**
+ * @desc Вернет <b>true</b>, если для каждого значения из <code>array</code> func вернет <b>true</b>.
+ *  Поиск ведётся с начала массива или с позиции, указанной в третьем аргументе.
+ *  
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/every
+ *
+ * @name every
+ * @function
+ *
+ * @returns {boolean} Вернёт true, если func для всех значений из array вернёт true
+ * @example
+ * // вернет false
+ * every([true, 1, null, 'yes'], function(el){ return el; } );
+ * // вернет true
+ * every([true, 1, [0], 'yes'], function(el){ return el; } );
+ */
+exports.every = function every(array, func /*, startIndex*/) {
+    var len = array.length >>> 0;
+    if (typeof func != "function") throw new TypeError();
+
+    var startIndex = arguments[2];
+    for (var i = 0; i < len; i++) {
+      if (i in array &&
+          !func.call(startIndex, array[i], i, array))
+        return false;
+    }
+
+    return true;
+};
+
+/**
+ * @desc Вернет <b>true</b>, если хотя бы для одного из значений в <code>array</code> функция
+ *  <code>iterator</code> вернет <b>true</b>. Поиск ведётся с начала массива или с позиции, указанной в третьем аргументе.
+ *  
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/some
+ *
+ * @name some
+ * @function
+ *
+ * @returns {boolean} Вернёт true, если iterator хотя бы для одного из значений из array вернёт true
+ * @example
+ * // вернет true
+ * some([true, 1, null, 'yes'], function(el){ return el; } );
+ */
+exports.some = function some(array, iterator /*, context*/) {
+    var i = 0,
+    len = array.length >>> 0;
+
+    if (typeof iterator != "function") throw new TypeError();
+
+    var context = arguments[2];
+    for (; i < len; i++) {
+        if (i in array &&
+            iterator.call(context, array[i], i, array))
+        return true;
+    }
+
+    return false;
+};
+
+/**
+ * @desc Создаёт новый массив из элементов массива <code>array</code>, для которых 
+ *  функция <code>iterator</code> вернула <b>true</b>
+ * 
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/filter
+ *
+ * @name  filter
+ * @function
+ *
+ * @param {Array}    array
+ * @param {function} iterator Функция итератор, на каждой итерации получает аргументы:
+ *                            value - элемент массива array, index - номер/позиция данного 
+ *                            элемента в массиве, array - сам массив.
+ * @returns {Array}  Новый массив
+ */
+exports.filter = function filter(array, iterator /*, startIndex*/) {
+    var len = array.length >>> 0;
+    if (typeof iterator != "function") throw new TypeError();
+
+    var res = [];
+    var startIndex = arguments[2];
+    for (var i = 0; i < len; i++) {
+        if (i in array) {
+            var val = array[i]; // in case iterator mutates this
+            if (iterator.call(startIndex, val, i, array)) res.push(val);
+        }
+    }
+
+    return res;
+};
+
+/** 
+ * @name select
+ * @function
+ * 
+ * @alias filter
+ */
+exports.select = exports.filter
+
+/**
+ * @desc Функция по смыслу, обратная {@link filter filter(array, iterator)} - формируется 
+ *  массив из элементов, для которых функция iterator вернула значение, отличное от true.
+ *
+ * @name  reject
+ * @function 
+ *
+ * @example
+ * // вернет [1, 3, 5]
+ * reject([1, 2, 3, 4, 5, 6], function(num){ return num % 2 == 0; });
+ */
+exports.reject = function reject(array, iterator) {
+    return exports.select(array, function (value) {
+        return !iterator(value);
+    });
+};
+
+
+/**
+ * @desc Проходит по всему списку элементов массива <code>array</code>, вызывая для каждого из них 
+ *  функцию <code>iterator</code>, которая будет вызвана в контексте <code>context</code>, если он 
+ *  был передан. При каждом вызове в <code>iterator</code> будут переданы 3 аргумента: (element, index, list). 
+ *  В случае, если array является JavaScript объектом, то в iterator будут переданы (value, key, list). 
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/forEach
+ * 
+ * @name forEach
+ * @function 
+ * 
+ * @param {Array}     array 
+ * @param {function}  iterator
+ *
+ * @example
+ * // выведет все элементы массива
+ * each([1, 2, 3], function(num){ $.eriteln(num); });
+ */
+exports.forEach = function forEach(array, fun /*, context*/) {
+    var len = array.length >>> 0;
+    if (typeof fun != "function") throw new TypeError();
+
+    var context = arguments[2];
+    for (var i = 0; i < len; i++) {
+        if (i in array) fun.call(context, array[i], i, array);
+    }
+};
+
+/**
+ * @desc Вернет новый массив, полученный преобразованием каждого элемента из <code>array</code> 
+ *  в функции <code>iterator</code>. Итератор может вызываться в контексте объекта, заданного
+ *  в третьем аргументе.
+ *
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/map
+ *
+ * @name  map
+ * @function
+ * 
+ * @param {Array}     array
+ * @param {function}  iterator
+ * @param {object}    [context]
+ *
+ * @returns {Array} Новый массив
+ */
+exports.map = function map(array, iterator /*, context*/) {
+    var len = array.length >>> 0;
+    if (typeof iterator != "function") throw new TypeError();
+
+    var res = new Array(len);
+    var context = arguments[2];
+    for (var i = 0; i < len; i++) {
+        if (i in array) res[i] = iterator.call(context, array[i], i, array);
+    }
+    return res;
+ };
+
+/* Javascript 1.8 Array extras, courtesy of Mozilla */
+
+/**
+ * @desc Применяет функцию <code>iterator</code> одновременно к паре значений из <code>array</code>, 
+ * для получения одного результата. Функция <code>iterator</code> в качестве аргументов получает 
+ * (initial, value, index, array), где initial - начальное значение шага редукции, которое было возвращено 
+ * предыдущим вызовом iterator. Обход массива осуществляется слева направо.
+ *
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/Reduce
+ *
+ * @name  reduce
+ * @function
+ * 
+ * @param {Array}     array
+ * @param {function}  iterator
+ * @param {any}       [initial]
+ *
+ * @return {any} Объединённое значение элементов из array
+ * 
+ * @example
+ * // вернет 6
+ * reduce([1, 2, 3], function(memo, num){ return memo + num; }, 0);
+ */
+exports.reduce = function reduce(array, iterator /*, initial*/) {
+    var len = array.length >>> 0;
+    if (typeof iterator != "function") throw new TypeError();
+    
+    // no value to return if no initial value and an empty arrayay
+    if (len == 0 && arguments.length == 2) throw new TypeError();
+
+    var i = 0;
+    if (arguments.length >= 3) {
+        var rv = arguments[2];
+    } else {
+        do {
+            if (i in array) {
+                var rv = array[i++];
+                break;
+            }
+            
+            // if arrayay contains no values, no initial value to return
+            if (++i >= len) throw new TypeError();
+        } while (true);
+    }
+
+    for (; i < len; i++) {
+        if (i in array) rv = iterator.call(undefined, rv, array[i], i, array);
+    }
+
+    return rv;
+};
+
+/**
+ * @desc Аналогично {@link reduce reduce()} но с обходом в обратную сторону - справа налево.
+ *
+ * @see https://developer.mozilla.org/en/JavaScript/Reference/Global_Objects/Array/ReduceRight
+ * 
+ * @name  reduceRight
+ * @function
+ * 
+ * @param {Array}     array
+ * @param {function}  iterator
+ * @param {any}       [initial]
+ *
+ * @return {any} Объединённое значение элементов из array
+ * 
+ * @example
+ * var list = [[0, 1], [2, 3], [4, 5]];
+ * // вернет [4, 5, 2, 3, 0, 1]
+ * reduceRight(list, function(a, b) { return a.concat(b); }, []);
+ */
+exports.reduceRight = function reduceRight(array, iterator /*, initial*/) {
+    var len = array.length >>> 0;
+    if (typeof iterator != "function") throw new TypeError();
+
+    // no value to return if no initial value, empty arrayay
+    if (len == 0 && arguments.length == 2) throw new TypeError();
+
+    var i = len - 1;
+    if (arguments.length >= 3) {
+        var rv = arguments[2];
+    } else {
+        do {
+            if (i in array) {
+                var rv = array[i--];
+                break;
+            }
+
+            // if arrayay contains no values, no initial value to return
+            if (--i < 0) throw new TypeError();
+        } while (true);
+    }
+
+    for (; i >= 0; i--) {
+        if (i in array) rv = iterator.call(undefined, rv, array[i], i, array);
+    }
+
+    return rv;
+};
+
+/**
+ * @desc Просматривает массив объектов и формирует новый массив из значений, определённых только для
+ *  свойства с именем <code>name</code>. (Часто используется с map)
+ *
+ * @name pluck
+ * @function
+ *
+ * @returns {Array} Новый массив
+ *
+ * @example
+ * var people = [{'name': 'Alfred', age: 33}, {'name': 'Zed', age: 45}];
+ * $.writeln(people.pluck('age')); // [33,45]
+ * $.writeln(people.pluck('age').sum()); // 78
+ * $.writeln(people.sum('age')); // 78
+ * $.writeln(people.sum(function (person) { return person.age })); // 78
+ *
+ * @example
+ * var stooges = [
+ *     {name : 'moe', age : 40}, 
+ *     {name : 'larry', age : 50}, 
+ *     {name : 'curly', age : 60}
+ * ];
+ * // вернет ["moe", "larry", "curly"]
+ * $.writeln(pluck(stooges, 'name'));
+ */
+exports.pluck = function pluck(array, name) {
+	return exports.map(array, function (item) {
+		return item[name];
+	});
+};
+
+/**
+ * @desc Вернет максимальное значение из <code>array</code>. 
+ *  Если была передан iterator, то он будет использован для генерация критерия, 
+ *  по которому будет проведено сравнение (это может быть функция или имя свойства
+ *  объекта)
+ *
+ * @name  max
+ * @function
+ * 
+ * @param {Function|String} [salient_feature] ``min`` can also order objects
+ *     if you provide a salient feature for it to work on, either a function
+ *     or the name of an object property
+ *
+ * @example
+ * var people = [{'name': 'Alfred'}, {'name': 'Zed'}];
+ * people.max(function (obj) {
+ *    return obj.name;
+ * });
+ * // вернёт {'name': 'Zed'}
+ */
+exports.max = function max(array, salient) {
+	if (typeof salient == 'string') {
+		var mapper = function (obj) { return obj[salient]; }
+	} else {
+		var mapper = salient || function (obj) { return obj; }
+	}
+	
+	function fn (a, b) {
+		return mapper(a) > mapper(b);
+	}
+	var arrayay = array.slice();
+	arrayay.sort(fn);
+	return arrayay.pop();
+};
+
+/**
+ * @returns Вернет минимальное значение из <code>array</code>. Работает также,
+ *  как {@link max max()}.
+ *
+ * @name  min
+ * @function
+ *
+ * @param {Function|String} [salient_feature] Смотри ``max``.
+ */
+exports.min = function min(array, salient) {
+	if (typeof salient == 'string') {
+		var mapper = function (obj) { return obj[salient]; }
+	} else {
+		var mapper = salient || function (obj) { return obj; }
+	}
+	
+	function fn (a, b) {
+		return mapper(a) > mapper(b);
+	}
+	var arrayay = array.slice();
+	arrayay.sort(fn);
+	return arrayay.shift();
+};
+
+/**
+ * @returns Возвращает сумму всех элементов массива. В качестве необязательного параметра
+ *  может принимать функцию, для обработки свойств объектов в массиве (см. {@link sum sum()}).
+ *
+ * @name sum
+ * @function
+ *
+ * @param {Array}   array 
+ * @param {Function|String} [salient] Тоже что и для {@link max max()}
+ *
+ * @example
+ * sum([2, 3, 4]); // => 9
+ * 
+ * @example
+ * var persons = [
+ *        {'name': 'Abraham', 'children': 5},
+ *        {'name': 'Joe', 'children': 3},
+ *        {'name': 'Zed', 'children': 0}
+ *     ];
+ * // Вернёт 8
+ * persons.sum('children');
+ */
+exports.sum = function sum(array, salient) {
+    if (typeof salient == 'string') {
+        var mapper = function (obj) { return obj[salient]; }
+    } else {
+        var mapper = salient || function (obj) { return obj; }
+    }
+
+    var features = exports.map(array, mapper);
+    return exports.reduce(features, function (a, b) { return a + b; });	
+};
+
+/**
+ * @desc Устраняет вложенность массивов и возвращает 'выровненный' массив в
+ *  один уровень.
+ *
+ * @name flatten
+ * @function
+ *
+ * @example
+ * var list = [[1, 2, [3, 4, 5], 6], [7, 8], 9];
+ * // вернёт [1,2,3,4,5,6,7,8,9];
+ * $.writeln(list.flatten());
+ */
+exports.flatten = function flatten(array) {
+    return exports.reduce(array, function(memo, value) {
+        //if (value instanceof Array) return memo.concat(value.flatten());
+        if (value instanceof Array) return memo.concat(flatten.call(value, value));
+        memo.push(value);
+        return memo;
+    }, []);
+};
+
+/**
+ * @desc Вернет копию массива <b>array</b>, в котором удалены все «ложные» значения. 
+ * Такие как: <i>false, null, 0, "", undefined и NaN.</i> 
+ * 
+ * @name  compact
+ * @function
+ * 
+ * @example
+ * // вернет [1, 2, 3]
+ * compact([0, 1, false, 2, '', 3]);
+ */
+exports.compact = function compact(array) {
+    return exports.reject(array, function (value) {
+        return new Boolean(value) == false;
+    });
+};
+
+/**
+ * @desc Возвращает первый элемент массива <code>array</code>
+ * 
+ * @name  first
+ * @function
+ * 
+ */
+exports.first = function first(array) {
+    return array[0];
+};
+
+/**
+ * @desc Возвращает последний элемент массива <code>array</code>
+ * 
+ * @name  last
+ * @function
+ */
+exports.last = function last(array) {
+    return array.slice(-1)[0];
+};
+
+/**
+ * @desc Возвращает <b>true</b>, если элемент <code>elem</code> присутствует
+ *  в массиве <code>array</code>
+ *  
+ * @name contains
+ * @function
+ *
+ * @param {Array} array
+ * @param {any}   elem
+ * @returns {bollean} true, если elem содержиться в array
+ */
+exports.contains = function contains(array, elem) {
+	return exports.indexOf(array, elem) != -1;
+};
