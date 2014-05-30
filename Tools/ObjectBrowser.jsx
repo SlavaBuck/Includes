@@ -28,4 +28,4 @@
 $.evalFile(File($.fileName).parent + "/contrib/ObjectBrowser/CreateObjectBrowser.jsxbin");
 
 var ObjectBrowser = CreateObjectBrowser(); // CreateObjectBrowser("palette"); // - для смены типа главного окна
-ObjectBrowser.show($); 
+// ObjectBrowser.show($); 
