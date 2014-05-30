@@ -178,7 +178,7 @@ MVCApplication.prototype.closeDocument = function(doc) {
     var id = doc.id,
           index = documents.getFirstIndexByKeyValue('id', id);
     if (index != -1 && documents[index].close()) {
-        documents.remove(index);
+        documents.removeByIndex(index);
         if (index < documents.length) {
             this.activeDocument = documents[index];
         } else {
