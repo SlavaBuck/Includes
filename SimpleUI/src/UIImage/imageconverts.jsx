@@ -1,5 +1,5 @@
 ﻿// --------------------------------------------------------------
-// @@@BUILDINFO@@@
+// @@@BUILDINFO@@@ imageconverts.jsx 1.01 Sat May 31 2014 17:05:36 GMT+0300
 // image converts functions
 // --------------------------------------------------------------
 
@@ -44,5 +44,26 @@ function imagetoString(img) {
 function imagefromString(resString) {
     var retimage = eval('try { ScriptUI.newImage("' + resString + '"); } catch(e) { null }');
     if (!retimage) throw Error ("Invalid resource string format.");
+    return retimage;
+};
+
+/**
+ * Аналогично imagefromString - преобразует ресурсную строку изображения в объект ScriptUIImage, но делает это
+ * с использованием механизма временных файлов - решает проблему инициализации изображений в списках (ListBox, 
+ * DropDownList, TreeView).
+ * 
+ * @param  {ScriptUIImage} img 
+ * @return {string}        Очень длинная строка типа "\u0089PNG\r\n\x1A\ . . . `\u0082"
+ */
+function createImage(resString) {
+    var ftmp = new File(Folder.temp +"/_tmp_" + $.hiresTimer + ".png"),  // получаем по возможности случайное имя файла
+        retimage = {}; // сюда получим картинку
+        
+    ftmp.open("w");
+    ftmp.encoding = "BINARY";
+    ftmp.write(resString);
+    ftmp.close();
+    retimage = ScriptUI.newImage(ftmp);
+    ftmp.remove();      // удаляем временный файл с диска.
     return retimage;
 };
