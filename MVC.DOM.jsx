@@ -22,7 +22,7 @@
  *                                               
  * @requires MVC
  * 
- * @version    0.9.2
+ * @version    0.9.3
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -40,7 +40,7 @@ MVC.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, MVC, Collection) {
     MVC[MODULE] = MODULE;
     
     // Модуль:
-    MODULE["version"] = "0.9.2";
+    MODULE["version"] = "0.9.3";
     MODULE["name"] = "MVC.DOM Extension";
     
     // --------------------------------------------------------------
