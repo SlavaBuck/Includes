@@ -40,7 +40,7 @@ function MVCDocument(appRef, prefs) {
         app = doc.app;
      // Переустановка локальных свойств, установленных в базовом конструкторе
     doc.id = (prefs.id)||('docs' + (app._counters_['docs']++));        
-    doc.name = (prefs.name)||(app.DEF_DOCNAME + app._counters_['docs']);
+    doc.name = (prefs.name)||(localize(app.DEF_DOCNAME) + app._counters_['docs']);
     doc.caption = (prefs.caption)||doc.name;
 };
 

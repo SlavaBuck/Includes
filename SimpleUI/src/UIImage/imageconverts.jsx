@@ -10,8 +10,8 @@
  * для получения нового объекта ScriptUIImage.
  * <p><i><b>ПРИМЕЧАНИЕ:</b> Успешное преобразование возможно только для изображений,
  * загруженных из графических файлов. Для изображений, полученных путём указания ESTK 
- * константы (#class, #enumeration, и т.д.) возвращается имя этой константы (или пустая
- * строка, если константа представляет изображение с мультисостоянием - ICON.RUN и т.п.).
+ * константы (#class, #enumeration, и т.д.) возвращается имя этой константы (для констант,
+ * представляющих изображение с мультисостоянием ICON.RUN и т.п. - возвращается пустая строка).
  * </i></p>
  * 
  * @param  {ScriptUIImage} img 
@@ -38,8 +38,8 @@ function imagetoString(img) {
  * Преобразует ресурсную строку изображения, полученную с помощью {@link imagetoString imagetoString()},
  * в объект ScriptUIImage. 
  * 
- * @param  {ScriptUIImage} img 
- * @return {string}        Очень длинная строка типа "\u0089PNG\r\n\x1A\ . . . `\u0082"
+ * @param  {string}         Очень длинная строка типа "\u0089PNG\r\n\x1A\ . . . `\u0082"
+ * @return {ScriptUIImage}        
  */
 function imagefromString(resString) {
     var retimage = eval('try { ScriptUI.newImage("' + resString + '"); } catch(e) { null }');
@@ -52,8 +52,8 @@ function imagefromString(resString) {
  * с использованием механизма временных файлов - решает проблему инициализации изображений в списках (ListBox, 
  * DropDownList, TreeView).
  * 
- * @param  {ScriptUIImage} img 
- * @return {string}        Очень длинная строка типа "\u0089PNG\r\n\x1A\ . . . `\u0082"
+ * @param  {string}         Очень длинная строка типа "\u0089PNG\r\n\x1A\ . . . `\u0082"
+ * @return {ScriptUIImage}   
  */
 function createImage(resString) {
     var ftmp = new File(Folder.temp +"/_tmp_" + $.hiresTimer + ".png"),  // получаем по возможности случайное имя файла
