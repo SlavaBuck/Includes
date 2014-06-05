@@ -1,5 +1,5 @@
 ﻿/**
- * @@@BUILDINFO@@@ ESTKLib.jsx 0.1.1 2014 13:34:54 GMT+0200
+ * @@@BUILDINFO@@@ ESTKLib.jsx 0.2.1 2014 13:34:54 GMT+0200
  * 
  * @module      SUI.ESTKLib
  * @summary     Графические ресурсы ExtendScript Toolkit.
@@ -9,7 +9,7 @@
  * 
  * @requires   SUI.UIImage
  * 
- * @version    0.0.1
+ * @version    0.2.1
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -22,12 +22,17 @@
 /** @alias SUI.ESTKLib */
 var MODULE = "ESTKLib";
 
-$.global.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE) {
+// Поддержка частичного расширения супермодуля и включения
+// субмодуля без наличия супермодуля:
+/** @ignore */
+var SUI = (typeof SUI == 'undefined' ? {} : SUI);
+
+SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     // Регистрация модуля
-    GLOBAL[MODULE] = MODULE;
+    SUI[MODULE] = MODULE;
         
     // Модуль:
-    MODULE["version"] = "0.1.1";
+    MODULE["version"] = "0.2.1";
     MODULE["name"] = "ESTK Resources libruary";
 
     // --------------------------------------------------------------
@@ -44,16 +49,19 @@ $.global.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE) {
     };
 
     // Расширяем модуль фасадом:
-    for (var prop in FACADE) if (FACADE.hasOwnProperty(prop)) {
-        MODULE[prop] = FACADE[prop];
+    for (var prop in FACADE) if (FACADE.hasOwnProperty(prop) && prop != 'ICONS') {
+        GLOBAL[prop] = MODULE[prop] = FACADE[prop];
     };
 
+    // Безопасное расширение global ICONS (локальны ICONS расширяет, но не перезаписывает
+    // глобальный ICONS)
     if (GLOBAL.hasOwnProperty("ICONS")) {
         for (var prop in GLOBAL.ICONS) if (GLOBAL.ICONS.hasOwnProperty(prop))
             GLOBAL["ICONS"][prop] = ICONS[prop];
     } else {
         GLOBAL["ICONS"] = ICONS;
     }
+
     // --------------------------------------------------------------
     // Экспорт в глобал всего фасада (если нужно)
     // --------------------------------------------------------------
@@ -66,4 +74,4 @@ $.global.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE) {
     // --------------------------------------------------------------
     return MODULE;
     // --------------------------------------------------------------
-})( $.global, { toString:function(){return MODULE;} } /*, импорт внешних модулей */ );
+})( $.global, { toString:function(){return MODULE;} }, SUI );
