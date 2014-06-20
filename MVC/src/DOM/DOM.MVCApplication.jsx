@@ -47,6 +47,8 @@ MVCApplication.prototype.registerDocumentFactory = function (docsView) {
     this.documentsView = (typeof docsView != 'undefined' ? docsView : (this.getViewByID('Documents')||this.mainView)); 
     // расширение внутреннего счётчика id-шников для поддержки объектов-документов
     this._counters_['docs'] = 0;
+    
+    this.DEF_DOCNAME = localize(locales.DEF_DOCNAME);
     return this;
 };
 
@@ -287,11 +289,11 @@ MVCApplication.prototype.getDocumentByID = function(id) {
 // --------------------------------------------------------------
 // required DOM/locales.jsxinc:
 
-/**
+/*
  * @extends     MVCApplication#
  * @property {string} MVCApplication#DEF_DOCNAME  Имя по умолчанию для нового Документа.
  */
-MVCApplication.prototype.DEF_DOCNAME = localize(locales.DEF_DOCNAME);
+//MVCApplication.prototype.DEF_DOCNAME = localize(locales.DEF_DOCNAME);
 
 /**
  * @extends     MVCApplication#
