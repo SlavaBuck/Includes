@@ -8,14 +8,14 @@
  * @typedef cparams
  * @type {object}
  * @property {MVCApplication}   app             указатель на "родительское" приложение;
- * @property {string}           [id = "ctrls"]  id (идентификатор) объекта, может генерироваться автоматически; 
+ * @property {string}           [id]            id (идентификатор) объекта, может генерироваться автоматически; 
  * @property {string}           [binding]       строка биндинга в формате 'ModelID.prop1[.prop2...]:ViewID.prop1[.prop2...]', 
  *                                              определяющая связываемые Модель и Представление;
  * @property {boolean}          [bind = true]   флаг, если false - Представление не будет проинициализировано данными Модели,
  *                                              по умолчанию true - в процессе связывания свойство Представления сразу 
  *                                              инициализируется значением свойства Модели.
  */
-var cparams = { app:undefined, id:"", binding:"", bind:true };
+var cparams = { app:undefined, id:"", binding:"", bind:true }; // нужно только для jsdoc!!!
 
 
 /**
@@ -84,7 +84,6 @@ function MVCController (appRef, id, param) {
         throw Error ('MVCController: invalid arguments list');
     }
     if (!(this.app instanceof MVCApplication)) throw Error ('MVCController: Missing application reference');
-    if (!this.id) this.id = 'ctrls';
     this.bind = (typeof this.bind == 'boolean' ? this.bind : true); 
     // Парсинг строки биндинга, инициализация
     this._initBinding();
@@ -97,16 +96,8 @@ inherit(MVCController, MVCObject);
  var _parseBind = function(obj, str) {
     var keys = str.split('.').slice(1);
     if (keys.length == 0) throw Error(localize(locales.ERR_BEDBIND, str));
-    switch (keys.length) {
-        case 1: return { object:obj, key:keys[0].toString() };
-        case 2: return { object:obj[keys[0]], key:keys[1].toString() };
-        case 3: return { object:obj[keys[0]][keys[1]], key:keys[2].toString() };
-        case 4: return { object:obj[keys[0]][keys[1]][keys[2]], key:keys[3].toString() };
-        case 5: return { object:obj[keys[0]][keys[1]][keys[2]][keys[3]], key:keys[4].toString() };
-        default:
-            for (var i=0, o = obj; i<keys.length-1; i++) o = o[keys[i]];
-            return { object:o, key:(keys[keys.length-1]).toString() };
-    }
+    for (var i=0, o = obj; i<keys.length-1; i++) o = o[keys[i]];
+    return { object:o, key:(keys[keys.length-1]).toString() };
 }
 
 /**
@@ -227,7 +218,6 @@ MVCController.prototype._updateView = function(newVal, oldVal, key) { // Пер�
                         for (var i=0, items = control.items, max = items.length; i<max; i++) { 
                             if (items[i][key] === newVal) control.selection = items[i]; break; 
                         }
-                        //log(key, newVal, items[i][key]);
                 }
             } else {
                 if (obj.view_obj) obj.view_obj[obj.view_key] = newVal;

@@ -17,7 +17,7 @@
  *  существующий элемент управления «обернуть» в объект-Представление. После этого, как и в случае с Моделями, перед связыванием
  *  этого представления с моделью, его необходимо явно добавить в коллекцию представлений Приложения (<code>MVCApplication.views</code>) 
  *          
- * @param {string} [id = "view"]    идентификатор модели (при добавлении объекта в коллекцию - значение свойства id должено 
+ * @param {string}                  идентификатор модели (при добавлении объекта в коллекцию - значение свойства id должено 
  *                                  быть уникальным в рамках этой коллекции);
  * @param {UIControl} [control = null] графический элемент управления - (кнопка, список, диалог и т.п.);
  * @param {string} [rcString = ""]  ресурсная ScriptUI-строка, представляющая элемент управления - присваивается свойству 
@@ -50,7 +50,6 @@
 function MVCView(id, control, rcString) {
     if (!(this instanceof MVCView)) return new MVCView(id, control, rcString);
     MVCModel.prototype.__super__.constructor.call(this, id);
-    this.id = (this.id)||'view';
     this.control = (this.control)||(control)||null;
     this.view = (this.view)||(rcString)||(this.control ? this.control.toSource() : "");
 };
@@ -161,9 +160,11 @@ MVCView.prototype.rebind = function(model, view_key, model_key) {
  * @example myView.unbind();
  */
 MVCView.prototype.unbind = function() {
+    if (!this.control) return;
     var control = this.control;
     delete control.onChange; delete control.onChanging; 
-    if (control.hasOwnProperty("selection") && control.type != 'tabbedpanel') control.selection = null; else if (control.hasOwnProperty("text")) control.text = "";
+    if (control.hasOwnProperty("selection") && control.type != 'tabbedpanel') control.selection = null; 
+        else if (control.hasOwnProperty("text")) control.text = "";
 };
 
 /**
@@ -181,15 +182,17 @@ MVCView.prototype.unbind = function() {
  * @returns {boolean} в результате успешного удаления возвращает true, в противном случае false.
  */
 MVCView.prototype.remove = function() {
-    var control = this.control;
-    if (!control) return false;
+    if (!this.control) return false;
+    var control = this.control,
+        parent = control.parent;
+    // отвязываемся от модели и перед удалением самого элемента вызываем обработчик onRemove():
     this.unbind();
     this.onRemove();
-    try { if (control.parent) {
-                var parent = control.parent;
-                parent.remove(control); 
-                parent.layout.layout(true);
-            } else control.close(); 
+    try { 
+        if (!parent) control.close(); else {
+            parent.remove(control); 
+            parent.layout.layout(true);
+        }
     } catch(e) { return false; }
     return true;
 };

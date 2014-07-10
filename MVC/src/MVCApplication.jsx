@@ -55,23 +55,30 @@
  *  });
  */
 function MVCApplication(prefs) {
-    MVC.app = this;  
-    var prefs = (prefs !== undefined ? merge(prefs) : {});
-    MVCApplication.prototype.__super__.constructor.call(this, prefs);
-    this.name = (this.name)||localize(locales.DEF_APPNAME);
-    this.version = (this.version)||"1.00";
-    this.caption = (this.caption)||(this.name+" v" + this.version + " (MVC v"+MVC.version+")");
-    this.view = (this.view)||"dialog";
-    this._counters_ = { models:0, views:0, ctrls:0 }; // Hash для id добавляемых MVC-объектов (учавствует в формировании id-шников по умолчанию для соответствующих объектов)
+    MVC.app = this;     // глобальный (в рамках модуля MVC) указатель на текущее приложение
+    // Настройки по умолчанию
+    var defaults = {
+        name:localize(locales.DEF_APPNAME),
+        version:"1.00",
+        caption:localize(locales.DEF_APPNAME) + " v1.00",
+        view:"dialog",
+        exitcode:undefined,                       // Код завершения приложения (устанавливается в методе run())
+        _counters_:{ models:0, views:0, ctrls:0 } // Внутренний счётчик MVC-объектов (учавствует в формировании id-шников для соответствующих MVC-объектов)
+    };
+    // Вызов базового конструктора
+    MVCApplication.prototype.__super__.constructor.call(this, extend(defaults, prefs));
+    
+    // Создание коллекций
     this.models = new Collection();         // Коллекция моделй
     this.views = new Collection();          // Коллекция представлений
     this.controllers = new Collection();    // Коллекция контролёров
-    this.exitcode = undefined;              // Код завершения приложения (устанавливается в методе run())
+    
     // Конструирование главного окна:
     this.CreateMainView(this.view); // Инициализирует this.window и this.mainView
 };
 
 inherit(MVCApplication, MVCObject);
+
 
 /**
  * @method  MVCApplication#run
@@ -85,6 +92,19 @@ MVCApplication.prototype.run = function() {
     this.Init();
     var code = this.window.show();
     if (this.exitcode === undefined) this.exitcode = code;
+    return this.exitcode;
+};
+
+/**
+ * @method  MVCApplication#stop
+ * @summary Остановка приложения путём закрытия главного окна.
+ * @desc    Старт выполняется в два этапа: - вначале выполняется собственный метод Init(); затем выполняет отображение главного 
+ *  окна Приложения, путём вызова <code>MVCApplication.window.show()</code>.
+ *  
+ * @returns {number} Возвращает код завершение <code>MVCApplication.exitcode</code>.
+ */
+MVCApplication.prototype.stop = function() {
+    if (this.window && this.window.visible) this.window.close();
     return this.exitcode;
 };
 
@@ -157,7 +177,7 @@ MVCApplication.prototype.Init = function() {
  */
 MVCApplication.prototype.CreateMainView = function(rcString) {
     var app = this,
-           rcStr = (rcString)||"dialog";
+        rcStr = (rcString)||"dialog";
      // главное представление всегда имеет id == 'window'
     app.mainView = new MVCView('window', new Window(rcStr), rcStr);
     var w = app.window = app.mainView.control;
@@ -166,7 +186,7 @@ MVCApplication.prototype.CreateMainView = function(rcString) {
     if (w.properties && w.properties.resizeable) { w.onResizing = w.onResize = function() { w.layout.resize() } }; 
     // обеспечиваем работу обработчика приложения onExit():
     w.addEventListener('close', function(e) {  return app.onExit(e); });
-    // главное Представление всегда 1-е в коллекции: 
+    // главное Представление всегда 1-е в коллекции:
     return app.views[0] = app.mainView;
 };
 
@@ -203,18 +223,21 @@ MVCApplication.prototype.CreateMainView = function(rcString) {
  *  $.writeln(myData.value.txt == "Мои данные"); // true
  */
 MVCApplication.prototype.addModel = function(obj) {
-    obj.id = (obj.id)||('model' + (this._counters_['models']++));
-    var models = this.models;
-    if (models.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "models" ));  
-    var obj = extend(new MVCModel(), obj);
-    models.add(obj);
-    return models[models.length-1];
+    var obj = (obj)||{},
+        models = this.models;
+    if (!obj.id) obj.id = 'model' + (this._counters_['models']++);
+    // Проверка на уникальность в коллекции:
+    if (models.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "models" ));
+    // Создание нового объекта модели:
+    var obj = new MVCModel(obj);
+    models.push(obj);
+    return obj;
 };
 
 /**
  * @method  MVCApplication#removeModel
  * @summary Удаление <b>Модели</b>.
- * @desc    Удалении модели из коллекции моделей приложения приводит, в том числе, и к удалению всех контролёров, связанных с данной моделью.
+ * @desc    При удалении модели из коллекции моделей приложения также удаляются все связанные с ней контролёры.
  * 
  * @param  {string|MVCModel} model id модели или сам объект MVCModel
  * @returns {number} Возвращает кол-во моделей в коллекции после удаления. Если удаление не состоялось - возвращает -1
@@ -222,15 +245,21 @@ MVCApplication.prototype.addModel = function(obj) {
  * myApp.removeModel("myModel");
  */
 MVCApplication.prototype.removeModel = function(obj) { //  В качестве obj принимает либо id-модели, либо сам объект-модель
-    if (!obj) return -1;
     var app = this,
-           model = (typeof obj == 'string') ? app.models.getFirstByKeyValue('id', obj) : app.models.getFirstByValue(obj);
-    if (model) { 
-        for (var i=0, ctrls=model._controllers, max=ctrls.length; i<max; i++) { app.removeController(ctrls[i]); }
-        app.models.removeByValue(model);
+        model = (typeof obj == 'string') ? app.models.getFirstByKeyValue('id', obj) : app.models.getFirstByValue(obj);
+    if (model) {
+        // Оптимизированная версия:
+        // - контролёры из модели удаляются одним скопом
+        // - удаление на месте - вызовы Collection.removeByValue() заменены на Collection.splice();
+        each(model._controllers, function(ctrl) {
+            ctrl.disable();
+            app.controllers.splice(app.controllers.indexOf(ctrl), 1);
+        });
+        model._controllers.length = 0;
+        app.models.splice(app.models.indexOf(model), 1);
         return app.models.length;
     }
-    return -1; //throw Error ('Model not found');
+    return -1;
 };
 
 /**
@@ -277,41 +306,41 @@ MVCApplication.prototype.removeModel = function(obj) { //  В качестве o
  * });
  */
 MVCApplication.prototype.addView = function(obj) {
-    obj.id = (obj.id)||('view' + (this._counters_['views']++));
-    obj = extend(new MVCView(), obj);
     var views = this.views;
-    var w = (obj.parent)||this.window;
+    if (!obj.id) obj.id = 'view' + (this._counters_['views']++);
+    // Проверка на уникальность в коллекции:
     if (views.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "views" )); 
-    // Всё что определено в свойстве модели obj.control будет связано непосредственно с созданным ScriptUI элементом (функции будут привязаны к его контексту)
-    obj.control = extend( w.add(obj.view), (obj.control)||{});
+    // Создание нового объекта представления:
+    var parent = (obj.parent)||this.window,
+        view = new MVCView(obj);
+    view.control = extend(parent.add(obj.view), obj.control);
     // Пост-инициализация - вызов Init в контексте созданного ScriptUI элемента (по умолчанию данный метод ничего не делает)
-    obj.Init.call(obj.control);
-    views.add(obj);
-    return views[views.length-1];
+    view.Init.call(obj.control);
+    views.push(view);
+    return view;
 };
 
 /**
-* @method   MVCApplication#removeView
-* @summary  Удаление <b>Представления</b>. 
-* @desc     При удалении никакие связанные объекты моделей и контролёров не затрагиваются.
-*
-* @fires MVCView#event:onRemove
-* 
-* @param  {string|MVCView}  obj      id представления или само представление - объект MVCView
-* @returns {number}     Возвращает кол-во объектов в коллекции после удаления. Если удаление не состоялось - возвращает -1
+ * @method   MVCApplication#removeView
+ * @summary  Удаление <b>Представления</b>. 
+ * @desc     При удалении никакие связанные объекты моделей и контролёров не затрагиваются.
+ *
+ * @fires MVCView#event:onRemove
+ * 
+ * @param  {string|MVCView}  obj      id представления или само представление - объект MVCView
+ * @returns {number}     Возвращает кол-во объектов в коллекции после удаления. Если удаление не состоялось - возвращает -1
  * @example <caption>Yдаление представления, созданной в предыдущих примерах:</caption>
  * myApp.removeView("myView");
  */
-MVCApplication.prototype.removeView = function(obj) { //  В качестве obj принимает либо id-представления, либо сам объект-представление
-    if (!obj) return -1;
-    var app = this;
-    var view = (typeof obj == 'string') ? app.views.getFirstByKeyValue('id', obj) : app.views.getFirstByValue(obj);
-    if (view) { 
+MVCApplication.prototype.removeView = function(obj) {
+    var app = this,
+        view = (typeof obj == 'string') ? app.views.getFirstByKeyValue('id', obj) : app.views.getFirstByValue(obj);
+    if (view) {
         view.remove(); // для ScriptUI требуется специальная обработка (см MVCView.prototype.remove(...) )
         app.views.removeByValue(view);
         return app.views.length;
     }
-    return -1; // throw Error ('View not found');
+    return -1;
 };
 
 /**
@@ -339,17 +368,14 @@ MVCApplication.prototype.removeView = function(obj) { //  В качестве ob
  * // Значение myModel.value.text не будет сразу присвоено myView.text:
  * myApp.addController({ binding:"myModel.value.text:myView.text", bind:false });
  */
-MVCApplication.prototype.addController = function(param) {
+MVCApplication.prototype.addController = function(obj) {
     var controllers = this.controllers,
-        obj = merge(param);
-    obj.id = (obj.id)||('ctrls' + (this._counters_['ctrls']++));
+        obj = extend({ app:this, id:'ctrls'+(this._counters_['ctrls']++) }, obj);
     // Проверка на уникальность id:
     if (controllers.getFirstIndexByKeyValue('id', obj.id) != -1) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "controllers" )); 
-    // Добровольно принудительно переустанавливаем ссылку Контролёра на данное Приложение:
-    obj.app = this;
     // Сразу пополняем коллекцию контролёров приложения
-    controllers.add(new MVCController(obj));
-    // Возвращаемый добавленный контролер:
+    controllers.push(new MVCController(obj));
+    // Возвращаем добавленный контролер:
     return controllers[controllers.length-1];
 };
 
@@ -363,15 +389,15 @@ MVCApplication.prototype.addController = function(param) {
 * @returns {number} Возвращает кол-во объектов в коллекции после удаления. Если удаление не состоялось - возвращает -1
 */
 MVCApplication.prototype.removeController = function(obj) { // в качестве obj принимает либо id-контролёра, либо сам объект-контролёр
-    if (!obj) return -1;
-    var app = this;
-    var ctrl = (typeof obj == 'string') ? app.controllers.getFirstByKeyValue('id', obj) : app.controllers.getFirstByValue(obj);
-    if (ctrl) {
+    var app = this,
+        ctrl = (typeof obj == 'string') ? app.controllers.getFirstByKeyValue('id', obj) : app.controllers.getFirstByValue(obj);
+    if (ctrl && ctrl.model) {
         // убиваем "слушателя" - выполняем unwatch
-        ctrl.disable(); 
+        ctrl.disable();
         // удаляемся из персональной коллекции контролёров модели:
-        if (ctrl.model && ctrl.model._controllers) ctrl.model._controllers.removeByValue(ctrl);
-        app.controllers.removeByValue(ctrl); 
+        ctrl.model._controllers.splice(ctrl.model._controllers.indexOf(ctrl), 1);
+        // удаляемся из коллекции контролёров приложения:
+        app.controllers.splice(app.controllers.indexOf(ctrl), 1);
         return app.controllers.length;
     }
     return -1; 
@@ -385,11 +411,17 @@ MVCApplication.prototype.removeController = function(obj) { // в качеств
  *     данный объект в коллекциях:
  *     <p>в начале происходит поиск в коллекции <code>controllers</code>, затем в <code>models</code> и затем в <code>views</code>.
  *     Далее происходит процедура удаления по следующему принципу: </p><div>
- *     - При удалении Контролёра - удаляются связанные с ним объекты Модель и Представление.
- *     - При удалении Модели - удаляются связанные с ней объекты-Представления и Контролёры.
- *     - При удалении Представления - удаляется только указанный объект-Представление. </div>
+ *     - При удалении Модели - удаляются связанные с ней объекты-Контролёры и Представления!
+ *     - При удалении Контролёра - удаляются связанное с ним Представление но НЕ модель!
+ *     - При удалении Представления - удаляется только указанный объект-Представление! </div>
+ *     <p> Если в качестве аргумента передать строку, она будет трактоваться как id-объекта и произойдёт попытка обнаружить соответствующий
+ *     MVC-объект. Поиск и удаление в таком случае происходит в следующем порядке:</p><div>
+ *     - Ищется MVC-модель в коллекции <code>models</code>;
+ *     - если модель не обнаруживается, происходит попытка обнаружить контролёр с укзанным id;
+ *     - если контролёр не обнаруживается, происходит попытка обнаружить представление с укзанным id;
+ *     - Как только на каком либо этапе обнаруживается соответствующий объект - происходит его удаление по описанному выше принципу.</div>
  *     <p>Метод удобно применять для совместного удаления связки <b>Модель</b> + <b>Представление</b> + <b>Контролёр</b>, передавая 
- *     в качестве аргумента указатель на объект-<b>контролёр</b>.</p>
+ *     в качестве аргумента указатель (или id) на объект-модель.</p>
  *
  * @fires MVCView#event:onRemove
  * 
@@ -399,19 +431,14 @@ MVCApplication.prototype.removeController = function(obj) { // в качеств
  * @example <caption>Удаление MVC-объектов, созданных в предыдущих примерах:</caption>
  * // удаление только представления:
  * myApp.removeMVC(myApp.getViewByID("myView"));
- * // удаление модели также приводит и к удалению
- * // контролёра, все вызовы равнозначны: 
- * myApp.removeMVC("myModel"); // будет произведён
- *                             // поиск и удаление
- *                             // объекта со значением
- *                             // id == 'myModel'
+ * // удаление (предположительно) модели (также приводит и к 
+ * // удалению связанных с ней контролёров и представлений):
+ * myApp.removeMVC("myModel");
  * // прямое удаление модели:
  * myApp.removeMVC(myApp.getModelByID("myModel"));
- * // удаление с указанием контролёра - удалит
- * // все три MVC-объекта:
+ * // удаление с указанием контролёра (также приводит и к 
+ * // удалению связанного с ним представления, модель не удаляется!):
  * myApp.removeMVC(myApp.findController(myModel));
- * // или:
- * myApp.removeMVC(myApp.findController(myView));
  */
 MVCApplication.prototype.removeMVC = function(obj) {
     var app = this, model = obj;
@@ -428,10 +455,8 @@ MVCApplication.prototype.removeMVC = function(obj) {
     } 
     switch (classof(model)) {
         case 'MVCModel':
-            for (var i=0, ctrls=model._controllers, max=ctrls.length; i<max; i++) { 
-                if (ctrls[i]) { app.removeView(ctrls[i].view); app.removeController(ctrls[i]); } 
-            }
-            app.models.removeByValue(model);
+            each(model._controllers, function(ctrl) { app.removeView(ctrl.view); });
+            app.removeModel(model);
             break;
         case 'MVCController':
             app.removeView(model.view);

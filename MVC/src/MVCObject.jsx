@@ -1,4 +1,4 @@
-// --------------------------------------------------------------
+﻿// --------------------------------------------------------------
 // @@@BUILDINFO@@@
 // MVCObject - Родительский класс всех MVC-объектов
 // --------------------------------------------------------------
@@ -21,9 +21,6 @@
  * var obj = new MVCObject ({ id:"obj", text:"obj1"}); // obj -> { id:"obj", text:"obj1" }
  */
 function MVCObject(id) {
-    this.id = "";
-    if (id) {
-		if (typeof id == 'object') extend (this, id); 
-		else if (typeof id == 'string') this.id = id; 	
-    }
+    this.id = (typeof id == 'string' ? id : "");
+	if (typeof id == 'object') extend(this, id); 
 };

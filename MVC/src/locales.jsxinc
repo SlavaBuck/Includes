@@ -1,7 +1,7 @@
 ﻿// Локализованные строки для MVC
 var locales = {
 		// Имя приложения (по умолчанию)
-		DEF_APPNAME:{ en:"Document", ru:"Документ" },
+		DEF_APPNAME:{ en:"MVCApplication", ru:"Приложение MVC" },
 		// Сообщения об ошибках
 		ERR_BOBJKEY:{ ru:"Неверный ключ '%1'. В коллекции %2 уже присутствует объект с таким ключём.",
 					  en:"Bad key '%1'. The key is already present in %2 collection."},

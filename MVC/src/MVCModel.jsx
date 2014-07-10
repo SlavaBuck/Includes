@@ -1,4 +1,4 @@
-// --------------------------------------------------------------
+﻿// --------------------------------------------------------------
 // @@@BUILDINFO@@@
 // MVCModel - Модель
 // --------------------------------------------------------------
@@ -13,8 +13,8 @@
  *  <p><i><b>ПРИМЕЧАНИЕ:</b> на практике, для создания моделей, практически всегда предпочтительнее пользоваться методом
  *  {@linkcode MVCApplication#addModel MVCApplication.addModel(...)} чем использовать непосредственно "родной" конструктор.</i></p>
  *          
- * @param {string} [id = "model"]  идентификатор модели (при добавлении объекта в коллекцию - значение свойства id должено 
- *                                 быть уникальным в рамках этой коллекции);
+ * @param {string}          идентификатор модели (при добавлении объекта в коллекцию - значение свойства id должено 
+ *                          быть уникальным в рамках этой коллекции);
  *                                 
  * @property {string}   	id          id (идентификатор) объекта;
  * @property {boolean}     _status_     статус модели, хранит результат последней валидации объекта, устанавливается по
@@ -43,9 +43,8 @@
 function MVCModel(id) {
     if (!(this instanceof MVCModel)) return new MVCModel(id);
     MVCModel.prototype.__super__.constructor.call(this, id);
-    this.id = (this.id)||'model';
     this._status_ = true;
-    this._controllers = new Collection(); 
+    this._controllers = new Collection();
 };
 
 inherit(MVCModel, MVCObject);
