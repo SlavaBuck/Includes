@@ -30,18 +30,16 @@ function MVCDocument(appRef, prefs) {
     if (!(this instanceof MVCDocument)) return new MVCDocument(appRef, prefs);
     // Сохраняем текущее значение глобальной ссылки MVC.app, так как она перепишиться в конструкторе родительского класса 
     // MVCApplication при вызове MVCDocument.prototype.__super__.constructor.call(this, prefs);
-    var mvcapp = MVC.app;
+    var mvcapp = MVC.app,
+        docCounts = (app._counters_['docs']++),
+        docDefName = localize(app.DEF_DOCNAME) + docCounts;
     // Вызов базового конструктора MVCApplication
-    this.app = appRef;    
-    MVCDocument.prototype.__super__.constructor.call(this, prefs);
+    MVCDocument.prototype.__super__.constructor.call(this, extend({ id      : 'docs' + docCounts,
+                                                                    app     : appRef,
+                                                                    name    : docDefName,
+                                                                    caption : docDefName }, prefs));
     // Востанавливаем MVC.app, который был переустановлен в кострукторе MVCApplication();
     MVC.app = mvcapp;
-    var doc = this,
-        app = doc.app;
-     // Переустановка локальных свойств, установленных в базовом конструкторе
-    doc.id = (prefs.id)||('docs' + (app._counters_['docs']++));        
-    doc.name = (prefs.name)||(localize(app.DEF_DOCNAME) + app._counters_['docs']);
-    doc.caption = (prefs.caption)||doc.name;
 };
 
 inherit(MVCDocument, MVCApplication);
@@ -58,8 +56,7 @@ inherit(MVCDocument, MVCApplication);
  */
 MVCDocument.prototype.CreateMainView = function(resStr) {
     var mainView = {}, 
-           app = this.app;
-    if (!app.hasOwnProperty("documentsView")) throw Error("The DocumentFactory not registered");
+        app = this.app;
     if (app.documentsView) {
         var control = app.documentsView.control;
         if (resStr.match(/dialog|palette|window/i)) throw Error ("Cannot add "+resStr+" to Application.documentsView ("+contol.type+")");

@@ -32,7 +32,7 @@
 MVCApplication.prototype.registerDocumentFactory = function (docsView) {
     /**
      * коллекция Документов в рамках приложения
-     * @type {Collection}
+     *  @type {Collection}
      */
     this.documents = new Collection();
     /**
@@ -141,7 +141,7 @@ MVCApplication.prototype.CreateDocument = function() {
      var file = File.openDialog(localize({ ru:"Открытие документа", en:"Open Document" }), this.filters, false);
      if (!file) return null;
      var active = this.activeDocument,
-           doc = this.addDocument();
+         doc = this.addDocument();
      if (doc) {
         doc.file = file;
         doc.name = File.decode(file.name);
@@ -173,25 +173,22 @@ MVCApplication.prototype.CreateDocument = function() {
  * @returns {MVCDocument}       Возвращает текущее значение <b>activeDocument</b> с учётом выполнения закрытия документа.
  */
 MVCApplication.prototype.closeDocument = function(doc) {
-    var documents = this.documents,
-          doc = (doc)||this.activeDocument;
+    var app = this,
+        documents = this.documents,
+        doc = (doc)||this.activeDocument;
     if (doc instanceof String) doc = app.documents.getFirstIndexByKeyValue('id', doc);
     if (!doc) return;
     var id = doc.id,
-          index = documents.getFirstIndexByKeyValue('id', id);
+        index = documents.getFirstIndexByKeyValue('id', id);
     if (index != -1 && documents[index].close()) {
         documents.removeByIndex(index);
         if (index < documents.length) {
-            this.activeDocument = documents[index];
+            app.activeDocument = documents[index];
         } else {
-            if (index > 0) { 
-                this.activeDocument = documents[index-1];
-            } else {
-                // Документов нет - app.tbPanel.selection = null;
-                this.activeDocument = null;
-            }
+            app.activeDocument = (index > 0 ? documents[index-1] : null);
         }
-        this.removeMVC(this.getControllerByID(id));
+        while(doc.models.length) { doc.removeModel(doc.models[0]) }; 
+        app.removeMVC(app.getModelByID(id));
     }
     return this.activeDocument;
 };
@@ -212,8 +209,8 @@ MVCApplication.prototype.closeDocument = function(doc) {
  * @returns {boolean} результат, полученный в результате вызова MVCDocument.save() - false в случае ошибки сохранения. 
  */
 MVCApplication.prototype.saveDocument = function(doc) {
-    var app = this;
-           doc = (doc)||app.activeDocument;
+    var app = this,
+        doc = (doc)||app.activeDocument;
     if (doc instanceof String) doc = app.documents.getFirstIndexByKeyValue('id', doc);
     return (doc ? doc.save() : false);
 };
@@ -235,8 +232,8 @@ MVCApplication.prototype.saveDocument = function(doc) {
  *                   ошибки сохранения. 
  */
 MVCApplication.prototype.saveAsDocument = function(doc) {
-    var app = this;
-           doc = (doc)||app.activeDocument;
+    var app = this,
+        doc = (doc)||app.activeDocument;
     if (doc instanceof String) doc = app.documents.getFirstIndexByKeyValue('id', doc);
     return (doc ? doc.saveAs() : false);
 };
