@@ -1,0 +1,86 @@
+QTestManager v1.00 (QTest console module v0.1.1)
+Протокол тестирования от: 11.06.2014 17:00:30
+------
+START: (MVC Libruary v1.0.1): Расширенное тестирование MVCApplication:
+1.  PASSED: MVCApplication.addModel()
+2.  PASSED: MVCApplication.getModelByID()
+3.  PASSED: MVCApplication.addView()
+4.  PASSED: MVCApplication.getViewByID()
+5.  PASSED: MVCApplication.addController()
+6.  PASSED: MVCApplication.addController() register in Application and Model
+7.  PASSED: MVCApplication.getControllerByID()
+8.  PASSED: MVCApplication.findController()
+9.  PASSED: MVCApplication: Связывание MVC-объектов
+10. PASSED: MVCApplication: Оброботка readonly поля
+11. PASSED: MVCApplication.removeController(): Удаление контролёра
+12. PASSED: MVCApplication: Оброботка readonly поля
+13. PASSED: MVCApplication.removeView(): Удаление представления
+14. PASSED: MVCApplication.removeMVC(): Удаление модели и связанных представления
+15. PASSED: MVCApplication.removeMVC(): Очистка связанных контролёров
+16. PASSED: MVCApplication: Завершение приложения
+17. PASSED: MVCApplication: Код завершения приложения
+FINISH:      17 assertions of 17 passed, 0 faild.
+------
+[начало: 17:00:30]: Файл: /c/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/Include/MVC/test/test_MVC.jsx
+------
+START: (MVC Libruary v1.0.1): Базовое тестирование MVC-объектов:
+18. PASSED: new MVCObject(): Пустой конструктор
+19. PASSED: new MVCObject('txt'): Инициализация id
+20. PASSED: new MVCObject({ value:'txt'}): Инициализация свойства value
+21. PASSED: MVCObject: Комплексный тест инициализации
+22. PASSED: new MVCModel('myData'): Инициализация id
+23. PASSED: MVCModel.isValid(): тест интерфейса.
+24. PASSED: MVCModel.validator(): тест интерфейса.
+25. PASSED: MVCModel._controllers[]: тест интерфейса.
+26. PASSED: MVCModel: Комплексный тест инициализации
+27. PASSED: new MVCView('myView'): Инициализация id
+28. PASSED: MVCView.view: Инициализация свойства view
+29. PASSED: MVCView.control: Инициализация свойства control
+30. PASSED: MVCView: тест интерфейса ["Init", "rebind", "unbind", "remove", "onRemove"]
+31. PASSED: Авто инициализация свойства view
+32. PASSED: Ручная инициализация свойства view
+33. PASSED: new MVCView({ id:, control:, view:}): Альтернативная форма конструктора
+34. PASSED: MVCView.remove(): Вызов метода
+35. PASSED: MVCView.onRemove(): Выполнение обработчика
+36. PASSED: new MVCApplication(): Инициализация основных свойств
+37. PASSED: MVCApplication: тестирование интерфейса
+38. PASSED: MVCApplication.CreateMainView() Инициализация основного окна/представления
+39. PASSED: MVCApplication.run()/MVCApplication.stop(): Код завершения (MVCApplication.exitcode)
+40. PASSED: MVCApplication.addModel(): Тест исключения для недопустимого значения id-модели 
+41. PASSED: MVCApplication.addView(): Тест исключения для недопустимого значения id-представления 
+42. PASSED: MVCApplication.addController(): Тест исключения для недопустимого значения id-контролёра 
+43. PASSED: new MVCController(): Пустой конструктор - вызов без ссылки на MVCApplication недопустим
+44. PASSED: new MVCController(): Тест исключения: Вызов конструктора с некоректным значением модели
+45. PASSED: new MVCController(): Тест исключения: Вызов конструктора с некоректным значением представления
+46. PASSED: new MVCController(): Тест1 альтернативной формы конструктора
+47. PASSED: new MVCController(): Тест2 альтернативной формы конструктора
+48. PASSED: MVCController: Тест инициализации свойств для модели (model, model_obj, model_key)
+49. PASSED: MVCController: Тест инициализации свойств для представления (view, view_obj, view_key)
+50. PASSED: MVCController: Тест прямой связи MVCModel->MVCView
+51. PASSED: MVCController.disable(): Тест прямой связи MVCModel->MVCView
+52. PASSED: MVCController.enable(): Тест прямой связи MVCModel->MVCView
+53. PASSED: MVCController: Тест обратной связи MVCView->MVCModel
+FINISH:      36 assertions of 36 passed, 0 faild.
+------
+START: (MVC Libruary v1.0.1): Расширенное тестирование MVCApplication:
+54. PASSED: MVCApplication.addModel()
+55. PASSED: MVCApplication.getModelByID()
+56. PASSED: MVCApplication.addView()
+57. PASSED: MVCApplication.getViewByID()
+58. PASSED: MVCApplication.addController()
+59. PASSED: MVCApplication.addController() register in Application and Model
+60. PASSED: MVCApplication.getControllerByID()
+61. PASSED: MVCApplication.findController()
+62. PASSED: MVCApplication: Связывание MVC-объектов
+63. PASSED: MVCApplication: Оброботка readonly поля
+64. PASSED: MVCApplication.removeController(): Удаление контролёра
+65. PASSED: MVCApplication: Оброботка readonly поля
+66. PASSED: MVCApplication.removeView(): Удаление представления
+67. PASSED: MVCApplication.removeMVC(): Удаление модели и связанных представления
+68. PASSED: MVCApplication.removeMVC(): Очистка связанных контролёров
+69. PASSED: MVCApplication: Завершение приложения
+70. PASSED: MVCApplication: Код завершения приложения
+FINISH:      17 assertions of 17 passed, 0 faild.
+------
+    Время обработки: 550 ms.
+    Всего обработано файлов: 1, общее время: 550 ms.
