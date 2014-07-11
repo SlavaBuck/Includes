@@ -17,7 +17,7 @@
  * @requires _util
  * @requires Collection
  * 
- * @version    0.9.9
+ * @version    1.0.1
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -36,7 +36,7 @@ $.global.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, Collection) {
     GLOBAL[MODULE] = MODULE;
     
     // Модуль:
-    MODULE["version"] = "0.9.9";
+    MODULE["version"] = "1.0.1";
     MODULE["name"] = "MVC Libruary";
     
     // Реализация

@@ -68,7 +68,6 @@ function MVCApplication(prefs) {
     // Вызов базового конструктора
     MVCApplication.prototype.__super__.constructor.call(this, extend(defaults, prefs));
     
-    // Создание коллекций
     this.models = new Collection();         // Коллекция моделй
     this.views = new Collection();          // Коллекция представлений
     this.controllers = new Collection();    // Коллекция контролёров
@@ -135,13 +134,6 @@ MVCApplication.prototype.onExit = function(e) {
 MVCApplication.prototype.Init = function() {
     return true;
 }
-
-// Простая фабрика 
-//~     MVC.Application.Create = function(prefs) {
-//~         var prefs = (prefs)||{};
-//~         var app = new MVC.Application(prefs);
-//~         return app;
-//~     };
 
 /**
  * @method  MVCApplication#CreateMainView
@@ -226,12 +218,10 @@ MVCApplication.prototype.addModel = function(obj) {
     var obj = (obj)||{},
         models = this.models;
     if (!obj.id) obj.id = 'model' + (this._counters_['models']++);
-    // Проверка на уникальность в коллекции:
+    // Проверка id на уникальность и добавления объекта в коллекцию:
     if (models.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "models" ));
-    // Создание нового объекта модели:
-    var obj = new MVCModel(obj);
-    models.push(obj);
-    return obj;
+    models.push(new MVCModel(obj));
+    return models[models.length-1];
 };
 
 /**
@@ -248,9 +238,6 @@ MVCApplication.prototype.removeModel = function(obj) { //  В качестве o
     var app = this,
         model = (typeof obj == 'string') ? app.models.getFirstByKeyValue('id', obj) : app.models.getFirstByValue(obj);
     if (model) {
-        // Оптимизированная версия:
-        // - контролёры из модели удаляются одним скопом
-        // - удаление на месте - вызовы Collection.removeByValue() заменены на Collection.splice();
         each(model._controllers, function(ctrl) {
             ctrl.disable();
             app.controllers.splice(app.controllers.indexOf(ctrl), 1);
@@ -336,7 +323,7 @@ MVCApplication.prototype.removeView = function(obj) {
     var app = this,
         view = (typeof obj == 'string') ? app.views.getFirstByKeyValue('id', obj) : app.views.getFirstByValue(obj);
     if (view) {
-        view.remove(); // для ScriptUI требуется специальная обработка (см MVCView.prototype.remove(...) )
+        view.remove(); // специальная обработка для ScriptUI (см MVCView.prototype.remove(...) )
         app.views.removeByValue(view);
         return app.views.length;
     }
@@ -371,9 +358,8 @@ MVCApplication.prototype.removeView = function(obj) {
 MVCApplication.prototype.addController = function(obj) {
     var controllers = this.controllers,
         obj = extend({ app:this, id:'ctrls'+(this._counters_['ctrls']++) }, obj);
-    // Проверка на уникальность id:
+    // Проверка id на уникальность и добавления объекта в коллекцию:
     if (controllers.getFirstIndexByKeyValue('id', obj.id) != -1) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "controllers" )); 
-    // Сразу пополняем коллекцию контролёров приложения
     controllers.push(new MVCController(obj));
     // Возвращаем добавленный контролер:
     return controllers[controllers.length-1];

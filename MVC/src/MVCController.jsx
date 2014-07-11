@@ -141,7 +141,7 @@ MVCController.prototype._initBinding = function() {
     // предварительный вызов валидатора для модели (если определён):
     if (typeof obj.model.validator == 'function') obj.model._status_ = obj.model.validator.call(obj.model_obj, obj.model_key, model_value, model_value, obj); 
 
-    // Выполняем немедленную инициализацию представления (если параметром bind не указано иное и если модeль имеет определённое значение - не undefined);
+    // Выполняем немедленную инициализацию представления (если требуется);
     if (obj.bind) obj._updateView();
     
     // Для организации двухсторонней связи между моделью и представлением - навешиваем на представление обработчик по умолчанию:
@@ -175,15 +175,13 @@ MVCController.prototype._initBinding = function() {
 //      обновления ключ(свойство) obj.model_key отсутствует, он будет автоматически создан в результате операции присвоения
 MVCController.prototype._updateModel = function() {
     var obj = this, 
-          control = obj.view.control;
-    if (obj.model_obj && control) { // Обновление не происходит если отсутствует доступ к модели или представлению!
-        try {
-            if (control.hasOwnProperty('selection') && obj.binding.match(/selection/) && obj.view_key != 'selection') {
-                obj.model_obj[obj.model_key] = control.selection[obj.view_key]; 
-            } else { 
-                if (obj.view_obj) obj.model_obj[obj.model_key] = obj.view_obj[obj.view_key]; 
-            }
-        } catch(e) { log('_updateModel:', e.description, '\r(binding: '+obj.binding+')'); }
+        control = obj.view.control;
+    if (obj.model_obj && control) {
+        if (control.hasOwnProperty('selection') && obj.binding.match(/selection/) && obj.view_key != 'selection') {
+            obj.model_obj[obj.model_key] = control.selection[obj.view_key]; 
+        } else { 
+            if (obj.view_obj) obj.model_obj[obj.model_key] = obj.view_obj[obj.view_key]; 
+        }
     }
 };
 
@@ -209,21 +207,19 @@ MVCController.prototype._updateView = function(newVal, oldVal, key) { // Пер�
           key = obj.view_key;
     if (obj.model_obj && control) { // Обновление не происходит если отсутствует доступ к модели или представлению!
         var newVal = (arguments.length) ? newVal : obj.model_obj[obj.model_key];  // obj.model_obj[obj.model_key] может быть неопределено - это допустимо в отличиии от отсутствия obj.model_obj
-        try {
-            if (control.hasOwnProperty('selection') && obj.binding.match(/selection/) && obj.view_key != 'selection') {
-                switch (obj.view_key) {
-                    case 'index' || 'listitem': control.selection = newVal; break;
-                    case 'text': control.selection = control.find(newVal); break;
-                    default: 
-                        for (var i=0, items = control.items, max = items.length; i<max; i++) { 
-                            if (items[i][key] === newVal) control.selection = items[i]; break; 
-                        }
-                }
-            } else {
-                if (obj.view_obj) obj.view_obj[obj.view_key] = newVal;
+        if (control.hasOwnProperty('selection') && obj.binding.match(/selection/) && obj.view_key != 'selection') {
+            switch (obj.view_key) {
+                case 'index' || 'listitem': control.selection = newVal; break;
+                case 'text': control.selection = control.find(newVal); break;
+                default: 
+                    for (var i=0, items = control.items, max = items.length; i<max; i++) { 
+                        if (items[i][key] === newVal) control.selection = items[i]; break; 
+                    }
             }
-            if (typeof obj.view.render == 'function') obj.view.render.call(control, obj, newVal, oldVal, key);
-        } catch (e) { log('_updateView:', e.description, '\r('+obj.binding+')'); }
+        } else {
+            if (obj.view_obj) obj.view_obj[obj.view_key] = newVal;
+        }
+        if (typeof obj.view.render == 'function') obj.view.render.call(control, obj, newVal, oldVal, key);
     }
     return obj.model_obj[obj.model_key]; 
 };
@@ -237,6 +233,7 @@ MVCController.prototype._updateView = function(newVal, oldVal, key) { // Пер�
  */
 MVCController.prototype.disable = function() {
     if (this.model_obj && this.model_key !== undefined) this.model_obj.unwatch(this.model_key);
+    return this;
 };
 
 /**
@@ -252,16 +249,19 @@ MVCController.prototype.enable = function() {
     if (!obj.model_obj || obj.model_key === undefined) return;
     obj.model_obj.watch (obj.model_key, function _handler (key, oldVal, newVal) {
        return (function(key, oldVal, newVal) {
-            var ctrl = this; // this - указывает на экземпляр контролёра;
+            var ctrl = this;             // this - указывает на экземпляр контролёра;
             key = key.toString();        // для массивов (преобразуем индекс в текст)
             ctrl.model_obj.unwatch(key); // временно убиваем watch
                 try { ctrl.model_obj[key] = newVal; } catch(e) { log('watch: ', e.description); }
                 //Вызов валидатора модели (если определён)
                 if (typeof ctrl.model.validator == 'function') ctrl.model._status_ = ctrl.model.validator.call(ctrl.model_obj, key, oldVal, newVal, ctrl); 
                 // Реализация диспетчера для оповещения всех связанных представлений (обход всех контролёров связанных с данным объектом и свойством и обновление соответствующих представлений)
-                for (var i=0, ctrls = ctrl.app.controllers, max = ctrls.length; i<max; i++) if (ctrls[i].model_obj === this.model_obj && ctrls[i].model_key === key) ctrls[i]._updateView(newVal, oldVal, key);
+                for (var i=0, ctrls = ctrl.app.controllers, max = ctrls.length; i<max; i++) 
+                    if (ctrls[i].model_obj === this.model_obj && ctrls[i].model_key === key) 
+                        ctrls[i]._updateView(newVal, oldVal, key);
             ctrl.model_obj.watch(key, _handler);  // востанавливаем watch
             return ctrl.model_obj[key];
         }).apply(obj, arguments);
     }); //obj.model_obj.watch
+    return this;
 };

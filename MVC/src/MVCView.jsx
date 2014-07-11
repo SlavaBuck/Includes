@@ -144,7 +144,6 @@ MVCView.prototype.rebind = function(model, view_key, model_key) {
         };
     }
     control.onChanging = control.onChange;
-    //return this.control;
     return this;
 };    
 
@@ -165,6 +164,7 @@ MVCView.prototype.unbind = function() {
     delete control.onChange; delete control.onChanging; 
     if (control.hasOwnProperty("selection") && control.type != 'tabbedpanel') control.selection = null; 
         else if (control.hasOwnProperty("text")) control.text = "";
+    return this;
 };
 
 /**
