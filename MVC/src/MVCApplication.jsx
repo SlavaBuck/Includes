@@ -302,7 +302,7 @@ MVCApplication.prototype.addView = function(obj) {
         view = new MVCView(obj);
     view.control = extend(parent.add(obj.view), obj.control);
     // Пост-инициализация - вызов Init в контексте созданного ScriptUI элемента (по умолчанию данный метод ничего не делает)
-    view.Init.call(obj.control);
+    view.Init.call(view.control);
     views.push(view);
     return view;
 };
