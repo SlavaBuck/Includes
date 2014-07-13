@@ -22,5 +22,5 @@
  */
 function MVCObject(id) {
     this.id = (typeof id == 'string' ? id : "");
-	if (typeof id == 'object') extend(this, id); 
+	if (typeof id == 'object') extend(this, id);
 };
