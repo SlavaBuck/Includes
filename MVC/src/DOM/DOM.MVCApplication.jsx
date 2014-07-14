@@ -137,12 +137,17 @@ MVCApplication.prototype.openDocument = function() {
     var app = this,
         file = File.openDialog(localize(locales.MSG_OPENDOC), this.filters, false);
     if (!file) return null;
+    var docName = File.decode(file.name);
+    if (app.getDocumentByName(docName)) { 
+        alert(localize(locales.MSG_DOCEXISTS, docName)+"\r\r"+File.decode(file.fullName), MVC.DOM.name+" v"+MVC.DOM.version);
+        return null;
+    };
     var activeDoc = this.activeDocument,
         doc = this.addDocument();
     if (!doc) return null;
     // Попытка загрузки файла документа:
     doc.file = file;
-    doc.name = File.decode(file.name);
+    doc.name = docName;
     if (!doc.load()) {
         app.closeDocument(doc);
         app.activeDocument = activeDoc;
@@ -247,7 +252,7 @@ MVCApplication.prototype.saveAsDocument = function(doc) {
  * @returns {MVCDocument} Текущий активный Документ (значение свойства <code>MVCApplication.activeDocument</code>).
  */
 MVCApplication.prototype.saveAllDocument = function() {
-    for (var i=0, docs =this.documents; i<docs.length; i++) docs[i].save();
+    each(this.documents, function(doc) { doc.save() });
     return this.activeDocument;
 };
 
@@ -264,7 +269,9 @@ MVCApplication.prototype.saveAllDocument = function() {
  *                                      если объект не обнаруживается - возвращает undefined.
  */
 MVCApplication.prototype.getDocumentByName = function(name) {
-    return this.documents.getFirstByKeyValue('name', name);  
+    var name1 = this.documents.getFirstByKeyValue('name', name),
+        name2 = this.documents.getFirstByKeyValue('name', "*"+name);
+    return name1||name2;
 };
 
 /**
