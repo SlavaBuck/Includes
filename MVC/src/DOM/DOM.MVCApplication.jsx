@@ -76,24 +76,20 @@ MVCApplication.prototype.registerDocumentFactory = function (docsView) {
  */
 MVCApplication.prototype.addDocument = function(obj) {
     var app = this,
-        doc = app.CreateDocument();
+        doc = app.CreateDocument(obj);
     // на всякий случай, но так быть не должно:    
     if (!doc) return null;
-    // расширение базового объекта-документа:
-    if (obj) extend(doc, obj);
     // Создание и добавление связанных с документом модели и представления в соответствующие коллекции приложения:
     app.addModel({ id:doc.id, document:doc });
-    // добавлем doc.mainView, но предварительно модифицируем его свойство id, так как в контексте документа 
-    // оно имеет id == 'window' (что конфликтует со значением id родительского Представления самого Приложения)
-    doc.mainView.id = doc.id;
-    app.views.add(doc.mainView);
+    // добавлем в коллекцию представлений приложения ссылку на представление документа, чтобы связать его контролёром:
+    app.views.add(new MVCView(doc.id, doc.window, doc.view));
     // Этот контролёр просто связывает текстовое свойство text представления документа с его именем чтобы при смене
-    // имени документа автоматически обновлялся заголовок представления документа:        
+    // имени документа автоматически обновлялся заголовок представления документа:
     app.addController({ id:doc.id, binding:doc.id + ".document.name:"+doc.id+".text" });
     // добавляем документ в коллекцию и переустнавливаем ссылку на активный документ:      
-    app.documents.add(doc);      
-    this.activeDocument = doc;
-    return doc;
+    app.documents.add(doc);
+    
+    return this.activeDocument = doc;
 };
 
 /**
@@ -137,21 +133,28 @@ MVCApplication.prototype.CreateDocument = function() {
  * @returns {MVCDocument} Возвращает ссылку на открытый документ или null в случае ошибки открытия или выбора "Отмена" в
  *                        диалоговом окне выбора файлов.
  */
- MVCApplication.prototype.loadDocument = function() {
-     var file = File.openDialog(localize({ ru:"Открытие документа", en:"Open Document" }), this.filters, false);
-     if (!file) return null;
-     var active = this.activeDocument,
-         doc = this.addDocument();
-     if (doc) {
-        doc.file = file;
-        doc.name = File.decode(file.name);
-        if (doc.load()) return doc; else {
-            this.closeDocument(doc);
-            this.activeDocument = active;
-        }
-     }
-     return null;
- };
+MVCApplication.prototype.openDocument = function() {
+    var app = this,
+        file = File.openDialog(localize(locales.MSG_OPENDOC), this.filters, false);
+    if (!file) return null;
+    var docName = File.decode(file.name);
+    if (app.getDocumentByName(docName)) { 
+        alert(localize(locales.MSG_DOCEXISTS, docName)+"\r\r"+File.decode(file.fullName), MVC.DOM.name+" v"+MVC.DOM.version);
+        return null;
+    };
+    var activeDoc = this.activeDocument,
+        doc = this.addDocument();
+    if (!doc) return null;
+    // Попытка загрузки файла документа:
+    doc.file = file;
+    doc.name = docName;
+    if (!doc.load()) {
+        app.closeDocument(doc);
+        app.activeDocument = activeDoc;
+        return null;
+    }
+    return doc;
+};
 
 /**
  * @extends     MVCApplication#prototype
@@ -182,15 +185,14 @@ MVCApplication.prototype.closeDocument = function(doc) {
         index = documents.getFirstIndexByKeyValue('id', id);
     if (index != -1 && documents[index].close()) {
         documents.removeByIndex(index);
-        if (index < documents.length) {
-            app.activeDocument = documents[index];
-        } else {
+        // Выделяем соседний (если есть)
+        if (index < documents.length) app.activeDocument = documents[index]; else {
             app.activeDocument = (index > 0 ? documents[index-1] : null);
         }
-        while(doc.models.length) { doc.removeModel(doc.models[0]) }; 
+        while(doc.models.length) { doc.removeModel(doc.models[0]) };
         app.removeMVC(app.getModelByID(id));
     }
-    return this.activeDocument;
+    return app.activeDocument;
 };
 
 /**
@@ -250,7 +252,7 @@ MVCApplication.prototype.saveAsDocument = function(doc) {
  * @returns {MVCDocument} Текущий активный Документ (значение свойства <code>MVCApplication.activeDocument</code>).
  */
 MVCApplication.prototype.saveAllDocument = function() {
-    for (var i=0, docs =this.documents; i<docs.length; i++) docs[i].save();
+    each(this.documents, function(doc) { doc.save() });
     return this.activeDocument;
 };
 
@@ -267,7 +269,9 @@ MVCApplication.prototype.saveAllDocument = function() {
  *                                      если объект не обнаруживается - возвращает undefined.
  */
 MVCApplication.prototype.getDocumentByName = function(name) {
-    return this.documents.getFirstByKeyValue('name', name);  
+    var name1 = this.documents.getFirstByKeyValue('name', name),
+        name2 = this.documents.getFirstByKeyValue('name', "*"+name);
+    return name1||name2;
 };
 
 /**

@@ -58,12 +58,13 @@ function MVCApplication(prefs) {
     MVC.app = this;     // глобальный (в рамках модуля MVC) указатель на текущее приложение
     // Настройки по умолчанию
     var defaults = {
-        name:localize(locales.DEF_APPNAME),
-        version:"1.00",
-        caption:localize(locales.DEF_APPNAME) + " v1.00",
-        view:"dialog",
-        exitcode:undefined,                       // Код завершения приложения (устанавливается в методе run())
-        _counters_:{ models:0, views:0, ctrls:0 } // Внутренний счётчик MVC-объектов (учавствует в формировании id-шников для соответствующих MVC-объектов)
+        id          :"app",
+        name        :localize(locales.DEF_APPNAME),
+        version     :"1.00",
+        caption     :localize(locales.DEF_APPNAME) + " v1.00",
+        view        :"dialog",
+        exitcode    :undefined,                     // Код завершения приложения (устанавливается в методе run())
+        _counters_  :{ models:0, views:0, ctrls:0 } // Внутренний счётчик MVC-объектов (учавствует в формировании id-шников для соответствующих MVC-объектов)
     };
     // Вызов базового конструктора
     MVCApplication.prototype.__super__.constructor.call(this, extend(defaults, prefs));
@@ -169,17 +170,17 @@ MVCApplication.prototype.Init = function() {
  */
 MVCApplication.prototype.CreateMainView = function(rcString) {
     var app = this,
-        rcStr = (rcString)||"dialog";
-     // главное представление всегда имеет id == 'window'
-    app.mainView = new MVCView('window', new Window(rcStr), rcStr);
-    var w = app.window = app.mainView.control;
+        rcStr = (rcString)||"dialog",
+        w = new Window(rcStr)
     w.text = app.caption;
+    app.window = w;   // главное представление имеет тот же id, что и приложние;
+    app.views[0] = app.mainView = new MVCView('window', app.window, rcStr);
     // только для resizeable окон
-    if (w.properties && w.properties.resizeable) { w.onResizing = w.onResize = function() { w.layout.resize() } }; 
+    if (w.properties && w.properties.resizeable) { w.onResizing = w.onResize = function(){ w.layout.resize() } }; 
     // обеспечиваем работу обработчика приложения onExit():
     w.addEventListener('close', function(e) {  return app.onExit(e); });
     // главное Представление всегда 1-е в коллекции:
-    return app.views[0] = app.mainView;
+    return app.mainView;
 };
 
 /**

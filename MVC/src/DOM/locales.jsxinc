@@ -1,9 +1,11 @@
 ﻿// Локализованные строки для MVC.DOM
 var locales = {
-	// Имена для новых Документов (по умолчанию)
-	DEF_DOCNAME:{ ru:"Документ", en:"Document" },
-	// Фильтр для диалогов (по умолчанию)
-	DEF_FILTERS:[ { ru:"Файл скрипта: *.jsx", en:"JavaScript file: *.jsx"},
-                  { ru:"Заголовочный файл:*.jsxinc", en:"Include file: *.jsxinc"},
-                  { ru:"Другой тип:*.*", en:"All files: *.*"} ]
-	};
+        // Имена для новых Документов (по умолчанию)
+        DEF_DOCNAME:{ ru:"Документ", en:"Document" },
+        // Фильтр для диалогов (по умолчанию)
+        DEF_FILTERS:[ { ru:"Файл скрипта: *.jsx", en:"JavaScript file: *.jsx"},
+                      { ru:"Заголовочный файл:*.jsxinc", en:"Include file: *.jsxinc"},
+                      { ru:"Другой тип:*.*", en:"All files: *.*"} ],
+        MSG_OPENDOC:{ ru:"Открытие документа", en:"Open Document" },
+        MSG_DOCEXISTS:{ ru:"Документ %1 уже открыт в приложении:", en:"Document %1 is already open in the application:" }
+    };

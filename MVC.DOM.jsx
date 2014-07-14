@@ -1,5 +1,5 @@
 ﻿/**
- * @@@BUILDINFO@@@ MVC.DOM.jsx 1.12 Fri Jul 11 2014 20:03:05 GMT+0300
+ * @@@BUILDINFO@@@ MVC.DOM.jsx 1.14 Mon Jul 14 2014 23:19:59 GMT+0300
  * 
  * @module      MVC.DOM
  * @summary     Расширение базового модуля MVC
@@ -22,7 +22,7 @@
  *                                               
  * @requires MVC
  * 
- * @version    1.0.1
+ * @version    1.1.2
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -40,13 +40,15 @@ MVC.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, MVC, Collection) {
     MVC[MODULE] = MODULE;
     
     // Модуль:
-    MODULE["version"] = "1.0.1";
+    MODULE["version"] = "1.1.2";
     MODULE["name"] = "MVC.DOM Extension";
     
     // --------------------------------------------------------------
     // TODO:
     // Расширение MVCApplication
     #include "MVC/src/DOM/DOM.MVCApplication.jsx"
+    // заглушка для устаревшего метода
+    MVCApplication.prototype.loadDocument = MVCApplication.prototype.openDocument;
         
     // MVCDocument (наследуется от MVCApplication)
 	#include "MVC/src/DOM/MVCDocument.jsx"
