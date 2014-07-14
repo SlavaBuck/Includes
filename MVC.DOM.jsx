@@ -1,5 +1,5 @@
 ﻿/**
- * @@@BUILDINFO@@@ MVC.DOM.jsx 1.13 Sun Jul 13 2014 21:58:38 GMT+0300
+ * @@@BUILDINFO@@@ MVC.DOM.jsx 1.14 Mon Jul 14 2014 23:19:59 GMT+0300
  * 
  * @module      MVC.DOM
  * @summary     Расширение базового модуля MVC
@@ -22,7 +22,7 @@
  *                                               
  * @requires MVC
  * 
- * @version    1.1.1
+ * @version    1.1.2
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -40,7 +40,7 @@ MVC.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, MVC, Collection) {
     MVC[MODULE] = MODULE;
     
     // Модуль:
-    MODULE["version"] = "1.1.1";
+    MODULE["version"] = "1.1.2";
     MODULE["name"] = "MVC.DOM Extension";
     
     // --------------------------------------------------------------
