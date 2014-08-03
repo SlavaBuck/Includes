@@ -3,6 +3,17 @@
 // MVCApplication
 // --------------------------------------------------------------
 
+
+/**
+ * Специальный флаг, если true - проверки на уникальность id при добавлении MVC-объектов в коллекции 
+ * <code>MVCApplication.models</code>, <code>MVCApplication.models</code> и <code>MVCApplication.controllers</code>
+ * не производится. Может быть полезна для интенсивной работы с большими коллекциями при условии реализованного
+ * в программе надёжного алгоритма для формирования уникальных id-шников
+ * @name MVC.fastmode
+ * @type {boolean}
+ */
+MVC.fastmode = false;
+
 // Локализация:
 #include "locales.jsxinc"
 
@@ -220,7 +231,9 @@ MVCApplication.prototype.addModel = function(obj) {
         models = this.models;
     if (!obj.id) obj.id = 'model' + (this._counters_['models']++);
     // Проверка id на уникальность и добавления объекта в коллекцию:
-    if (models.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "models" ));
+    if (!MVC.fastmode) {
+        if (models.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "models" ));
+    }
     models.push(new MVCModel(obj));
     return models[models.length-1];
 };
@@ -297,7 +310,9 @@ MVCApplication.prototype.addView = function(obj) {
     var views = this.views;
     if (!obj.id) obj.id = 'view' + (this._counters_['views']++);
     // Проверка на уникальность в коллекции:
-    if (views.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "views" )); 
+    if (!MVC.fastmode) {
+        if (views.getFirstIndexByKeyValue('id', obj.id) != -1 ) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "views" ));
+    }
     // Создание нового объекта представления:
     var parent = (obj.parent)||this.window,
         view = new MVCView(obj);
@@ -360,7 +375,9 @@ MVCApplication.prototype.addController = function(obj) {
     var controllers = this.controllers,
         obj = extend({ app:this, id:'ctrls'+(this._counters_['ctrls']++) }, obj);
     // Проверка id на уникальность и добавления объекта в коллекцию:
-    if (controllers.getFirstIndexByKeyValue('id', obj.id) != -1) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "controllers" )); 
+    if (!MVC.fastmode) {
+        if (controllers.getFirstIndexByKeyValue('id', obj.id) != -1) throw Error(localize(locales.ERR_BOBJKEY, obj.id, "controllers" ));
+    }
     controllers.push(new MVCController(obj));
     // Возвращаем добавленный контролер:
     return controllers[controllers.length-1];
