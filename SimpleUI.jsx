@@ -23,7 +23,7 @@
 SUI = (typeof SUI == 'undefined' ? {} : SUI);
 
 if (!SUI.name) {
-    SUI.name = "SimpleUI Libruary";
+    SUI.name = "SimpleUI Library";
     SUI.version = "0.4.1";
 }
 

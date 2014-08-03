@@ -25,7 +25,7 @@ var MODULE = "ESCollection";
     
     // Модуль:
     MODULE["version"] = "0.2.1";
-    MODULE["name"] = "ES Collection Libruary";
+    MODULE["name"] = "ES Collection Library";
 
 
     // --------------------------------------------------------------
