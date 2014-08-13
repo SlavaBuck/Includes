@@ -57,7 +57,8 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
         "addWebLink":addWebLink,
         // Separator.jsx
         "Separator":Separator,
-        "SeparatorInit":SeparatorInit,
+        "initSeparator":initSeparator,
+        "addSeparator":addSeparator,
         // helpers.jsx
         "isContainer":isContainer,
         "WindowInit":WindowInit,
