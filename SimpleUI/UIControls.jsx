@@ -54,11 +54,14 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     var FACADE = {
         "ProgressBar":ProgressBar,
         "addScrollablePanel":addScrollablePanel,
+        // WebLink.jsx
+        "WebLink":WebLink,
         "addWebLink":addWebLink,
+        "initWebLink":initWebLink,
         // Separator.jsx
         "Separator":Separator,
-        "initSeparator":initSeparator,
         "addSeparator":addSeparator,
+        "initSeparator":initSeparator,
         // helpers.jsx
         "isContainer":isContainer,
         "WindowInit":WindowInit,
