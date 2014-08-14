@@ -59,7 +59,7 @@
  */
 var Separator = {
     // Включается в общую ресурсную строку диалога:
-    rcString:"panel { isSeparator:true, dragged:false, width:2, margins:0, spacing:0, line:Panel  { margins:0, spacing:0, visible:false } },",
+    rcString:"panel { isSeparator:true, dragged:false, width:2, margins:0, spacing:0, line:Panel { margins:0, spacing:0, visible:false } },",
     // Для использрвания в Window.add(Separator):
     toString:function() { return "P" + this.rcString.slice(1, -1); }
 };
@@ -112,6 +112,7 @@ function initSeparator(target, dragged, width) {
         target.maximumSize[target._dimension] = target.minimumSize[target._dimension] = target.width;
         return target;
     }
+    if (!target.line) target.line = target.add("panel { margins:0, spacing:0, visible:false }")
     // Настраиваем внутренние переменные
     target.pos = {x:0, y:0 };
     target._step = (target._step) || 2; // Коофициент перемещения сепаратора при движении мышки:
