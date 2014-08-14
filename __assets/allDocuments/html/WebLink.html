@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>JSDoc: Module: UIControls</title>
+    <title>JSDoc: Class: WebLink</title>
 
     <script src="scripts/prettify/prettify.js"> </script>
     <script src="scripts/prettify/lang-css.js"> </script>
@@ -17,7 +17,7 @@
 
 <div id="main">
 
-    <h1 class="page-title">Module: UIControls</h1>
+    <h1 class="page-title">Class: WebLink</h1>
 
     
 
@@ -27,9 +27,7 @@
 
 <header>
     <h2>
-        <span class="ancestors"><a href="global.html#SUI">SUI</a>.</span>
-    
-    UIControls
+    WebLink
     </h2>
     
 </header>
@@ -40,29 +38,149 @@
 
     
         
-            <div class="description"><p>Содержит несколько вспомогательных функций общего назначения и
- коллекцию расширенных элементов управления</p>
-<p><p><b>Методы:</p></b></p>
-<ul>
-<li><a href="global.html#isContainer">isContainer()</a></li>
-<li><a href="global.html#WindowInit">WindowInit()</a>
-<p><b>Элементы управления:</p></b></li>
-<li>Separator Динамический сепаратор; </li>
-<li>SeparatorInit() метод инициализации сепаратора;</li>
-<li>ProgressBar() Расширенный Прогрессбар;</li>
-<li>addScrollablePanel() функция, возвращающая скроллируемую панель;</li>
-<li><a href="global.html#addWebLink">addWebLink()</a> функция, преобразующая <code>StaticText</code> в элемент <pre class="prettyprint source"><code>                            <code>WebLink</code></code></pre></li>
-</ul></div>
-        
+<dt>
+    <h4 class="name" id="WebLink"><span class="type-signature"></span>new WebLink<span class="signature">()</span><span class="type-signature"></span></h4>
 
-        
+    
+    <p class="summary">ScriptUI элемент - Гиперссылка. Представляет собой надстройку над ScriptUI элементом StaticText. В диалоге данный              элемент имеет по умолчанию синий цвет, умеет реагировать на наведение мышкой, а также открывть в браузере ссылку,             представленную элементом</p>
+    
+</dt>
+<dd>
+
+    
+
+    
+
+    
+
+    
+
+    
 <dl class="details">
     
 
+        <h5 class="subsection-title">Properties:</h5>
+
+        <dl>
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
     
-    <dt class="tag-version">Version:</dt>
-    <dd class="tag-version"><ul class="dummy"><li>1.0.0</li></ul></dd>
+
+        <tr>
+            
+                <td class="name"><code>isWebLink</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Статическое свойство (только для чтения), включаемое в ресурсную строку элемента, и определяющее тип 
+                                 ScriptUI объекта как элемент Вебссылка (Используется библиотечным методом initWindow() для правильной
+                                 идентификации и автоматической инициализации компонента в составе объекта Window, а также в составе
+                                 любых ScriptUI объектов контейнерного типа)</p></td>
+        </tr>
+
     
+
+        <tr>
+            
+                <td class="name"><code>weblink</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Свойство, включаемое в ресурсную строку элемента, содержащее url-ссылку в корректном для браузера формате,
+                            например: http://domain.com/</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>text</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Нативное свойство элемента StaticText, отображаемое в качестве ссылки. Инициализируется автоматически путём
+                            отсечения компонент 'http://' и заключительной '/' или может быть назначена явно.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>weblinkColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">ScripUIPen</span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Цвет ссылки (по умолчанию - синий)</p></td>
+        </tr>
+
+    
+    </tbody>
+</table></dl>
 
     
 
@@ -71,17 +189,11 @@
     
 
     
-    <dt class="tag-author">Author:</dt>
-    <dd class="tag-author">
-        <ul>
-            <li><a href="mailto:slava.boyko@hotmail.com">Slava Boyko</a></li>
-        </ul>
-    </dd>
+
     
 
     
-    <dt class="tag-copyright">Copyright:</dt>
-    <dd class="tag-copyright"><ul class="dummy"><li>© Вячеслав aka SlavaBuck, 2014.</li></ul></dd>
+
     
 
     
@@ -98,7 +210,30 @@
 </dl>
 
 
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+        <h5>Examples</h5>
         
+    <pre class="prettyprint"><code>Пример включения гиперссылки в ресурсную стору//   также строку url:"+SUI.WebLink+" \//   можно заменить на url:StaticText { isWebLink:true, weblink:'"http://slavabuck.wordpress.com/' }//   и затем использовать вызов SUI.initWebLink(w.url) без параметров.var w = new Window("dialog { \       txt:StaticText { text:'Ниже рассположена гиперссылка (WebLink):' }, \       url:"+SUI.WebLink+" \   }");SUI.initWebLink(w.url, "http://slavabuck.wordpress.com/");// Альтернативные формы вызовы метода (указанные параметры совпадают с параметрами по умолчанию)SUI.initWebLink(w.url, "http://slavabuck.wordpress.com/", "slavabuck.wordpress.com");SUI.initWebLink(w.url, { weblink:"http://slavabuck.wordpress.com/" });SUI.initWebLink(w.url, { weblink:"http://slavabuck.wordpress.com/", text:"slavabuck.wordpress.com" });w.show();</code></pre>
+
+    <pre class="prettyprint"><code>Пример вызова addWebLink() как метода ScriptUI-объекта - контейнера // (метод также поддерживается объектами Group и Panel):var w = new Window("dialog");w.add("statictext { text:'Ниже рассположена гиперссылка (WebLink):' }");// аналогично SUI.initWebLink() - также поддерживаются альтернативные формы вызова данного метода.w.addWebLink("http://slavabuck.wordpress.com/"); w.show();</code></pre>
+
+    <pre class="prettyprint"><code>Пример вызова метода глобального метода:var w = new Window("dialog");w.add("statictext { text:'Ниже рассположена гиперссылка (WebLink):' }");SUI.addWebLink(w, "http://slavabuck.wordpress.com/");w.show();</code></pre>
+
+    
+</dd>
+
     
     </div>
 
@@ -106,12 +241,6 @@
 
     
 
-    
-        <h3 class="subsection-title">Requires</h3>
-
-        <ul>
-            <li>module:undefined</li>
-        </ul>
     
 
     

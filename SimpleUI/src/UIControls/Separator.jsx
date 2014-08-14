@@ -22,7 +22,7 @@
  *                             вызове Window.add(Separator.rcString);
  * @method   toString   
  * 
- * Qexample Пример включения сепаратора в ресурсную стору
+ * @example Пример включения сепаратора в ресурсную стору
  * //   также строку sp:"+SUI.Separator+" \
  * //   можно заменить на sp:Panel { isSeparator:true, dragged:false, width:2, margins:0, spacing:0, line:Panel  { margins:0, spacing:0, visible:false } }
  * //   (указав свои значения для dragged: и width:2) и затем использовать вызов SUI.initSeparator(w.sp) без дополнительных параметров.
