@@ -49,7 +49,7 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     // --------------------------------------------------------------
     // Реализация...
     #include "src/UIControls/helpers.jsx"
-	#include "src/UIControls/ProgressBar.jsx"
+	#include "src/UIControls/FloatingProgressBar.jsx"
     #include "src/UIControls/ScrollablePanel.jsx"
     #include "src/UIControls/Separator.jsx"
     #include "src/UIControls/WebLink.jsx"
@@ -59,7 +59,7 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     // Фасад модуля:
     // --------------------------------------------------------------
     var FACADE = {
-        "ProgressBar":ProgressBar,
+        "FloatingProgressBar":FloatingProgressBar,
         "addScrollablePanel":addScrollablePanel,
         // WebLink.jsx
         "WebLink":WebLink,
