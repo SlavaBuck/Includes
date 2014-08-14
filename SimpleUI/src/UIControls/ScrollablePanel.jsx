@@ -30,11 +30,11 @@
  *     }  
  * var w = new Window ("dialog","My Horizontally Scrollable Panel",[100, 100, 900 , 600]);  
  * 
- * horizontalScrollablePanel = addScrollablePanel (w, 20, 20, 250, 70, 3700, false, 20);  
- * horizontalScrollablePanel2 = addScrollablePanel (w, 20, 100, 250, 70, 1000, false, 20);  
- * verticalScrollablePanel = addScrollablePanel (w, 300, 20, 200, 150, false, 1000, 20);  
- * verticalScrollablePanel2 = addScrollablePanel (w, 510, 20, 200, 150, false, 1000, 40);  
- * vertAndHorzScrollablePanel = addScrollablePanel (w, 250, 190, 310, 210, 3520, 820);  
+ * horizontalScrollablePanel = SUI.addScrollablePanel (w, 20, 20, 250, 70, 3700, false, 20);  
+ * horizontalScrollablePanel2 = SUI.addScrollablePanel (w, 20, 100, 250, 70, 1000, false, 20);  
+ * verticalScrollablePanel = SUI.addScrollablePanel (w, 300, 20, 200, 150, false, 1000, 20);  
+ * verticalScrollablePanel2 = SUI.addScrollablePanel (w, 510, 20, 200, 150, false, 1000, 40);  
+ * vertAndHorzScrollablePanel = SUI.addScrollablePanel (w, 250, 190, 310, 210, 3520, 820);  
  * hiJareck(horizontalScrollablePanel, 26, 1);  
  * hiJareck(horizontalScrollablePanel2, 7, 1);  
  * hiJareck(verticalScrollablePanel, 1, 30);  
