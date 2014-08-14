@@ -47,6 +47,7 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     #include "src/UIControls/ScrollablePanel.jsx"
     #include "src/UIControls/Separator.jsx"
     #include "src/UIControls/WebLink.jsx"
+    #include "src/UIControls/UnitBox.jsx"
 
     // --------------------------------------------------------------
     // Фасад модуля:
@@ -62,6 +63,10 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
         "Separator":Separator,
         "addSeparator":addSeparator,
         "initSeparator":initSeparator,
+        // UnitBox.jsx
+        "UnitBox":UnitBox,
+        "addUnitBox":addUnitBox,
+        "initUnitBox":initUnitBox,
         // helpers.jsx
         "isContainer":isContainer,
         "WindowInit":WindowInit,
