@@ -2,11 +2,6 @@
 // @@@BUILDINFO@@@
 // UnitBox
 // --------------------------------------------------------------
-if (typeof CC_FLAG == 'undefined') {
-    CC_FLAG = (function isCC() {
-        return ($.global.app && $.global.app.name.match(/Adobe InDesign/)) ? parseInt($.global.app.version) > 8 : false;
-    }());
-}; // if
 
 // TODO:
 // Настроить отработку значений UnitBox.value вне допустимого диапазона minvalue и maxvalue... (скачет при использовании счётчика)

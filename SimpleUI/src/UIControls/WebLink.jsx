@@ -2,11 +2,6 @@
 // @@@BUILDINFO@@@
 // WebLink
 // --------------------------------------------------------------
-if (typeof CC_FLAG == 'undefined') {
-    CC_FLAG = (function isCC() {
-        return ($.global.app && $.global.app.name.match(/Adobe InDesign/)) ? parseInt($.global.app.version) > 8 : false;
-    }());
-}; // if
 
 /**
  * @class       WebLink

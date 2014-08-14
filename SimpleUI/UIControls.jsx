@@ -40,6 +40,12 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     MODULE["version"] = "0.1.1";
     MODULE["name"] = "UIControls Libruary";
 
+    // CC_FLAG Используется в WebLink и в UnitBox
+    if (typeof CC_FLAG == 'undefined') {
+        var CC_FLAG = (function isCC() {
+            return ($.global.app && $.global.app.name.match(/Adobe InDesign/)) ? parseInt($.global.app.version) > 8 : false;
+        }());
+    };
     // --------------------------------------------------------------
     // Реализация...
     #include "src/UIControls/helpers.jsx"
