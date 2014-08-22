@@ -18,7 +18,7 @@ REM Абсолютный путь к файлу jsdoc.cmd
 SET _JSDOC=c:\nodejs\node_modules\.bin
 
 REM Имя папки с библиотекой (просто имя без слэшей):
-SET _LIB=Include
+SET _LIB=Includes
 
 REM Путь к папке с файлам библиотеки (без имени папки):
 SET lib_folder="/Program Files (x86)/Adobe/Adobe InDesign CS6/Scripts/Scripts Panel/%_LIB%"
