@@ -12,7 +12,7 @@
  * 
  * @version    1.0.0
  * @author     Slava Boyko <slava.boyko@hotmail.com>
- * @copyright  © Вячеслав aka SlavaBuck, 2014. 
+ * @copyright  © Вячеслав aka SlavaBuck, 2014.
  */
 
 // --------------------------------------------------------------

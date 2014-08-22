@@ -75,7 +75,7 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
         "initUnitBox":initUnitBox,
         // helpers.jsx
         "isContainer":isContainer,
-        "WindowInit":WindowInit,
+        "initWindow":initWindow
     };
     // Расширяем модуль фасадом:
     // extend(SUI, FACADE);

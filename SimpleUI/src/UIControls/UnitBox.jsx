@@ -26,16 +26,18 @@
  * @property {number}   [jumpdelta=20]  не используется
  * @property {number}   [characters=8]  Размер поля редактирования
  *
- * @method init         Инициазация элемента управлени. В качестве аргумента получает параметризированный объект с полями, представляющими соответствующие свойства
+ * @method init         Инициазация элемента управлени. В качестве аргумента получает параметризированный объект с полями, представляющими 
+ *                      соответствующие свойства: <div><code>
+ *                      {
+ *                          value:{number}, 
+ *                          unittype:{string}, 
+ *                          minvalue:{number}, 
+ *                          maxvalue:{number}, 
+ *                          stepdelta:{number}, 
+ *                          jumpdelta:{number},
+ *                          characters:{number} 
+ *                      }
  * @method isValid      Возвращает true если объект UnitBox.value содержит корректное значение в пределах допустимого диапазона значений minvalue <= value <= maxvalue
- * @method setValue     Устанавливает значение UnitBox.value (одновременно переустанавливает значение счётчика)
- * @method getValue     Возвращает значение UnitBox.value как Number
- * @method getUnitValue Возвращает значение UnitBox.value как UnitValue
- * @method setminValue  Устанавливает нижнюю границу для значений UnitBox.value (производится корректировка счётчика)
- * @method setmaxValue  Устанавливает верхнюю границу для значений UnitBox.value (производится корректировка счётчика)
- * @method setNormal    Устанавливает чёрный(нормальный) цвет текста в поле редактирования (характеризует корректное значение UnitBox.value)
- * @method setRed       Устанавливает красный(выделенный) цвет текста в поле редактирования (характеризует некорректное значение UnitBox.value)
- * @method setCharacters Устанавливает размер поля редактирования
  * 
  * @example Пример включения UnitBox-поля в ресурсную строку
  * var w = new Window("dialog { \
@@ -59,16 +61,17 @@
  * @example Пример создания с помощью библиотечного метода:
  * var w = new Window("dialog");
  * w.add("statictext { text:'Ниже рассположено поле UnitBox:' }");
- * SUI.addUnitBox(w, { stepdelta:.25 });
+ * SUI.addUnitBox(w, { stepdelta:.25, maxvalue:5, minvalue:-5 });
  * w.show();
  */
 var UnitBox = {
     // Ресурсная строка элемента:
-    rcString:"group { isUnitBox:true, unittype:'cm', value:0, spacing:0, scroll:Scrollbar {preferredSize:[18, 21], maxvalue:0, minvalue:-100}, edit:EditText{}},",
+    rcString:"group { isUnitBox:true, unittype:'cm', value:0, scroll:Scrollbar {preferredSize:[18, 21], maxvalue:0, minvalue:-100}, edit:EditText{ alignment:['fill','fill']}},",
     // Для использрвания в Window.add(UnitBox):
     toString:function() { return "G" + this.rcString.slice(1, -1); },
     // Некоторые константы по умолчанию
-    defaultUnitValue:'cm' // тип объекта UnitBox.value {UnitValue} по умолчанию
+    defaultType:'cm',   // тип объекта UnitBox.value {UnitValue} по умолчанию
+    defaultCharacters:8 // размер поля редактирования по умолчанию
 };
 
 /**
@@ -95,101 +98,182 @@ function initUnitBox(target, param) {
     };
     
     var edit = target.edit,
-        scrl = target.scroll,
-        scrl_props = ['stepdelta', 'jumpdelta', 'minvalue', 'maxvalue'];
+        scrl = target.scroll;
     // первичная инициализация свойств UnitBox по умолчанию:
+    target.spacing = 0;
     // счётчик:
     if (!target.stepdelta) scrl.stepdelta = target.stepdelta = 1;
     if (!target.minvalue)  scrl.maxvalue  = target.minvalue = 0;
     if (!target.maxvalue)  scrl.minvalue  = -(target.maxvalue = 100);
-    if (!target.jumpdelta) scrl.jumpdelta = target.jumpdelta = 20;
-    if (!target.characters) edit.characters = target.characters = 8;
+    if (!target.jumpdelta) scrl.jumpdelta = target.jumpdelta = +((target.maxvalue - target.minvalue)*.2).toFixed(6); // 20%
+    if (!target.characters) target.characters = UnitBox.defaultCharacters;
+    edit.characters = target.characters;
     // UnitValue
-    if (!target.unittype) target.unittype = UnitBox.defaultUnitValue;
+    if (!target.unittype) target.unittype = UnitBox.defaultType;
     if (!target.value) edit.text = target.value = new UnitValue(target.minvalue, target.unittype);
     
-    target.init = function(param) {
-        if (typeof param != 'object') return this;
-        var target = this,
-            et = target.edit,
-            scrl = target.scroll;
-        if (typeof param.stepdelta != 'undefined') scrl.stepdelta = target.stepdelta = param.stepdelta;
-        if (typeof param.jumpdelta != 'undefined') scrl.jumpdelta = target.jumpdelta = param.jumpdelta;
-        if (typeof param.characters != 'undefined') edit.characters = target.characters = param.characters;
-        if (typeof param.minvalue != 'undefined') target.setminValue(param.minvalue);
-        if (typeof param.maxvalue != 'undefined') target.setmaxValue(param.maxvalue);
-    
-        target.unittype = (typeof param.unittype != 'undefined') ? param.unittype : UnitBox.defaultUnitValue;
-        if (typeof param.value != 'undefined') target.setValue(param.value);
-    };
-
-    // Обработчики верхнего уровня
-    target.setminValue = function (val) { this.scroll.maxvalue = -(this.minvalue = val); };
-    target.setmaxValue = function (val) { this.scroll.minvalue = -(this.maxvalue = val); };
-    target.setValue = function (val) {
-        var target = this;
-        if (val !== NaN) {
-            target.value = (typeof val == 'string') ? 
-                           ((val.indexOf(" ") != -1) ? new UnitValue(val) : new UnitValue(val + " " + target.unittype)) :
-                           (val instanceof UnitValue) ? val : new UnitValue(val, target.unittype);
-        } else target.value = NaN;
-        if (target.isValid()) {
-            target.edit.text = target.value.toString();
-            target.setNormal();
-            target.setScroll(-target.value.value);
-        } else {
-            target.edit.text = isNaN(target.value) ? val : target.value;
-            target.setRed();
-        }
-        return target;
-    };
-    target.getValue = function () { return this.value.value; }
-    target.getUnitValue = function () { return this.value; }
-    // проверка корректного значения (предположительно target.value синхронизировано с target.edit.text )
-    target.isValid = function() {
-        var val = this.value;
-        return !isNaN(val) && (val.value >= this.minvalue && val.value <= this.maxvalue);
-    };
-
-    target.setScroll = function(val) {
-        this.scroll.value = val;
-    };
-    target.setCharacters = function(val) {
-        this.edit.characters = val;
-    };
     // функции смены цвета
-    target.setNormal = function () {
-        var gfx = target.edit.graphics;
-        gfx.foregroundColor = gfx.newPen(gfx.PenType.SOLID_COLOR, [0, 0, 0, 1], 1);
+    if (typeof toRGBA != 'function') {
+        var toRGBA = function (color /* uint */, alpha /* float 0..1.0 */) {
+            return [ (color>>>0x10)/255, ((color&0xFF00)/0x100)/255, (color&0xFF)/255, (alpha)||1];
+        }
     };
-    target.setRed = function () {
-        var gfx = target.edit.graphics;
-        gfx.foregroundColor = gfx.newPen(gfx.PenType.SOLID_COLOR, [1, 0, 0, 1], 1);
+    target.setNormal = function () { this.setTextColor([0, 0, 0, 1]); };
+    target.setRed = function () { this.setTextColor([1, 0, 0, 1]); };
+    target.setTextColor = function(rgba) {
+        if (!rgba) return
+        var gfx = this.edit.graphics,
+            color = (typeof rgba == 'number' ? toRGBA(rgba) : (rgba.color /* ScriptUIPen */ ? rgba.color : rgba)); 
+        gfx.foregroundColor = gfx.newPen(gfx.PenType.SOLID_COLOR, color, 1);        
     };
+    // Функции установки размера:
+    target.watch("characters", function(name, oldVal, newVal) {
+        var edit = this.edit,
+            egfx = edit.graphics;
+        try {
+        if (!newVal) newVal = UnitBox.defaultCharacters;
+        newVal = +(this.edit.characters = newVal);
+        
+        var sz = edit.graphics.measureString((new Array(parseInt(newVal)+1)).join("X"));
+        sz[0] += 14; sz[1] += 6;
+        edit.size = sz;
+        
+        this.parent.layout.layout(true);
+        this.parent.layout.resize(true);
+        return newVal;
+        } catch(e) { trace(e) }
+    });
+
+    // функции валидации
+    target.isValid = function(val) {
+        var val = arguments.length ? val : this.value;
+        if (val instanceof UnitValue) val = val.value;
+        return !isNaN(val) && (val >= this.minvalue && val <= this.maxvalue);
+    };
+    if (typeof target.onValid != 'function')   { target.onValid = function(){ this.setNormal(); } }; // переопределяемый
+    if (typeof target.onInvalid != 'function') { target.onInvalid = function(){  this.setRed(); } }; // переопределяемый
+    
+    target.watch("stepdelta", function(name, oldVal, newVal) { return +(this.scroll[name] = newVal); });
+    target.watch("jumpdelta", function(name, oldVal, newVal) { return +(this.scroll[name] = newVal); });
+    target.watch("minvalue", function(name, oldVal, newVal) { 
+        var val = -(this.scroll.maxvalue = -(+newVal));
+        this.jumpdelta = (this.scroll.maxvalue - this.scroll.minvalue) * 0.2;
+        return val;
+    });
+    target.watch("maxvalue", function(name, oldVal, newVal) { 
+        var val = -(this.scroll.minvalue = -(+newVal));
+        this.jumpdelta = (this.scroll.maxvalue - this.scroll.minvalue) * 0.2;
+        return val;
+    });
+    target.watch("unittype", watch_unittype);
+    target.watch("value", watch_value);
+    
+    function watch_unittype(name, oldVal, newVal) {
+        this.unwatch("unittype");
+        this.unwatch("value");
+        delete this.scroll.onChanging;
+        //delete this.edit.onChange;
+        //delete this.edit.onChanging;
+        
+        this.edit.text = (this.value = new UnitValue(this.value.value, newVal));
+        this.scroll.value = -this.value.value;
+        if (this.isValid()) this.onValid(); else this.onInvalid();
+        if (typeof this.onChange == 'function') this.onChange(name, oldVal, newVal);
+        
+        //this.edit.onChange = editOnChange;
+        //this.edit.onChanging = editOnChanging;
+        this.scroll.onChanging = scrollOnChanging;
+        this.watch("unittype", watch_unittype);
+        this.watch("value", watch_value);
+        return this.value.type;
+    };
+
+    function watch_value(name, oldVal, newVal) {
+        this.unwatch("unittype");
+        this.unwatch("value");
+        delete this.scroll.onChanging;
+        //delete this.edit.onChange;
+        //delete this.edit.onChanging;
+
+        var val = new UnitValue(newVal, this.unittype);
+        if (isNaN(val.value)) {
+            this.value = NaN;
+            this.edit.text = newVal;
+        } else {        
+            this.edit.text = (this.value = val).toString();
+        };
+        if (this.isValid(this.value)) this.onValid(); else this.onInvalid();
+        if (typeof this.onChange == 'function') this.onChange(name, oldVal, newVal);
+
+        //this.edit.onChange = editOnChange;
+        //this.edit.onChanging = editOnChanging;
+        this.scroll.onChanging = scrollOnChanging;
+        this.watch("unittype", watch_unittype);
+        this.watch("value", watch_value);
+        return this.value;
+    };
+
     // обработчики редактирования:
     scrl.onChanging = scrollOnChanging;
     edit.onChange = editOnChange;
     edit.onChanging = editOnChanging;
+    
+    target.addEventListener("keyup", function(kb) { 
+        var parent = this;
+        try {
+            switch (kb.keyName) {
+                case "Up"  : parent.value += (kb.ctrlKey) ? parent.jumpdelta : parent.stepdelta; break;
+                case "Down": parent.value -= (kb.ctrlKey) ? parent.jumpdelta : parent.stepdelta; break;
+            };
+        } catch(e) { e.description }
+        kb.stopPropagation();
+    }, true);
     // обработчики отображения:
     if (!CC_FLAG) scrl.onDraw = customScrollDraw;
     
+    // Метод инициализации
+    target.init = function(param) {
+        if (typeof param == 'undefined') param = { value:this.value }; else {
+            if (typeof param.value == 'undefined') param.value = this.value;
+        }
+        var target = this,
+            et = target.edit,
+            scrl = target.scroll;
+        if (typeof param.stepdelta != 'undefined') target.stepdelta = param.stepdelta;
+        if (typeof param.jumpdelta != 'undefined') target.jumpdelta = param.jumpdelta;
+        if (typeof param.characters != 'undefined') target.characters = param.characters;
+        if (typeof param.minvalue != 'undefined') target.minvalue = param.minvalue;
+        if (typeof param.maxvalue != 'undefined') target.minvalue = param.minvalue;
+
+        if (typeof param.unittype != 'undefined') target.unittype = param.unittype;
+        target.value = param.value;
+    };
     target.init(param);
     
     return target;
     //
     function editOnChange() {
-        var parent = this.parent,
-            val = parent.value;
-        parent.value.value = val.value = +val.value.toFixed(6);
-        this.text = val.toString();
-        parent.scroll.value = -(val.value);
+        var parent = this.parent;
+        // Вычисления на лету
+        var val, canBeCalculate,
+            str = this.text.replace(/\D+$/,"");
+        try {
+            val = eval(str);
+            if (typeof val == 'number') {
+                val = new UnitValue(val, parent.unittype)
+                val.value = +val.value.toFixed(6);
+                canBeCalculate = true;
+            } else canBeCalculate = false;
+        } catch(e) { canBeCalculate = false; }
+        if ( !((new UnitValue(str, parent.unittype)).toString().match(/NaN/) && canBeCalculate)) val = this.text;
+     
+        parent.value = val;
     };
 
+    
     function editOnChanging() {
-        var parent = this.parent,
-            txt = this.text.indexOf(".") == -1 ? parseInt(this.text) : parseFloat(this.text);
-        parent.value = isNaN(txt) ? NaN : new UnitValue(txt + " " + parent.unittype);
-        if (parent.isValid()) parent.setNormal(); else parent.setRed();
+        var parent = this.parent;
+        if (parent.isValid(new UnitValue(this.text, parent.unittype))) parent.onValid(); else parent.onInvalid();
     };
 
     function scrollOnChanging() {

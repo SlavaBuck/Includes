@@ -3,6 +3,11 @@
 // WebLink
 // --------------------------------------------------------------
 
+// openURL():
+if (typeof openURL != 'function') {
+    #include "../../../_globals/src/doBatFile.jsx"
+};
+
 /**
  * @class       WebLink
  * @summary     ScriptUI элемент - Гиперссылка. Представляет собой надстройку над ScriptUI элементом StaticText. В диалоге данный 
@@ -80,30 +85,38 @@ function initWebLink(target, weblink, text) {  // target - объект staticte
                             target.parent.graphics.backgroundColor.color : WebLink.defBackgroundColor),
         weblink_color = WebLink.defWebLinkColor, // Blue
         gfx = target.graphics;
-    if (!target.hasOwnProperty("weblink")) target.weblink = "";
+    // Инициализация параметров:
+    if (!target.hasOwnProperty("weblink")) target.weblink = target.text;
     if (typeof weblink != 'undefined') target.weblink = weblink;
-    var weblink = target.helpTip = target.weblink;
-    target.text = (target.text)||"";
-    if (typeof text != 'undefined') target.text = text; else if (weblink) {
-        target.text = weblink.indexOf("http:") == -1 ? weblink : weblink.slice(7);
-        if (target.text[target.text.length-1] == "/") target.text = target.text.slice(0, -1);
+    target.helpTip = target.weblink;
+    var weblink = target.weblink;
+    if (typeof text != 'undefined') target.text = text; else if(weblink) {
+        var txt = weblink.replace(/http:\/\//, "");
+        if (weblink.match(/http:\/\//) && txt.slice(-1) == "/") txt = txt.slice(0, -1);
+        target.text = txt;
     }
     // установка цветов:
-    target.weblinkColor = gfx.newPen(SOLID, weblink_color, 1);
+    if (!target.weblinkColor) target.weblinkColor = gfx.newPen(SOLID, weblink_color, 1);
     gfx.foregroundColor = target.weblinkColor;
     target.parentPen = gfx.newPen(SOLID, parent_color, 1);
     target.currentPen = target.parentPen;
-    target.preferredSize.height += 1;
+    target.preferredSize.height = target.graphics.measureString(target.text)[1] + 1;
     // Настрока обработчиков
-    target.unwatch("weblinkColor");
+    target.watch("weblink", function(name, oldVal, newVal) {
+        var txt = newVal.replace(/http:\/\//, "");
+        if (newVal.match(/http:\/\//) && txt.slice(-1) == "/") txt = txt.slice(0, -1);
+        this.text = txt;
+        this.helpTip = newVal;
+        return newVal;
+    });
     target.watch("weblinkColor", function(name, oldVal, newVal) {
-        // TODO: сделать обработку для разных типов данных (int/RGB/RGBA...)
-        if (newVal instanceof ScriptUIPen) target.graphics.foregroundColor = newVal;
+        var gfx = this.graphics,
+            val = (newVal instanceof ScriptUIPen) ? newVal : gfx.newPen(gfx.PenType.SOLID_COLOR, toRGBA(parseInt(parseColor(newVal))), 1);
+        gfx.foregroundColor = newVal;
         return newVal;
     });
 
     target.onDraw = function(d) {
-        try {
         var gfx = this.graphics,
             sz = gfx.measureString(this.text, gfx.font);
         gfx.drawOSControl();
@@ -111,7 +124,6 @@ function initWebLink(target, weblink, text) {  // target - объект staticte
         gfx.moveTo (0,sz[1]); gfx.lineTo (sz[0],sz[1]);
         gfx.strokePath(this.currentPen);
         if (CC_FLAG) gfx.drawString(this.text, this.weblinkColor, 0, 0, gfx.font);
-        } catch(e) { trace(e) }
     };
 
     target.addEventListener ('mousemove', function(e) {
@@ -124,18 +136,15 @@ function initWebLink(target, weblink, text) {  // target - объект staticte
         this.notify("onDraw");
     });
 
-    target.addEventListener ('click', function(e) {
-        // TODO: Выполнить открытие браузера:
-        try {
-            if (this.weblink) openURL(this.weblink);
-        } catch(e) { 
-            $.writeln(e.toSource()); 
-        }
-    });
-
-    if (typeof openURL != 'function') {
-        #include "../../../_globals/src/doBatFile.jsx"
-    };
+    if (CC_FLAG) {
+        target.addEventListener ('click', function() { 
+            try { if (this.weblink) openURL(this.weblink); } catch(e) { $.writeln(e.toSource()) }
+        });
+    } else {
+        target.onClick = function() { 
+            try { if (this.weblink) openURL(this.weblink); } catch(e) { $.writeln(e.toSource()) }
+        };
+    }
 
     return target;
 };

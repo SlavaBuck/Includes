@@ -59,7 +59,7 @@
  */
 var Separator = {
     // Включается в общую ресурсную строку диалога:
-    rcString:"panel { isSeparator:true, dragged:false, width:2, margins:0, spacing:0, line:Panel { margins:0, spacing:0, visible:false } },",
+    rcString:"panel { isSeparator:true, dragged:false, width:2, line:Panel { visible:false } },",
     // Для использрвания в Window.add(Separator):
     toString:function() { return "P" + this.rcString.slice(1, -1); }
 };
@@ -95,24 +95,27 @@ function initSeparator(target, dragged, width) {
     if (typeof dragged == 'object') return initSeparator (target, dragged.dragged, dragged.width);
     target._dimension = (target.parent.orientation == 'row' ) ? 0: 1;
     target.alignment = (target._dimension == 0) ? ['left','fill'] : ['fill','top'];
-    if (arguments.length > 1) { 
-        target.width = (target.dragged = dragged) ? 5 : 2;
-    } else if (!target.hasOwnProperty("dragged")) {
-        target.dragged = false; target.width = 2;
-    }
-    target.width = (typeof width == 'number') ? width : parseInt(target.width);
-    if (isNaN(target.width)) target.width = target.dragged ? 5 : 2;
+    // инициализация статических свойств:
+    target.margins = 0;
+    // инициализация параметров:
+    if (typeof dragged != 'undefined') target.width = (target.dragged = !!dragged) ? 5 : 2;
+    if (!target.hasOwnProperty("dragged")) target.dragged = false;
+    if (typeof width != 'undefined') target.width = width;
+    if (!target.hasOwnProperty("width")) target.width = target.dragged ? 5 : 2;
+    target.width = parseInt(target.width);
+    
     if (!target.hasOwnProperty("isSeparator")) target.isSeparator = true;
     // Устанавливаем обработчики специальных свойств:
-    target.watch("isSeparator", function() { return true; }); // только для чтения (Что-то не пашет...)
-//~     target.watch("width", watch_width);
-//~     target.watch("dragged", watch_dragged);
+    target.watch("isSeparator", watch_readonly); // только для чтения (Что-то не пашет...?)
+    target.watch("width", watch_width);
+    target.watch("dragged", watch_dragged);
     if (!target.dragged) {
         // Обычная статическая линия
         target.maximumSize[target._dimension] = target.minimumSize[target._dimension] = target.width;
         return target;
     }
-    if (!target.line) target.line = target.add("panel { margins:0, spacing:0, visible:false }")
+    if (!target.line) target.line = target.add("panel { visible:false }");
+
     // Настраиваем внутренние переменные
     target.pos = {x:0, y:0 };
     target._step = (target._step) || 2; // Коофициент перемещения сепаратора при движении мышки:
@@ -137,23 +140,29 @@ function initSeparator(target, dragged, width) {
     return target;
     // Вспомогательные методы:
     // TODO: Идея сделать свойства активными (в момент переинициализации наблюдатель отключается...)
-    function watch_dragged(name, oldValue, newValue) {
-        var newValue = !!newValue;
-        target.unwatch("dragged")
-        SUI.initSeparator(target, target.dragged, newValue);
-        target.parent.layout.layout(true);
-        target.watch("dragged", watch_dragged);
-        return newValue;
+    function watch_dragged(name, oldVal, newVal) {
+        var newVal = !!newVal;
+        this.unwatch("dragged");
+        this.unwatch("width");
+            SUI.initSeparator(this, newVal, (newVal ? 5 : 2));
+            this.parent.layout.layout(true);
+        this.watch("dragged", watch_dragged);
+        this.watch("width", watch_width);
+        return newVal;
     };
-    function watch_width(name, oldValue, newValue) {
-        target.unwatch("width")
-        SUI.initSeparator(target, target.dragged, newValue);
-        target.parent.layout.layout(true);
-        target.watch("width", watch_width);
-        return newValue;
+    function watch_width(name, oldVal, newVal) {
+        var newVal = parseInt(newVal);
+        if (isNaN(newVal)) newVal = oldVal;
+        this.unwatch("dragged");
+        this.unwatch("width");
+            SUI.initSeparator(this, this.dragged, newVal);
+            this.parent.layout.layout(true);
+        this.watch("dragged", watch_dragged);
+        this.watch("width", watch_width);
+        return newVal;
     };
-    // target.enable = separator_enable;
-    // target.disable = separator_disable;
+    function watch_readonly(name, oldVal, newVal) { return oldVal } // Не работает????!!!!
+
     // ---------------------------------------------------------------------------------------------------
     // Обработчики:
     // ---------------------------------------------------------------------------------------------------

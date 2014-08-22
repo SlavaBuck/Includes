@@ -52,7 +52,7 @@ function addScrollablePanel (   toTheParent,
                                 innerPanelWidth,    
                                 innerPanelHeight,   
                                 barThickness      ) {
-    var  padding = 5, innerPanel, outerPanel, scrollbarH, scrollbarV;
+    var  padding = 0, innerPanel, outerPanel, scrollbarH, scrollbarV;
     if (!innerPanelWidth) innerPanelWidth = outerPanelWidth; 
     if (!innerPanelHeight) innerPanelHeight = outerPanelHeight;
     if (!barThickness) barThickness = 20;
@@ -83,8 +83,5 @@ function addScrollablePanel (   toTheParent,
     scrollbarH && scrollbarH.onChanging = function () {innerPanel.location.x = scrollbarH.value*(outerPanelWidth)/100 - scrollbarH.value*(innerPanelWidth)/100 - padding *(1-scrollbarH.value/100) };
     innerPanel.location.x -= padding;
     innerPanel.location.y -= padding;
-    //outerPanel.margins = innerPanel.margins = [0, 0, 0, 0]; // Поправка
-    outerPanel.margins = [5, 0, 0, 0]; // Поправка
-    outerPanel.alignChildren = innerPanel.alignChildren = ['left','top'];
     return innerPanel;
 };

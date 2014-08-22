@@ -34,7 +34,7 @@ w.show();
 // example Пример создания с помощью библиотечного метода:
 var w = new Window("dialog");
 w.add("statictext { text:'Ниже рассположено поле UnitBox:' }");
-SUI.addUnitBox(w, { stepdelta:.25 });
+SUI.addUnitBox(w, { stepdelta:.25, maxvalue:2, minvalue:-2 });
 w.show();
 
 ///////////////////////
