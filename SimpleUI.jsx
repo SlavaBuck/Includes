@@ -1,5 +1,5 @@
 ﻿/**
- * @@@BUILDINFO@@@ SimpleUI.jsx 0.4.1 2014 13:34:54 GMT+0200
+ * @@@BUILDINFO@@@ SimpleUI.jsx 1.0.0 2014 13:34:54 GMT+0200
  * 
  * @module      SUI
  * @summary     Расширения для ScriptUI и пользовательского интерфейса.
@@ -10,9 +10,9 @@
  * @requires   SUI.UIСontrols
  * @requires   SUI.UIImage
  * 
- * @version    0.4.1
+ * @version    1.0.0
  * @author     Slava Boyko <slava.boyko@hotmail.com>
- * @copyright  © Вячеслав aka SlavaBuck, 2014. 
+ * @copyright  © Вячеслав aka SlavaBuck, 2014.
  */
 
 // --------------------------------------------------------------
@@ -24,7 +24,7 @@ SUI = (typeof SUI == 'undefined' ? {} : SUI);
 
 if (!SUI.name) {
     SUI.name = "SimpleUI Library";
-    SUI.version = "0.4.1";
+    SUI.version = "1.0.0";
 }
 
 #include "SimpleUI/ESTKLib.jsx"

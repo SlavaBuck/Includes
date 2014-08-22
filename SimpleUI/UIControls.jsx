@@ -1,5 +1,5 @@
 ﻿/**
- * @@@BUILDINFO@@@ UIControls.jsx 0.1.1 2014 13:34:54 GMT+0200
+ * @@@BUILDINFO@@@ UIControls.jsx 1.0.0 2014 13:34:54 GMT+0200
  * 
  * @module      SUI.UIControls
  * @summary     Элементы управления
@@ -18,7 +18,7 @@
  * 
  * @requires   
  * 
- * @version    0.1.1
+ * @version    1.0.0
  * @author     Slava Boyko <slava.boyko@hotmail.com>
  * @copyright  © Вячеслав aka SlavaBuck, 2014. 
  */
@@ -37,30 +37,45 @@ SUI.hasOwnProperty(MODULE)||(function(GLOBAL, MODULE, SUI) {
     SUI[MODULE] = MODULE;
         
     // Модуль:
-    MODULE["version"] = "0.1.1";
+    MODULE["version"] = "1.0.0";
     MODULE["name"] = "UIControls Libruary";
 
+    // CC_FLAG Используется в WebLink и в UnitBox
+    if (typeof CC_FLAG == 'undefined') {
+        var CC_FLAG = (function isCC() {
+            return ($.global.app && $.global.app.name.match(/Adobe InDesign/)) ? parseInt($.global.app.version) > 8 : false;
+        }());
+    };
     // --------------------------------------------------------------
     // Реализация...
     #include "src/UIControls/helpers.jsx"
-	#include "src/UIControls/ProgressBar.jsx"
+	#include "src/UIControls/FloatingProgressBar.jsx"
     #include "src/UIControls/ScrollablePanel.jsx"
     #include "src/UIControls/Separator.jsx"
     #include "src/UIControls/WebLink.jsx"
+    #include "src/UIControls/UnitBox.jsx"
 
     // --------------------------------------------------------------
     // Фасад модуля:
     // --------------------------------------------------------------
     var FACADE = {
-        "ProgressBar":ProgressBar,
+        "FloatingProgressBar":FloatingProgressBar,
         "addScrollablePanel":addScrollablePanel,
+        // WebLink.jsx
+        "WebLink":WebLink,
         "addWebLink":addWebLink,
+        "initWebLink":initWebLink,
         // Separator.jsx
         "Separator":Separator,
-        "SeparatorInit":SeparatorInit,
+        "addSeparator":addSeparator,
+        "initSeparator":initSeparator,
+        // UnitBox.jsx
+        "UnitBox":UnitBox,
+        "addUnitBox":addUnitBox,
+        "initUnitBox":initUnitBox,
         // helpers.jsx
         "isContainer":isContainer,
-        "WindowInit":WindowInit,
+        "initWindow":initWindow
     };
     // Расширяем модуль фасадом:
     // extend(SUI, FACADE);

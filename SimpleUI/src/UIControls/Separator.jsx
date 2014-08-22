@@ -5,33 +5,61 @@
 
 /**
  * @class       Separator
- * @summary     Динамический сепаратор с поддржкой перетаскивания машкой.
- * @description Представляет простой объект, инкапсулирующий ресурсную строку элемента 
- *  <code>ScriptUI Panel</code>, адаптированый для использования в качестве элемента 
- *  ресурсной ScriptUI-строки окна.
- * 
- * @property {string} rcString Формат ресурсной строки для использования в качестве одиночного аргумента при
+ * @summary     ScriptUI элемент - Сепаратор. Реализована поддержка двух типов сепараторов: динамические -
+ *  поддерживают механизм перетаскивания мышкой; статические - представляют простую разделительную линию.
+ *  Тип сепаратора может быть задан на этапе инициализации путём указания свойства dragged (true для динамических).
+ *  Дополнительно, путём указания числового свойства width поддерживается управление шириной линии, представляющей сепаратор
+ *  (по умолчанию для статических сепараторов ширина составляет 2 пикс., для динамических 5 пикс.)
+ *
+ * @property {boolean} isSeparator  Статическое свойство (только для чтения), включаемое в ресурсную строку элемента, и определяющее тип 
+ *                                  ScriptUI объекта как элемент Сепаратор (Используется библиотечным методом initWindow() для правильной
+ *                                  идентификации и автоматической инициализации компонента в составе объекта Window, а также в составе
+ *                                  любых ScriptUI объектов контейнерного типа)
+ * @property {boolean} dragged Свойство, включаемое в ресурсную строку элемента, определяющее тип сепаратора (true - динамический,
+ *                             поддерживающий перетаскивание мышкой, false - статический, простая разделительная линия)
+ * @property {number} width    Свойство, включаемое в ресурсную строку элемента, определяет ширину линии в пикселях, представляющей
+ *                             сам сепаратор (по умолчанию: 2 для статических, 5 для динамических сепараторов)
  *                             вызове Window.add(Separator.rcString);
  * @method   toString   
  * 
- * @example
- * var w = Window("dialog { \
+ * @example Пример включения сепаратора в ресурсную стору
+ * //   также строку sp:"+SUI.Separator+" \
+ * //   можно заменить на sp:Panel { isSeparator:true, dragged:false, width:2, margins:0, spacing:0, line:Panel  { margins:0, spacing:0, visible:false } }
+ * //   (указав свои значения для dragged: и width:2) и затем использовать вызов SUI.initSeparator(w.sp) без дополнительных параметров.
+ * var w = new Window("dialog { \
  *         txt:StaticText { text:'Ниже рассположен сепаратор:' }, \
- *         sp:"+Separator+" \
+ *         sp:"+SUI.Separator+" \
  *         txt:StaticText { text:'Выше рассположен сепаратор.' }  \
  *     }");
- * SUI.SeparatorInit(w.sp);
- *
- * @example
- * var w = Window("dialog");
+ * SUI.initSeparator(w.sp);
+ * // Альтернативные формы вызовы метода (указанные параметры совпадают с параметрами по умолчанию)
+ * SUI.initSeparator(w.sp, false);
+ * SUI.initSeparator(w.sp, false, 2);
+ * SUI.initSeparator(w.sp, { dragged:false } );
+ * SUI.initSeparator(w.sp, { dragged:false, width:2 } );
+ * w.show();
+ * 
+ * @example Пример вызова addSeparator() как метода ScriptUI-объекта - контейнера 
+ * // (также метод поддерживается объектами Group и Panel):
+ * var w = new Window("dialog");
  * w.add("statictext { text:'Ниже рассположен сепаратор:' }");
- * w.add(Separator.rcString);
+ * // аналогично SUI.initSeparator() - также поддерживаются альтернативные формы вызова данного метода.
+ * w.addSeparator(); 
+ * // можно и так: SUI.initSeparator(w.add(SUI.Separator));
  * w.add("statictext { text:'Выше рассположен сепаратор:' }");
- * SUI.SeparatorInit(w.sp);
+ * w.show();
+ * 
+ * @example Пример вызова метода глобального метода:
+ * var w = new Window("dialog");
+ * w.add("statictext { text:'Ниже рассположен сепаратор:' }");
+ * // будет создан перемещаемый сепаратор (также поддерживаются альтернативные формы вызова).
+ * SUI.addSeparator(w, true);
+ * w.add("statictext { text:'Выше рассположен сепаратор:' }");
+ * w.show();
  */
 var Separator = {
     // Включается в общую ресурсную строку диалога:
-    rcString:"panel { isSeparator:true, margins:0, spacing:0, line:Panel  { margins:0, spacing:0, visible:false } },",
+    rcString:"panel { isSeparator:true, dragged:false, width:2, line:Panel { visible:false } },",
     // Для использрвания в Window.add(Separator):
     toString:function() { return "P" + this.rcString.slice(1, -1); }
 };
@@ -39,27 +67,57 @@ var Separator = {
 /**
  * Инициализирует сепаратор, заданный ресурсной строкой Seperator
  *
+ * @name initSeparator
+ * @function
  * 
- * @param {object} target        ссылка на Сепаратор;
- * @param {string} [type='none'] тип сепаратора, любое значение, отличное от 'line' оставляет сепаратор
- *                               динамическим (поддержка перестаскивание мышкой). Значение 'line' делает
- *                               сепаратор статическим (обычная разделительная линия);
- *                                   
- * @param {number} [wdth=5]      ширина сепаратора в точках (для статических сепараторов по умолчанию wdth = 2).
+ * @param {object} target          ссылка на Сепаратор;
+ * @param {string} [dragged=false] тип сепаратора, если true - сепаратор динамический (поддерживает перетаскивание
+ *                                 мышкой). По умолчанию false - сепаратор статический (обычная разделительная линия).
+ *                                 Альтернативная форма вызова: параметры dragged и width могут передаваться одним
+ *                                 аргументом в виде параметризированного объекта с соответствующими полями, пример:
+ *                                 { draggged:false, width:2 }, при этом - любое поле может отсутствовать, любое поле с
+ *                                 непредусмотренным именем игнорируется.
+ * @param {number} [width=2]       ширина сепаратора в точках (по умолчанию для статических сепараторов wdth = 2,
+ *                                 для динамических сепараторов wdth = 5).
+ * 
+ * @return {ScriptUIObject}     возвращает проинициализированный объект-сепаратор target;
+ *
+ * @example Альтернативные формы инициализации активного сепаратора:
+ * // w.sp - ссылается на ранее созданный сепаратор
+ * // указанные параметры для всех примеров совпадают с параметрами по умолчанию для динамических сепараторов:
+ * SUI.initSeparator(w.sp, true);
+ * SUI.initSeparator(w.sp, true, 5);
+ * SUI.initSeparator(w.sp, { dragged:true } );
+ * SUI.initSeparator(w.sp, { dragged:true, width:5 } );
  */
-function SeparatorInit(target, type, wdth) {
+function initSeparator(target, dragged, width) {
     // Определяем ориентацию родительского контейнера, и благодаря ей, настраиваемся под вертикальный или горизонтальный сепаратор
+    if (typeof dragged == 'object') return initSeparator (target, dragged.dragged, dragged.width);
     target._dimension = (target.parent.orientation == 'row' ) ? 0: 1;
     target.alignment = (target._dimension == 0) ? ['left','fill'] : ['fill','top'];
-    var type = (type)||'none';
-    if (type == 'line') {
+    // инициализация статических свойств:
+    target.margins = 0;
+    // инициализация параметров:
+    if (typeof dragged != 'undefined') target.width = (target.dragged = !!dragged) ? 5 : 2;
+    if (!target.hasOwnProperty("dragged")) target.dragged = false;
+    if (typeof width != 'undefined') target.width = width;
+    if (!target.hasOwnProperty("width")) target.width = target.dragged ? 5 : 2;
+    target.width = parseInt(target.width);
+    
+    if (!target.hasOwnProperty("isSeparator")) target.isSeparator = true;
+    // Устанавливаем обработчики специальных свойств:
+    target.watch("isSeparator", watch_readonly); // только для чтения (Что-то не пашет...?)
+    target.watch("width", watch_width);
+    target.watch("dragged", watch_dragged);
+    if (!target.dragged) {
         // Обычная статическая линия
-        target.maximumSize[target._dimension] = target.minimumSize[target._dimension] = (wdth)||2;
-        return;
+        target.maximumSize[target._dimension] = target.minimumSize[target._dimension] = target.width;
+        return target;
     }
+    if (!target.line) target.line = target.add("panel { visible:false }");
+
     // Настраиваем внутренние переменные
     target.pos = {x:0, y:0 };
-    target.width = (target.width) || 5;
     target._step = (target._step) || 2; // Коофициент перемещения сепаратора при движении мышки:
     target._moving = (target._moving === undefined)? false:target._moving;
     target._index = null; 
@@ -70,7 +128,7 @@ function SeparatorInit(target, type, wdth) {
     target.maximumSize[target._dimension] = target.minimumSize[target._dimension] = target.width;
     target.line.maximumSize[target._dimension] = target.line.minimumSize[target._dimension] = ((target.width - 3) > 0) ? target.width - 3: 1;
     target.line.alignment = (target._dimension == 0) ? ['centre','fill'] : ['fill','centre'];
-    // Устанавливаем обработчики
+    // Обработчики ScriptUI событий для динамического сепаратора:
     target._onMouseDown = separator_onMouseDown;
     target._onMouseUp = separator_onMouseUp;
     target._onMouseMove = separator_onMouseMove;
@@ -79,10 +137,32 @@ function SeparatorInit(target, type, wdth) {
     target.addEventListener ('mouseup', separator_onMouseUp);
     target.addEventListener ('mousemove', separator_onMouseMove);
     target.addEventListener ('mouseout', separator_onMouseOut);
+    return target;
     // Вспомогательные методы:
-    // target.enable = separator_enable;
-    // target.disable = separator_disable;
-    // onShow
+    // TODO: Идея сделать свойства активными (в момент переинициализации наблюдатель отключается...)
+    function watch_dragged(name, oldVal, newVal) {
+        var newVal = !!newVal;
+        this.unwatch("dragged");
+        this.unwatch("width");
+            SUI.initSeparator(this, newVal, (newVal ? 5 : 2));
+            this.parent.layout.layout(true);
+        this.watch("dragged", watch_dragged);
+        this.watch("width", watch_width);
+        return newVal;
+    };
+    function watch_width(name, oldVal, newVal) {
+        var newVal = parseInt(newVal);
+        if (isNaN(newVal)) newVal = oldVal;
+        this.unwatch("dragged");
+        this.unwatch("width");
+            SUI.initSeparator(this, this.dragged, newVal);
+            this.parent.layout.layout(true);
+        this.watch("dragged", watch_dragged);
+        this.watch("width", watch_width);
+        return newVal;
+    };
+    function watch_readonly(name, oldVal, newVal) { return oldVal } // Не работает????!!!!
+
     // ---------------------------------------------------------------------------------------------------
     // Обработчики:
     // ---------------------------------------------------------------------------------------------------
@@ -221,4 +301,38 @@ function SeparatorInit(target, type, wdth) {
         this.__separator__._onMouseUp.call(this.__separator__, e);
         //this.__separator__.notify ('mouseup');
     };
-} // SeparatorInit
+}; // SeparatorInit
+
+/**
+ * Добавляет и инициализирует сепаратор в заданный контэйнер
+ *
+ * @name addSeparator
+ * @function
+ * 
+ * @param {object} target          заданный контэйнер;
+ * @param {string} [dragged=false] тип сепаратора, если true - сепаратор динамический (поддерживает перестаскивание
+ *                                 мышкой). По умолчанию false - сепаратор статический (обычная разделительная линия).
+ *                                 Альтернативная форма вызова: параметры dragged и width могут передаваться одним
+ *                                 аргументом в виде параметризированного объекта с соответствующими полями, пример:
+ *                                 { dragged:false, width:2 }, при этом - любое поле может отсутствовать, любое поле с
+ *                                 непредусмотреным полем игнорируется.
+ * @param {number} [width=2]       ширина сепаратора в точках (по умолчанию для статических сепараторов wdth = 2,
+ *                                 для динамических сепараторов wdth = 5).
+ *                                   
+ * @return {ScriptUIObject}     возвращает созданный объект-сепаратор;
+ */
+function addSeparator(target, dragged /* boolean || object { dragged:bool=false, width:Number=2 } */, width /* int=dragged ? 5 : 2; */) {
+    return initSeparator(target.add(Separator.rcString), dragged, width);
+};
+
+/**
+ * Расширение нативных ScriptUI объектов контэйнерного типа методом addSeparator(dragged, width):
+ *      Window.addSeparator(dragged, width);
+ *      Panel.addSeparator(dragged, width);
+ *      Group.addSeparator(dragged, width);
+ * Аналогично методу initSeparator() метод addSeparator() поддерживает сокращённую (без аргументов) и альтернативную 
+ * формы вызова (аргументы dragged и width могут передаваться в составе параметризированного объекта)
+ */
+Window.prototype.addSeparator = Panel.prototype.addSeparator = Group.prototype.addSeparator = function(dragged, width) {
+    return addSeparator(this, dragged, width);
+};
